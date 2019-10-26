@@ -1,0 +1,312 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+@font-face{
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    src: url(font/SOURCEHANSERIFTW-REGULAR.OTF);
+}
+@font-face{
+    font-family: SOURCEHANSERIFTW-MEDIUM;
+    src: url(font/SOURCEHANSERIFTW-MEDIUM.OTF);
+}
+@font-face{
+    font-family: SOURCEHANSERIFTW-BOLD;
+    src: url(font/SOURCEHANSERIFTW-BOLD.OTF);
+}
+html,body{
+    height: 100%;
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+header{
+    height: 150px;
+    /* background: #999; */
+    flex: 0 0 auto;
+}
+#notification-menu{
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100px;
+}
+
+#web-title{
+    position: absolute;
+    left: 80px;
+    width: 230px;
+    font-family: SOURCEHANSERIFTW-BOLD;
+    font-size: 18px;
+    text-align: center;
+    line-height: 100px;
+    color: #838383;
+    float: left;
+}
+
+#title-logo{
+    width: 170px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -85px;
+    margin-top: -30px;
+    float: left;
+}
+
+#no-login-member-menu{
+    position: absolute;
+    right: 0px;
+    width: 300px;
+    line-height: 100px;
+    font-family: SOURCEHANSERIFTW-MEDIUM;
+    font-size: 18px;
+    color: #2C6716;
+}
+#no-login-member-menu div{
+    float: left;
+}
+#no-login-member-menu div:nth-child(n+2){
+    margin-left: 16px;
+}
+#no-login-member-menu div:nth-child(2){
+    height: 18px;
+    border: 1px solid #2C6716;
+    position: relative;
+    top: 41px;
+}
+#no-login-member-menu div:nth-child(2n+1){
+    cursor: pointer;
+}
+#person-icon{
+    width: 24px;
+    margin-right: 10px;
+    position: relative;
+    top: 6px;
+}
+
+#drop-down-menu{
+    background-color: #2EAA00;
+    width: 100%;
+    height: 50px;
+}
+
+#drop-down-menu-box{
+    position: relative;
+    left: 50%;
+    line-height: 50px;
+    width: 610px;
+    margin-left: -305px;
+}
+
+#food-ingredients-menu{
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    position: relative;
+    float: left;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 16px;
+}
+#recipe-menu,#qa-menu{
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    position: relative;
+    width: 65px;
+    margin-left: 90px;
+    float: left;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 16px;
+}
+#healthy-diet-plan-meal-menu{
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    position: relative;
+    margin-left: 0px;
+    float: left;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 16px;
+}
+#healthy-diet-plan-meal-menu-box{
+    width: 130px;
+    margin-left: 0px;
+    float: left;
+}
+#healthy-diet-plan-meal-menu-box,#food-ingredients-menu-box,#recipe-menu,#qa-menu:hover{
+    cursor: pointer;
+}
+#food-ingredients-menu-box{
+    width: 80px;
+    margin-left: 90px;
+    float: left;
+}
+.ar{
+    position:relative;
+    top: 20px;
+    width:5px;
+    height:5px;
+    margin-left: 5px;
+    border-top:2px solid rgb(255, 255, 255);
+    border-right:2px solid rgb(255, 255, 255);
+    transform:rotate(135deg);
+    float: left;
+}
+main{
+    flex: 1 0 auto;
+}
+footer{
+    background-color: #439A23;
+    flex: 0 0 auto;
+}
+footer div{
+    width: 100%;
+}
+
+#email-subscription{
+    height: 90px;
+    text-align: center;
+    line-height: 90px;
+}
+
+#email-subscription-input-text{
+    width: 410px;
+    height: 40px;
+    border-radius: 6px;
+    border-color: transparent;
+    background-color: #C9E6BF;
+    font-size: 20px;
+    padding: 0px 10px;
+    vertical-align: -10px;
+}
+
+#email-subscription-input-text::placeholder{
+    color: #3B3B3B;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 14px;
+}
+
+#subscription-button{
+    width: 120px;
+    height: 44px;
+    border: 0px;
+    border-radius: 6px;
+    vertical-align: -10px;
+    margin-left: 20px;
+    font: 18px bold;
+    font-family: SOURCEHANSERIFTW-BOLD;
+    color: #439A23;
+    background: white;
+}
+
+#about-us-box{
+    height: 120px;
+}
+#about-us{
+    width: 130px;
+    font-family: SOURCEHANSERIFTW-BOLD;
+    font-size: 20px;
+    color: white;
+    float: left;
+    margin-left: 100px;
+    line-height: 120px;
+}
+#footer-logo{
+    width: 230px;
+    margin: 15px 80px;
+    float: left;
+}
+#about-us-box-1,#about-us-box-2{
+    width: 130px;
+    margin-left: 50px;
+    float: left;
+}
+#about-us-box-1 p,#about-us-box-2 p{
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 15px;
+    color: white;
+    margin: 15px 0px 0px 0px;
+}
+#community-box{
+    position: relative;
+    width: 300px;
+    right: 0px;
+    float: left;
+}
+#partner{
+    width: 100px;
+    font-family: SOURCEHANSERIFTW-BOLD;
+    font-size: 20px;
+    color: white;
+    float: left;
+    line-height: 120px;
+    margin-left: 100px;
+}
+#taitung-farm-link{
+    width: 60px;
+    margin-top: 30px;
+    margin-left: 10px;
+    float: left;
+}
+
+#fusheng-vegetables-link{
+    width: 65px;
+    margin-top: 24px;
+    margin-left: 10px;
+    float: left;
+}
+#wotian-farm-link{
+    width: 65px;
+    margin-top: 24px;
+    margin-left: 0px;
+    float: left;
+}
+
+#partner-java012-1{
+    width: 30px;
+    float: left;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 14px;
+    color: white;
+    line-height: 120px;
+    margin-left: 30px;
+}
+#partner-java012-2{
+    width: 100px;
+    float: left;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 14px;
+    color: white;
+    line-height: 120px;
+    margin-left: 30px;
+}
+#email-link{
+    margin-left: 80px;
+    vertical-align: 3px;
+}
+#email-link,#instagram-link,#twitter-link,#facebook-link{
+    margin-top: 40px;
+    width: 35px;
+}
+#instagram-link,#twitter-link,#facebook-link{
+    margin-left: 20px;
+}
+
+#credit-card-icon{
+    height: 40px;
+    line-height: 70px;
+    text-align: center;
+}
+
+#credit-card-icon img:nth-child(n+2){
+    margin-left: 30px;
+}
+
+#copyright-notice{
+    height: 50px;
+    font-family: SOURCEHANSERIFTW-REGULAR;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+}

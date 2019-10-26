@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- 1. SQL方言與提供連結資料庫所需資訊(透過JDBC API來連結)之設定方式 -->
+		<!-- SQL方言，設定是MySQL 8.0.13 -->
+
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">1qaz@WSX</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ezfit?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<!-- 2. 其他與資料存取有關的設定 -->
+		<!-- 自動產生資料庫的Schema -->
+		<property name="hbm2ddl.import_files">update.sql</property>
+		<property name="hbm2ddl.auto">update</property>
+		<!-- 顯示實際操作資料庫時的SQL -->
+		<property name="show_sql">false</property>
+		<!-- 將顯示的SQL排版，方便觀看 -->
+		<property name="format_sql">true</property>
+
+		<property name="hibernate.current_session_context_class">thread</property>
+		<!-- 定義程式交易管理的類型，本範例使用JDBC Transaction -->
+		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<!-- hibernate 相關效能設定 -->
+		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+		<property name="connection_pool_size">5</property>
+
+		<!-- 3. 宣告程式使用的永續類別 -->
+		<mapping class="shopping.model.ProductCategory" />
+		<mapping class="shopping.model.IngredientProduct" />
+		<mapping class="shopping.model.CuisineProduct" />
+		<mapping class="createAccount.model.MemberBean" />
+		<mapping class="createAccount.model.CodeBean" />
+		<mapping class="shopping.model.OrderBean" />
+		<mapping class="shopping.model.CartItem" />
+		<mapping class="shopping.model.OrderItemBean" />
+		<mapping class="shopping.model.PlaneProduct" />
+		<mapping class="shopping.model.PlaneItem" />
+
+
+
+	</session-factory>
+</hibernate-configuration>

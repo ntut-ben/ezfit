@@ -1,0 +1,33 @@
+<svg id="Page-1" xmlns="http://www.w3.org/2000/svg" width="200.418" height="131.309" viewBox="0 0 200.418 131.309">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #003663;
+      }
+
+      .cls-1, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #eb1c26;
+      }
+
+      .cls-3 {
+        fill: #f99f1b;
+      }
+
+      .cls-4 {
+        fill: #ef5d20;
+      }
+    </style>
+  </defs>
+  <g id="mastercard" transform="translate(0 0)">
+    <g id="card" transform="translate(0 0)">
+      <path id="shape" class="cls-1" d="M183.694,131.308H16.725A16.586,16.586,0,0,1,0,114.86V16.448A16.586,16.586,0,0,1,16.725,0H183.694a16.586,16.586,0,0,1,16.725,16.448v98.48A16.586,16.586,0,0,1,183.694,131.308Z" transform="translate(0 0)"/>
+      <circle id="shape-2" data-name="shape" class="cls-2" cx="44.5" cy="44.5" r="44.5" transform="translate(28.045 21)"/>
+      <circle id="shape-3" data-name="shape" class="cls-3" cx="44.5" cy="44.5" r="44.5" transform="translate(83.045 21)"/>
+      <path id="shape-4" data-name="shape" class="cls-4" d="M29.288,4.38a44.851,44.851,0,0,0,0,70.768,44.851,44.851,0,0,0,0-70.768Z" transform="translate(70.921 25.89)"/>
+    </g>
+  </g>
+</svg>

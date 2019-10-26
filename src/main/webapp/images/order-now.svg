@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="274" height="66" viewBox="0 0 274 66">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #439a23;
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 25px;
+        font-family: SourceHanSansTW-Regular, Source Han Sans TW;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="Input_-_Focused_Field" data-name="Input - Focused Field" transform="translate(-262 -252)">
+    <g id="Rectangle_528" data-name="Rectangle 528" class="cls-1" transform="translate(262 252)">
+      <rect class="cls-3" width="274" height="66" rx="25"/>
+      <rect class="cls-4" x="1.5" y="1.5" width="271" height="63" rx="23.5"/>
+    </g>
+    <text id="現_在_就_訂" data-name="現 在 就 訂" class="cls-2" transform="translate(399 295)"><tspan x="-58.4" y="0">現 在 就 訂</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="384.5" height="247" viewBox="0 0 384.5 247">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #439a23;
+        font-size: 25px;
+        font-family: SourceHanSansTW-Regular, Source Han Sans TW;
+      }
+
+      .cls-2, .cls-4, .cls-7 {
+        fill: none;
+      }
+
+      .cls-2, .cls-4 {
+        stroke: #c9e6bf;
+        stroke-width: 5px;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 5;
+      }
+
+      .cls-3 {
+        fill: #c9e6bf;
+      }
+
+      .cls-5 {
+        fill-rule: evenodd;
+        fill: url(#linear-gradient);
+      }
+
+      .cls-6 {
+        stroke: none;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-13.342" y1="0.627" x2="-14.645" y2="0.477" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#439a23"/>
+      <stop offset="1" stop-color="#232323"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_116" data-name="Group 116" transform="translate(-435 -1875)">
+    <g id="Group_17" data-name="Group 17" transform="translate(-108 55)">
+      <text id="低溫宅配" class="cls-1" transform="translate(636 1849)"><tspan x="-50" y="0">低溫宅配</tspan></text>
+    </g>
+    <g id="Group_113" data-name="Group 113">
+      <line id="Line_5" data-name="Line 5" class="cls-2" x2="199" transform="translate(620.5 2029.5)"/>
+      <g id="Group_12" data-name="Group 12" transform="translate(-108 101)">
+        <circle id="Ellipse_6" data-name="Ellipse 6" class="cls-3" cx="81.5" cy="81.5" r="81.5" transform="translate(554 1847)"/>
+        <g id="Ellipse_7" data-name="Ellipse 7" class="cls-4" transform="translate(543 1836)">
+          <circle class="cls-6" cx="92.5" cy="92.5" r="92.5"/>
+          <circle class="cls-7" cx="92.5" cy="92.5" r="90"/>
+        </g>
+      </g>
+      <g id="Group_10" data-name="Group 10" transform="translate(466 1994.941)">
+        <path id="Path_209" data-name="Path 209" class="cls-5" d="M384.148,150.1l-11.026-14.79-19.326.232.177,14.919,30.175-.36Zm-17.084,19.3a7.795,7.795,0,1,1-2.217,5.54,7.78,7.78,0,0,1,2.217-5.54Zm23.216,8.885-2.063.025a15.958,15.958,0,0,1-31.066.37l-11,.131-.614-51.334,31.629-.378,16.084,21.572.174,14.753,4.342-.05.177,14.818-4.341.052Z" transform="translate(-274.879 -122.976)"/>
+        <path id="Path_210" data-name="Path 210" class="cls-5" d="M403.009,171.6a7.8,7.8,0,1,1-2.215,5.538,7.785,7.785,0,0,1,2.215-5.538ZM449.77,124.3l-62.388.743.512,42.959-4.1.047.153,12.845,4.1-.047v.084l5.053-.059a15.957,15.957,0,0,0,31.064-.37l26.271-.313Zm-57.517,10.425a2.155,2.155,0,0,0,2.155,2.155h19.7a2.155,2.155,0,0,0,2.156-2.155h0a2.155,2.155,0,0,0-2.156-2.155h-19.7a2.155,2.155,0,0,0-2.155,2.155Zm-.923,8a2.156,2.156,0,0,0,2.156,2.155h19.7a2.156,2.156,0,0,0,2.156-2.155h0a2.156,2.156,0,0,0-2.156-2.156h-19.7a2.156,2.156,0,0,0-2.156,2.156Z" transform="translate(-383.79 -124.304)"/>
+      </g>
+    </g>
+  </g>
+</svg>

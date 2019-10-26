@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+body {
+  font-family: 'Open Sans', Arial, 'Noto Sans TC', 'Microsoft JhengHei',
+    '微軟正黑體', sans-serif;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+.index-body {
+  background: url(../img/index/black-bean-close-up-cooked-1640774.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-size: 100%;  */
+  /* position: relative; */
+  /* z-index: -1; */
+  background-position: center;
+  background-size: cover;
+}
+
+.intro-text-bg {
+  padding: 20px;
+  margin: 250px auto 150px auto;
+  max-width: 570px;
+  /* height: 420px; */
+  background-color: rgba(255, 255, 255, 0.6);
+  /* border: 1px solid red; */
+}
+.intro-text {
+  margin: 0px auto;
+  padding: 50px;
+  max-width: 530px;
+  /* height: 380px; */
+  background-color: rgba(255, 255, 255);
+}
+.intro-text h2 {
+  color: rgb(100, 100, 100);
+  letter-spacing: 10px;
+}
+
+.intro-text p {
+  padding-top: 30px;
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 300;
+  color: rgb(100, 100, 100);
+  letter-spacing: 5px;
+}
+
+.rte-green {
+  background-color: #439a23;
+  /* border: 1px solid red;   */
+}
+.rte-green-text {
+  font-weight: 400;
+  font-size: 40px;
+  color: #fff;
+  /* min-width: 450px; */
+  /* min-height: 250px; */
+  padding: 100px 0 100px 0;
+
+  background-color: #439a23;
+  /* border: 1px solid red; */
+  letter-spacing: 3px;
+}
+.rte-green-text img {
+  width: 30px;
+  margin-right: 20px;
+}
+
+.rte-white {
+  background-color: #fff;
+}
+
+.rte-white-text {
+  background-color: #fff;
+  color: rgb(100, 100, 100);
+  /* min-width: 450px; */
+  padding: 50px;
+  letter-spacing: 3px;
+  line-height: 30px;
+}
+.rte-white-text p {
+  margin-top: 20px;
+}
+.delivery-bg-btm .row {
+  background-color: #f4fff0;
+}
+.deliverguy {
+  padding: 0;
+}
+
+.deliverguy img {
+  width: 100%;
+}
+
+.rte-green-light-text img {
+  width: 100%;
+}
+.example {
+  padding: 20px;
+  background-color: #fff;
+}
+.example h2 {
+  text-align: center;
+  color: rgb(100, 100, 100);
+  font-weight: 400;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+.example p {
+  color: #2a6e12;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.example-img img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.bigger-pic a {
+  font-size: 14px;
+  color: rgb(138, 138, 138);
+  display: none;
+}
+.groceries {
+  background: url(../img/index/basil-delicious-food-459469.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 700px;
+  padding: 0px 100px;
+}
+
+.groceries-text h1 {
+  margin: 0 auto;
+  padding: 20px;
+  color: #fff;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-shadow: 0px 0px 30px black;
+}
+
+.groceries-text p {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  /* padding: 0px 200px; */
+  line-height: 40px;
+  letter-spacing: 2px;
+  border-top: 2px solid white;
+}
+.groceries-card {
+  background-color: #fff;
+}
+
+.groceries-card .card-deck {
+  margin: 20px;
+}
+
+.grocery-card-text {
+  display: none;
+  background: linear-gradient(rgba(0, 0, 0), rgba(0, 0, 0, 0));
+
+  min-height: 100%;
+  text-shadow: none;
+  color: white;
+  /* border: 1px solid red; */
+  padding: 10px;
+}
+
+.grocery-card-text h4 {
+  text-shadow: none;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 25px;
+  /* border: 1px solid red; */
+  padding-bottom: 0px;
+  font-weight: 400;
+}
+
+.grocery-card-text p {
+  text-shadow: none;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 15px;
+  /* border: 1px solid red; */
+  padding-bottom: 0px;
+  font-weight: 300;
+}
+
+.grocery-slid {
+  display: none;
+}
+
+.grocery-slid h4 {
+  color: white;
+}
+
+.grocery-slid p {
+  color: white;
+  font-size: 16px;
+}
+
+.recipe {
+  background: url(../img/index/close-up-colors-cooking-2284166.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* min-height: 700px; */
+  padding: 0px 100px;
+}
+
+.recipe h2{
+    font-size: 50px;
+    font-weight: 400;
+    color: rgb(100, 100, 100);
+    letter-spacing: 2px;
+}
+
+.recipe h4{
+    font-weight: 300;
+    color: rgb(100, 100, 100);
+}
+
+.recipe p{
+    font-weight: 300;
+    color: rgb(100, 100, 100);
+    line-height: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+  .rte-white-text {
+    text-align: center !important;
+    padding: 20px 20px 20px 20px !important;
+  }
+  .delivery {
+    margin: 40px auto;
+  }
+
+  .example p {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .groceries-slid .carousel {
+    padding: 20px 0px;
+  }
+  .groceries-slid .carousel-inner {
+    width: 100%;
+  }
+  .grocery-slid {
+    display: none;
+  }
+
+  .recipe {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .card-deck {
+    display: none;
+  }
+  .grocery-slid {
+    display: block;
+  }
+  .recipe h2{
+    font-size: 40px;
+    font-weight: 400;
+    color: rgb(100, 100, 100);
+    letter-spacing: 2px;
+}
+
+.recipe h4{
+    font-size: 25px;
+    font-weight: 300;
+    color: rgb(100, 100, 100);
+}
+
+}
+
+@media screen and (max-width: 600px) {
+  .intro-text h2 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 10px;
+  }
+
+  .intro-text p {
+    padding-top: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 300;
+    letter-spacing: 5px;
+  }
+  .rte-green-text {
+    font-size: 30px;
+    padding: 50px 0 50px 0;
+  }
+
+  .delivery {
+    margin: 40px auto;
+  }
+
+  .bigger-pic a {
+    display: block;
+  }
+  .groceries {
+    padding: 0px 20px !important;
+    min-height: 500px;
+  }
+
+  .groceries-text h1 {
+    font-size: 35px;
+  }
+
+  .groceries-text p {
+    font-size: 15px;
+    border-top: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    padding: 20px;
+  }
+  .groceries-slid .carousel {
+    margin: 0px;
+    padding: 0px;
+  }
+  .groceries-slid .carousel-inner {
+    width: 100%;
+  }
+  .recipe h2{
+    font-size: 30px;
+    font-weight: 400;
+    color: rgb(100, 100, 100);
+    letter-spacing: 2px;
+}
+
+.recipe h4{
+    font-size: 20px;
+    font-weight: 300;
+    color: rgb(100, 100, 100);
+}
+
+}

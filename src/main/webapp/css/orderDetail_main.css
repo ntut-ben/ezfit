@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+
+* {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+body {
+  padding-right: 0px !important;
+  background: #e2e7e8;
+}
+
+#main {
+  padding-top: 15vh;
+}
+
+.customBottomBorder {
+  border-bottom: 1px solid #b2b2b2;
+}
+
+.cartListHeader {
+  background: #c9e6bf;
+  color: #2c6716;
+}

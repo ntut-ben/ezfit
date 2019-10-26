@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="247" viewBox="0 0 384 247">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #439a23;
+        font-size: 25px;
+        font-family: SourceHanSansTW-Regular, Source Han Sans TW;
+      }
+
+      .cls-2, .cls-4, .cls-7 {
+        fill: none;
+      }
+
+      .cls-2, .cls-4 {
+        stroke: #c9e6bf;
+        stroke-width: 5px;
+      }
+
+      .cls-2 {
+        stroke-dasharray: 5;
+      }
+
+      .cls-3 {
+        fill: #c9e6bf;
+      }
+
+      .cls-5 {
+        fill: #529015;
+      }
+
+      .cls-6 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_115" data-name="Group 115" transform="translate(-51 -1875)">
+    <g id="Group_18" data-name="Group 18" transform="translate(-221 55)">
+      <text id="網路訂購" class="cls-1" transform="translate(365 1849)"><tspan x="-50" y="0">網路訂購</tspan></text>
+    </g>
+    <g id="Group_112" data-name="Group 112">
+      <path id="Path_229" data-name="Path 229" class="cls-2" d="M-102.574,0H98.5" transform="translate(336.5 2029.5)"/>
+      <g id="Group_13" data-name="Group 13" transform="translate(-221 101)">
+        <circle id="Ellipse_4" data-name="Ellipse 4" class="cls-3" cx="81.5" cy="81.5" r="81.5" transform="translate(283 1847)"/>
+        <g id="Ellipse_5" data-name="Ellipse 5" class="cls-4" transform="translate(272 1836)">
+          <circle class="cls-6" cx="92.5" cy="92.5" r="92.5"/>
+          <circle class="cls-7" cx="92.5" cy="92.5" r="90"/>
+        </g>
+      </g>
+      <g id="Group_9" data-name="Group 9" transform="translate(-19.971 1748.731)">
+        <path id="Path_206" data-name="Path 206" class="cls-5" d="M207.252,294.664l-68.571,0v-3.382l62.977-8.337a6.718,6.718,0,0,0,5.783-6.6V255.561a6.269,6.269,0,0,0-6.266-6.266H138.681v-4.758a7.665,7.665,0,0,0-7.658-7.66H118.841a4.874,4.874,0,0,0,0,9.748h10.094v50.123a7.661,7.661,0,0,0,7.658,7.656h70.66a4.87,4.87,0,1,0,0-9.74ZM166.1,280.624l-11.966,1.586V256.258H166.1Zm5.571-24.367h11.968V278.3l-11.968,1.584Zm28.809,19.814-11.271,1.494V256.258h11.271Zm-51.915-19.814v26.689l-9.882,1.311v-28Z" transform="translate(0 0)"/>
+        <path id="Path_207" data-name="Path 207" class="cls-5" d="M137.61,271.751a9.631,9.631,0,1,0,9.628,9.628A9.63,9.63,0,0,0,137.61,271.751Z" transform="translate(13.489 33.583)"/>
+        <path id="Path_208" data-name="Path 208" class="cls-5" d="M161.252,271.751a9.631,9.631,0,1,0,9.63,9.628A9.63,9.63,0,0,0,161.252,271.751Z" transform="translate(36.256 33.583)"/>
+      </g>
+    </g>
+  </g>
+</svg>

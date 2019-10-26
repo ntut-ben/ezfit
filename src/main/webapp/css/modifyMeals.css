@@ -1,0 +1,170 @@
+* {
+  outline: none !important;
+}
+body {
+  background: #e2e7e8;
+}
+#mainContainer {
+  background: #e7ebed 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 30px #0000001a;
+  opacity: 1;
+}
+
+.imgSrc {
+  background: url(../images/appetizer-close-up-cuisine-2122294@2x.png);
+  background-size: cover;
+  background-position: bottom;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 50px;
+  color: #8d0404;
+}
+
+.slick-track {
+  margin: 0;
+}
+
+.slick-list {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.nextArrowBtn {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 5px;
+  color: #c9e6bf;
+}
+.prevArrowBtn {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 5px;
+  color: #c9e6bf;
+}
+
+.day {
+  text-align: left;
+  letter-spacing: 2px;
+  color: #2c6716;
+  opacity: 1;
+}
+
+.title {
+  letter-spacing: 0;
+  color: #3b3b3b;
+}
+
+.slick-disabled {
+  color: #95989a !important;
+}
+
+.cardBody {
+  font-size: smaller;
+}
+
+.cardDetail {
+  font-size: normal;
+}
+
+.color-838383 {
+  color: #838383;
+}
+
+.selected {
+  border: 4px solid #2c6716;
+}
+
+.slick-track {
+  width: 3000px !important;
+}
+
+.mealHr {
+  background: #b2b2b2;
+  border: 1px solid #b2b2b2;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 60%;
+    margin: 1.75rem auto;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog-centered {
+    min-height: calc(100% - 3.5rem);
+  }
+}
+
+*.modal-open {
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-right: 0 !important;
+}
+
+*.show {
+  padding-right: 0 !important;
+}
+
+.tab-header {
+  /* border: 3px solid #c9e6bf; */
+  background: #f4f8f2;
+  color: #838383;
+}
+
+.tab-header-left {
+  border-top: 3px;
+  border-bottom: 3px;
+  border-right: 3px;
+  border-left: 3px;
+  border-style: solid;
+  border-color: #c9e6bf;
+  border-radius: 5px 0px 0px 0px;
+}
+.tab-header-right {
+  border-top: 3px;
+  border-bottom: 3px;
+  border-right: 3px;
+  border-left: 0px;
+  border-style: solid;
+  border-color: #c9e6bf;
+  border-radius: 0px 5px 0px 0px;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.active {
+  background: white;
+}
+
+.tab_container {
+  border-top: 0;
+  border-bottom: 3px;
+  border-right: 3px;
+  border-left: 3px;
+  border-style: solid;
+  border-color: #c9e6bf;
+  border-radius: 0px 0px 5px 5px;
+  height: 26vh;
+}
+
+.abgne_tab a {
+  color: #838383;
+}
+
+.active li a {
+  color: #439a23;
+}
+
+.color-838383 {
+  color: #838383;
+}

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="953" height="247" viewBox="0 0 953 247">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-13.342" y1="0.627" x2="-14.645" y2="0.477" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#439a23"/>
+      <stop offset="1" stop-color="#232323"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_112" data-name="Group 112" transform="translate(-51 -1875)">
+    <path id="Path_229" data-name="Path 229" d="M-102.574,0H98.5" transform="translate(336.5 2029.5)" fill="none" stroke="#c9e6bf" stroke-width="5" stroke-dasharray="5"/>
+    <line id="Line_5" data-name="Line 5" x2="199" transform="translate(620.5 2029.5)" fill="none" stroke="#c9e6bf" stroke-width="5" stroke-dasharray="5"/>
+    <g id="Group_18" data-name="Group 18" transform="translate(-221 55)">
+      <g id="Group_13" data-name="Group 13" transform="translate(0 46)">
+        <circle id="Ellipse_4" data-name="Ellipse 4" cx="81.5" cy="81.5" r="81.5" transform="translate(283 1847)" fill="#c9e6bf"/>
+        <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(272 1836)" fill="none" stroke="#c9e6bf" stroke-width="5">
+          <circle cx="92.5" cy="92.5" r="92.5" stroke="none"/>
+          <circle cx="92.5" cy="92.5" r="90" fill="none"/>
+        </g>
+      </g>
+      <g id="Group_9" data-name="Group 9" transform="translate(201.029 1693.731)">
+        <path id="Path_206" data-name="Path 206" d="M207.252,294.664l-68.571,0v-3.382l62.977-8.337a6.718,6.718,0,0,0,5.783-6.6V255.561a6.269,6.269,0,0,0-6.266-6.266H138.681v-4.758a7.665,7.665,0,0,0-7.658-7.66H118.841a4.874,4.874,0,0,0,0,9.748h10.094v50.123a7.661,7.661,0,0,0,7.658,7.656h70.66a4.87,4.87,0,1,0,0-9.74ZM166.1,280.624l-11.966,1.586V256.258H166.1Zm5.571-24.367h11.968V278.3l-11.968,1.584Zm28.809,19.814-11.271,1.494V256.258h11.271Zm-51.915-19.814v26.689l-9.882,1.311v-28Z" transform="translate(0 0)" fill="#529015"/>
+        <path id="Path_207" data-name="Path 207" d="M137.61,271.751a9.631,9.631,0,1,0,9.628,9.628A9.63,9.63,0,0,0,137.61,271.751Z" transform="translate(13.489 33.583)" fill="#529015"/>
+        <path id="Path_208" data-name="Path 208" d="M161.252,271.751a9.631,9.631,0,1,0,9.63,9.628A9.63,9.63,0,0,0,161.252,271.751Z" transform="translate(36.256 33.583)" fill="#529015"/>
+      </g>
+      <text id="網路訂購" transform="translate(365 1849)" fill="#439a23" font-size="25" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="-50" y="0">網路訂購</tspan></text>
+    </g>
+    <g id="Group_17" data-name="Group 17" transform="translate(-108 55)">
+      <g id="Group_12" data-name="Group 12" transform="translate(0 46)">
+        <circle id="Ellipse_6" data-name="Ellipse 6" cx="81.5" cy="81.5" r="81.5" transform="translate(554 1847)" fill="#c9e6bf"/>
+        <g id="Ellipse_7" data-name="Ellipse 7" transform="translate(543 1836)" fill="none" stroke="#c9e6bf" stroke-width="5">
+          <circle cx="92.5" cy="92.5" r="92.5" stroke="none"/>
+          <circle cx="92.5" cy="92.5" r="90" fill="none"/>
+        </g>
+      </g>
+      <g id="Group_10" data-name="Group 10" transform="translate(574 1939.941)">
+        <path id="Path_209" data-name="Path 209" d="M384.148,150.1l-11.026-14.79-19.326.232.177,14.919,30.175-.36Zm-17.084,19.3a7.795,7.795,0,1,1-2.217,5.54,7.78,7.78,0,0,1,2.217-5.54Zm23.216,8.885-2.063.025a15.958,15.958,0,0,1-31.066.37l-11,.131-.614-51.334,31.629-.378,16.084,21.572.174,14.753,4.342-.05.177,14.818-4.341.052Z" transform="translate(-274.879 -122.976)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+        <path id="Path_210" data-name="Path 210" d="M403.009,171.6a7.8,7.8,0,1,1-2.215,5.538,7.785,7.785,0,0,1,2.215-5.538ZM449.77,124.3l-62.388.743.512,42.959-4.1.047.153,12.845,4.1-.047v.084l5.053-.059a15.957,15.957,0,0,0,31.064-.37l26.271-.313Zm-57.517,10.425a2.155,2.155,0,0,0,2.155,2.155h19.7a2.155,2.155,0,0,0,2.156-2.155h0a2.155,2.155,0,0,0-2.156-2.155h-19.7a2.155,2.155,0,0,0-2.155,2.155Zm-.923,8a2.156,2.156,0,0,0,2.156,2.155h19.7a2.156,2.156,0,0,0,2.156-2.155h0a2.156,2.156,0,0,0-2.156-2.156h-19.7a2.156,2.156,0,0,0-2.156,2.156Z" transform="translate(-383.79 -124.304)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+      </g>
+      <text id="低溫宅配" transform="translate(636 1849)" fill="#439a23" font-size="25" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="-50" y="0">低溫宅配</tspan></text>
+    </g>
+    <g id="Group_16" data-name="Group 16" transform="translate(5 55)">
+      <g id="Group_11" data-name="Group 11" transform="translate(0 46)">
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="81.5" cy="81.5" r="81.5" transform="translate(825 1847)" fill="#c9e6bf"/>
+        <g id="Ellipse_9" data-name="Ellipse 9" transform="translate(814 1836)" fill="none" stroke="#c9e6bf" stroke-width="5">
+          <circle cx="92.5" cy="92.5" r="92.5" stroke="none"/>
+          <circle cx="92.5" cy="92.5" r="90" fill="none"/>
+        </g>
+      </g>
+      <g id="Group_15" data-name="Group 15" transform="translate(843.552 1917.847)">
+        <path id="Path_211" data-name="Path 211" d="M21.367,40.9c.013-.38,0-.617,0-.617s-.012.007-.022.014l-.292-15.129c0-.878-.144-1.591-.711-1.591s-.713.713-.713,1.591L19.319,41.32v.561a.456.456,0,1,1-.912,0L18.1,25.173c0-.878-.142-1.591-.71-1.591s-.714.713-.714,1.591l-.311,16.82a.455.455,0,1,1-.91,0l-.308-16.82c0-.878-.147-1.591-.711-1.591s-.715.713-.715,1.591l-.3,16.6a.455.455,0,1,1-.91,0l-.316-16.6c0-.878-.144-1.591-.713-1.591s-.711.713-.711,1.591l-.3,15.129a.149.149,0,0,0-.024-.014s0,.238.009.619l-.009.317a2.439,2.439,0,0,0,.054.507c.126,1.563.54,3.905,1.873,4.418,1.8.7,2.13,2.427,2.287,4.016l-.362,9.5c-1.223.436-1.584,1.559-1.584,2.888L11.456,87.1c0,1.708,1.836,3.089,4.1,3.089s4.1-1.381,4.1-3.089L18.4,62.552a3.153,3.153,0,0,0-.857-2.473l-.377-9.917c.156-1.586.49-3.318,2.288-4.013,1.333-.513,1.743-2.855,1.871-4.418a2.509,2.509,0,0,0,.054-.507Z" fill="#439a23"/>
+        <g id="Group_14" data-name="Group 14">
+          <path id="Path_212" data-name="Path 212" d="M62.849,27.883c-15.682,0-28.442,12.973-28.442,28.916s12.76,28.916,28.442,28.916S91.288,72.744,91.288,56.8,78.532,27.883,62.849,27.883Z" fill="#439a23"/>
+          <path id="Path_213" data-name="Path 213" d="M62.676,18.153c-21.041,0-38.1,17.3-38.1,38.648s17.058,38.647,38.1,38.647,38.1-17.3,38.1-38.647S83.716,18.153,62.676,18.153Zm.173,72.616c-18.423,0-33.412-15.238-33.412-33.97S44.426,22.832,62.849,22.832,96.262,38.072,96.262,56.8,81.271,90.769,62.849,90.769Z" fill="#439a23"/>
+        </g>
+        <path id="Path_214" data-name="Path 214" d="M113.878,62.39a3.328,3.328,0,0,0-.891-2.591c-.01-.542-.027-1.083-.034-1.624-.005-.364-.011-.73-.011-1.092a15.211,15.211,0,0,1,.267-2.331c.125-.907.143-1.83.2-2.738.069-1.222.1-2.445.138-3.669q.062-2.141.089-4.289c.025-1.535.038-3.072.051-4.607s.013-3.065.017-4.6q0-2.135-.006-4.268c-.006-1.21-.011-2.419-.024-3.625,0-.884-.015-1.766-.027-2.65-.007-.447-.009-.894-.027-1.34,0-.033,0-.071-.008-.1a.85.85,0,0,0-1.01-.758,4.008,4.008,0,0,0-2.5,1.5c-1.084,1.215-2.167,4.238-3.352,9.057l-.5,2.006c-1.64,6.433-.123,18.894,1.283,21.192a3.867,3.867,0,0,0,.979,1.1c-.011,1.045-.027,2.125-.05,3.2a3.845,3.845,0,0,0-.557,2.228l-1.331,25.854c0,1.8,1.934,3.255,4.323,3.255s4.323-1.458,4.323-3.255Z" fill="#439a23"/>
+      </g>
+      <text id="隨時享用" transform="translate(907 1849)" fill="#439a23" font-size="25" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="-50" y="0">隨時享用</tspan></text>
+    </g>
+  </g>
+</svg>

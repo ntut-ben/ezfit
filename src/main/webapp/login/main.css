@@ -1,0 +1,187 @@
+*{
+    font-family: 'Noto Sans TC',sans-serif;
+    margin: 0%;
+    padding: 0px;
+}
+body{
+    margin:0px auto;
+    padding:0px;
+
+    background:#fff url(pic/backgroundNew.png) center no-repeat;
+    background-attachment :fixed;
+    background-size:cover;
+    }        
+
+
+
+#login{
+    margin:0px auto;
+    margin-top: 8%;
+    text-align: center;
+    top: 249px;
+    left: 484px;
+    width: 1052px;
+    height: 654px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 10px #00000080;
+    border-radius: 8px;
+    opacity: 1;
+}
+#loginPart{
+    margin: 0px;
+    padding: 0px;
+     margin :0px auto;
+     font-size: 30px;
+     width: 652px;
+     height: 654px;
+     color: #439A23; 
+     float: left;
+}
+#green{
+    width: 70%;
+    background: rgb(197, 226, 187);
+    height: 3px;
+    border: 0px;
+}
+
+
+
+#linkJoinus{
+    top: 249px;
+    left: 1086px;
+    width: 400px;
+    height: 654px;
+    
+    background: #F4FFF0 0% 0% no-repeat padding-box;
+
+    border-radius: 0px 8px 8px 0px;
+    opacity: 1;
+    float: left;
+}
+
+#loginText{
+    margin-top: 30px; 
+    padding: 15px;
+}
+
+#joinText{
+    margin-top: 60%;
+    /* background: #ccc; */
+    text-align: center;
+    vertical-align: center;
+    /* font: 32px Source Han Sans TW;  */
+    font-size:  32px;
+    letter-spacing: 1.76px;
+    color: #439A23;
+    opacity: 1;
+}
+
+#welcome{
+    margin-top: 20px;
+    text-align: center;
+    /* font: 19px Source Han Sans TW; */
+    font-size: 19px;
+    letter-spacing: 1.04px;
+    color: #838383;
+    opacity: 1;
+}
+
+#linkButton{
+    margin: 60px;
+
+
+    background: #FFFFFF ;
+    border: 3px solid #439A23;
+    border-radius: 8px;
+    opacity: 1;
+    width: 173px;
+    height: 35px; 
+
+}
+
+#submit{
+    margin-top: 20px;
+    width: 450px;
+    height: 46px;
+
+    background: #439A23 ;
+    /* border: 3px solid #439A23; */
+    border-radius: 8px;
+    opacity: 1;
+    color: #F4FFF0;
+    font-size: 20px;
+
+}
+
+
+
+input{
+     margin-top: 10px; 
+    width: 450px;
+    height: 46px;
+    padding-left: 15px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #838383;
+    opacity: 1;
+    border-radius: 8px;
+    
+}
+
+
+
+/* 消除chrome瀏覽器input元素的藍色邊框 */
+input:focus{
+    outline:none
+}
+input::placeholder{
+    padding: 15px;
+    /* margin-left: 10x; */
+}
+
+.error{
+    color: red;
+    height: 35px;
+    text-align: left;
+    padding-top: 3px;
+    padding-left: 110px;
+    font-size: 20px;
+}
+
+
+#forget{
+    margin-top: 10px;
+    text-align: center;
+    font: 19px Source Han Sans TW;
+    letter-spacing: 1.04px;
+    color: #838383;
+    opacity: 1;
+}
+
+
+#gray {
+    height: 60px;
+    line-height: 60px;
+    /* text-align: center; */
+    /* color: #c7c2c2; */
+    
+}
+ .line {
+    display: inline-block;
+    width: 31%;
+    border-top: 3px solid #c7c2c2;
+} 
+ .txt {
+    color: #838383;
+    font-size: 20px;
+    vertical-align: middle;
+} 
+
+.error{
+    color:red;
+    font-size: 10px; 
+    text-align: left;
+}
+img{
+    margin: 10px;
+}
+

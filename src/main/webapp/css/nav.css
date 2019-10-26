@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+.btn-success {
+  color: #fff;
+  background-color: #2eaa00;
+  border: 0px;
+  outline: none !important;
+}
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+  color: #fff;
+  background-color: rgb(40, 150, 0);
+  border: 0px;
+  outline: none !important;
+}
+
+.navbar .btn,
+.dropdown {
+  border-radius: 0;
+  height: 100%;
+  /* color: black; */
+  /* width: 180px; */
+  /* margin-left: 10px;
+    margin-right: 10px; */
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  outline: 0 !important;
+  /* border: 1px solid red; */
+}
+#navbar-top {
+  background-color: rgba(255, 255, 255, 0.945);
+}
+.btn:focus {
+  outline: none;
+}
+
+#navbar-btm {
+  background-color: rgb(45, 170, 0);
+}
+
+.plan-menu {
+  width: 900px;
+}
+.dropdown-menu {
+  transform: translateX(-25%);
+}
+.title{
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #1b6600;
+}
+/* #navbar-top .member{
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #727272;
+}
+#navbar-btm .member{
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #ffffff;
+} */
+
+#navbar-btm .member a, #navbar-btm .member span{
+  color: #ffffff;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+
+#navbar-btm .member a:hover {
+  color: #ffc400;
+  text-decoration: none;
+}
+#navbar-top .member a, span{
+  color: #696969;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+
+#navbar-top .member a:hover {
+  color: #06a700;
+  text-decoration: none;
+}
+
+table,
+tr,
+td {
+  /* border: 1px solid red; */
+  height: 100%;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+.dropdown-menu {
+  padding: 15px;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 992px) {
+  #navbar-top {
+    display: none;
+  }
+  #a {
+    display: block;
+  }
+}
+
+.card-title {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: 5px;
+  font-size: 30px;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+}
+.card-text {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: rgb(25, 25, 25);
+  font-weight: 300;
+  font-size: 13px;
+  margin: 3px;
+}
+.card-body {
+  padding: 5px;
+}
+.dropdown-menu .btn-success {
+  font-size: 13px;
+  border-radius: 5px;
+  letter-spacing: 3px;
+  color: #fff;
+}
+.cal {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 23px;
+}
+.cal-text {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+li {
+  margin: 10px;
+  color: rgb(70, 70, 70);
+}
+
+.grocery a:link,
+a:visited,
+a:active {
+  z-index: 9999;
+  color: #353535;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+
+.grocery a:hover {
+  color: #2eaa00;
+  text-decoration: none;
+}
+
+.card-img-overlay {
+  max-height: 100px;
+}
+
+.search-text {
+  margin: 0 auto;
+  margin-top: 0px;
+  background-color: #439A23;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.search-text .input-search {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  height: 30px;
+  width: 500px;
+  padding-left: 20px;
+  color: #333;
+  margin: 0 auto;
+}
+
+input:focus{
+  outline: none;
+}
+
+.search-text .btn-search {
+  background: rgb(255, 255, 255);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  border: none;
+  color: #439A23;
+  height: 30px;
+  width: 80px;
+  margin-left: 5px;
+}
+
+.search-text p {
+  color: #fff;
+  font-weight: 300;
+  margin: 0%;
+}
+
+footer {
+  background-color: #439A23;
+  padding-bottom: 15px;
+  margin: 0;
+}
+
+.logo{
+  padding-left: 10px;
+}
+
+.address span,
+.menu span {
+  color: #fff;
+  font-weight: bold;
+  /* border-bottom: 1px solid #c7c7c7;   */
+  display: block;  
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+.address li a,
+.menu li a {
+  color: #fff;
+  letter-spacing: 3px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.address li,
+.menu li {
+  margin: 10px 0px;
+  list-style: none;
+}
+
+.address li a:hover,
+.menu li a:hover {
+  color: #ffd000;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+.address .fa {
+  color: #da3e44;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.social{
+  /* padding: 10px; */
+  margin: 0 auto;
+  /* border: 1px solid red; */
+  /* border: 1px solid red; */
+}
+.social img{
+  width: 30px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.copyright{
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  margin: 10px;
+}
+.paymenttype img{
+  width: 25px;
+  margin-left: 20px;
+}

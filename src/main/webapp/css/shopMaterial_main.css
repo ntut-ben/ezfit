@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap");
+
+* {
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+a:focus,
+li:focus {
+  outline: none;
+}
+
+body {
+  padding-right: 0px !important;
+  background: #e2e7e8;
+}
+ul {
+  list-style: none;
+}
+
+button {
+  border: 0;
+}
+#main {
+  padding-top: 15vh;
+}
+
+#menu {
+  background: white;
+  max-height: 90vh;
+}
+
+#presentArea {
+  background: #e7ebed;
+}
+
+.serarchBarInput {
+  width: 90%;
+  border: 2px solid #83ac75;
+}
+
+.serarchBarBtn {
+  background: #83ac75;
+  border-radius: 0px 5px 5px 0px;
+  border: 2px solid #83ac75;
+}
+
+.font-size-08rem {
+  font-size: 0.8rem;
+}
+
+.letter-spacing-015rem {
+  letter-spacing: 0.15rem;
+}
+
+.border-bottom-success {
+  border-bottom: 3px solid #439a23;
+}
+
+.font-size-2rem {
+  font-size: 2rem;
+}
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 60%;
+    margin: 1.75rem auto;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog-centered {
+    min-height: calc(100% - 3.5rem);
+  }
+}
+
+*.modal-open {
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-right: 0 !important;
+}
+
+*.show {
+  padding-right: 0 !important;
+}
+
+.cardFontColor {
+  color: #707070;
+}
+
+.toast {
+  position: fixed;
+  top: 15vh;
+  right: 0;
+}
