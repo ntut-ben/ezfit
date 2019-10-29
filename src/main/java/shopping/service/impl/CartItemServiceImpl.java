@@ -75,4 +75,9 @@ public class CartItemServiceImpl implements CartItemService {
 		return cartItemDaoImpl.checkItem(productBean, memberBean);
 	}
 
+	@Override
+	public CartItem checkItem(Integer cartId, MemberBean memberBean) {
+		return cartItemDaoImpl.checkItem(cartId, memberBean);
+	}
+
 }

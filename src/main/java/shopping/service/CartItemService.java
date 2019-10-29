@@ -18,4 +18,6 @@ public interface CartItemService {
 	public int delete(MemberBean memberBean);
 
 	public CartItem checkItem(Product productBean, MemberBean memberBean);
+
+	public CartItem checkItem(Integer cartId, MemberBean memberBean);
 }

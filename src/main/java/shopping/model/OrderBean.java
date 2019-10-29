@@ -55,6 +55,10 @@ public class OrderBean {
 
 	@Expose
 	@Column(nullable = false)
+	String subscriberZipCode;
+
+	@Expose
+	@Column(nullable = false)
 	String subscriberEmail;
 
 	@Expose
@@ -76,6 +80,10 @@ public class OrderBean {
 	@Expose
 	@Column(nullable = false)
 	String shippingPhone;
+
+	@Expose
+	@Column(nullable = false)
+	String shippingZipCode;
 
 	@Expose
 	@OneToMany(cascade = CascadeType.PERSIST)
@@ -225,6 +233,22 @@ public class OrderBean {
 
 	public void setOrderItemBeans(List<OrderItemBean> orderItemBeans) {
 		this.orderItemBeans = orderItemBeans;
+	}
+
+	public String getSubscriberZipCode() {
+		return subscriberZipCode;
+	}
+
+	public void setSubscriberZipCode(String subscriberZipCode) {
+		this.subscriberZipCode = subscriberZipCode;
+	}
+
+	public String getShippingZipCode() {
+		return shippingZipCode;
+	}
+
+	public void setShippingZipCode(String shippingZipCode) {
+		this.shippingZipCode = shippingZipCode;
 	}
 
 	@Override

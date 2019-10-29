@@ -221,6 +221,7 @@ pageEncoding="UTF-8"%>
                     <span aria-hidden="true" class="font-weight-bold h4"
                       >&times;</span
                     >
+                  
                   </button>
                 </div>
               </div>

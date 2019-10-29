@@ -1,0 +1,19 @@
+body {
+  background: url(../images/alex-kotomanov-BCApK6UYl3A-unsplash@2x.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.main-Font-Color {
+  color: #838383;
+}
+
+.input-Height {
+  height: 2rem;
+}
+
+.hrStyle {
+  color: #707070;
+  border: 1px solid #707070;
+  background: #707070;
+}

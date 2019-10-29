@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="53" viewBox="0 0 440 53">
+  <g id="Group_102" data-name="Group 102" transform="translate(-494 -173)">
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(519 173)" fill="#439a23" stroke="#439a23" stroke-width="2">
+      <circle cx="13.5" cy="13.5" r="13.5" stroke="none"/>
+      <circle cx="13.5" cy="13.5" r="12.5" fill="none"/>
+    </g>
+    <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(706 173)" fill="#fff" stroke="#439a23" stroke-width="2">
+      <circle cx="13.5" cy="13.5" r="13.5" stroke="none"/>
+      <circle cx="13.5" cy="13.5" r="12.5" fill="none"/>
+    </g>
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="13.5" cy="13.5" r="13.5" transform="translate(894 173)" fill="#838383"/>
+    <line id="Line_4" data-name="Line 4" x2="160" transform="translate(546.5 186.5)" fill="none" stroke="#439a23" stroke-width="3"/>
+    <line id="Line_6" data-name="Line 6" x2="160" transform="translate(733.5 186.5)" fill="none" stroke="#838383" stroke-width="3"/>
+    <text id="建立揪團資料" transform="translate(494 222)" fill="#439a23" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">建立揪團資料</tspan></text>
+    <text id="找人來訂餐" transform="translate(688 222)" fill="#439a23" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">找人來訂餐</tspan></text>
+    <text id="開始點餐" transform="translate(882 222)" fill="#3b3b3b" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">開始點餐</tspan></text>
+    <path id="ic_check_24px" d="M9,16.17,4.83,12,3.41,13.41,9,19,21,7,19.59,5.59Z" transform="translate(520.59 174.41)" fill="#fff"/>
+  </g>
+</svg>

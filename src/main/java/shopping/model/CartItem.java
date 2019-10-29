@@ -1,5 +1,6 @@
 package shopping.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import createAccount.model.MemberBean;
 
 @Entity
 public class CartItem {
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -33,9 +35,11 @@ public class CartItem {
 	@Expose
 	private Integer subTotal;
 	@Expose
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_CartItemID", referencedColumnName = "id")
 	List<PlaneItem> planeItems = new ArrayList<PlaneItem>();
+	@Expose
+	private Date shipDate;
 
 	public CartItem(Integer id, Product product, MemberBean memberBean, Integer qty, Integer subTotal) {
 		super();
@@ -44,6 +48,14 @@ public class CartItem {
 		this.memberBean = memberBean;
 		this.qty = qty;
 		this.subTotal = subTotal;
+	}
+
+	public Date getShipDate() {
+		return shipDate;
+	}
+
+	public void setShipDate(Date shipDate) {
+		this.shipDate = shipDate;
 	}
 
 	public CartItem() {
@@ -87,6 +99,14 @@ public class CartItem {
 
 	public void setSubTotal(Integer subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public List<PlaneItem> getPlaneItems() {
+		return planeItems;
+	}
+
+	public void setPlaneItems(List<PlaneItem> planeItems) {
+		this.planeItems = planeItems;
 	}
 
 }

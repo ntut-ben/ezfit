@@ -163,3 +163,12 @@ li {
 .color-838383 {
   color: #838383;
 }
+
+.hover_shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.hover_shadow:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+}

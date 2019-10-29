@@ -1,0 +1,49 @@
+package shopping.model;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.google.gson.annotations.Expose;
+
+@Entity
+public class OrderPlaneItem {
+	@Expose
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Expose
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "Product_FK")
+	private CuisineProduct cuisineProduct;
+
+	public OrderPlaneItem() {
+		super();
+	}
+
+	public OrderPlaneItem(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public CuisineProduct getCuisineProduct() {
+		return cuisineProduct;
+	}
+
+	public void setCuisineProduct(CuisineProduct cuisineProduct) {
+		this.cuisineProduct = cuisineProduct;
+	}
+
+}

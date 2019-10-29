@@ -1,5 +1,9 @@
 package shopping.model;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.google.gson.annotations.Expose;
 
 @Entity
 public class OrderItemBean {
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -19,13 +25,19 @@ public class OrderItemBean {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "Product_FK")
 	private Product product;
-//	@JoinColumn(name = "Order_FK")
-//	@ManyToOne(cascade = CascadeType.PERSIST)
-//	private OrderBean orderBean;
+
 	@Expose
 	private Integer qty;
 	@Expose
 	private Integer subTotal;
+
+	@Expose
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "FK_OrderItemBeanID", referencedColumnName = "id")
+	List<OrderPlaneItem> planeItems = new ArrayList<OrderPlaneItem>();
+
+	@Expose
+	private Date shipDate;
 
 	public OrderItemBean(Integer id, Product product, Integer qty, Integer subTotal) {
 		super();
@@ -60,6 +72,14 @@ public class OrderItemBean {
 		return qty;
 	}
 
+	public List<OrderPlaneItem> getPlaneItems() {
+		return planeItems;
+	}
+
+	public void setPlaneItems(List<OrderPlaneItem> planeItems) {
+		this.planeItems = planeItems;
+	}
+
 	public void setQty(Integer qty) {
 		this.qty = qty;
 	}
@@ -70,6 +90,14 @@ public class OrderItemBean {
 
 	public void setSubTotal(Integer subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public Date getShipDate() {
+		return shipDate;
+	}
+
+	public void setShipDate(Date shipDate) {
+		this.shipDate = shipDate;
 	}
 
 }

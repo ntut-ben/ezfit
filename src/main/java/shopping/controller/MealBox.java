@@ -53,7 +53,7 @@ public class MealBox extends HttpServlet {
 			out.print(json);
 			return;
 		}
-		System.out.println(productId);
+
 		if (productId != null) {
 			response.setContentType("application/json");
 			CuisineProduct cuisineProduct = cuisineProductServiceImpl
@@ -69,6 +69,7 @@ public class MealBox extends HttpServlet {
 			cuisineProducts = cuisineProductServiceImpl.getCuisineProductByCategory(plane);
 			json = toJson.getArrayJson(cuisineProducts);
 			PrintWriter out = response.getWriter();
+			System.out.println(json);
 			out.print(json);
 			return;
 		}

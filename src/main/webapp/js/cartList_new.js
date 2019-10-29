@@ -36,6 +36,9 @@ $(document).ready(function() {
     "name",
     "subscriberdistrict"
   );
+  $("#subscriberTwzipcode")
+    .find("input")
+    .attr("name", "subscriberzipCode");
 
   $("#clickBtn").click(function(e) {
     e.preventDefault();
@@ -70,23 +73,70 @@ function getData() {
       total = 0;
       cartData = "";
       for (let i = 0; i < data.length; i++) {
-        fileName = data[i].product.fileName.split(",");
-        cartData += ` <div class="col-12 my-2 cartCard">
+        if (data[i].planeItems.length == 0) {
+          fileName = data[i].product.fileName.split(",");
+          cartData += ` <div class="col-12 my-2 cartCard">
+       <div class="container">
+         <div class="row customBottomBorder pb-3">
+           <div class="col-7">
+             <div class="container-fuild">
+               <div class="row">
+                 <div class="col-2">
+                   <img
+                     src="productImage/${fileName[0]}"
+                     alt=""
+                     style="width: 100%;"
+                   />
+                 </div>
+                 <div class="col-4">
+                 ${data[i].product.name} <br />
+                 ${data[i].product.unit}
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="col-5">
+             <div class="container-fuild">
+               <div class="row text-right">
+                 <div class="col-4 ">
+                   <input
+                   class="text-center qtyModify"
+                     min="1"
+                     data-id="${data[i].product.id}"
+                     data-action="modify"
+                     type="number"
+                     name="qty"
+                     value="${data[i].qty}"
+                     style="max-width: 40%;"
+                   />
+                   <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${
+                     data[i].product.id
+                   }"=>刪除</button>
+                 </div>
+                 <div class="col-4">NT$ ${data[i].product.price}</div>
+                 <div class="col-4 subTotal" data-subTotal="${
+                   data[i].subTotal
+                 }">NT$ ${data[i].subTotal}</div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>`;
+          total += data[i].subTotal;
+        } else {
+          shipFeed = getDate(data[i].shipDate, data[i].product.id);
+          cartData += ` <div class="col-12 my-2 cartCard" >
      <div class="container">
        <div class="row customBottomBorder pb-3">
          <div class="col-7">
            <div class="container-fuild">
              <div class="row">
-               <div class="col-2">
-                 <img
-                   src="productImage/${fileName[0]}"
-                   alt=""
-                   style="width: 100%;"
-                 />
+               <div class="col-5">
+               <a href="planeItemDetail.jsp?cartItemId=${data[i].id}"> ${data[i].product.alias}</a><br /> <br />
+              運費，配送時間${shipFeed}
                </div>
-               <div class="col-4">
-               ${data[i].product.name} <br />
-               ${data[i].product.unit}
+               <div class="col-1">
                </div>
              </div>
            </div>
@@ -96,6 +146,7 @@ function getData() {
              <div class="row text-right">
                <div class="col-4 ">
                  <input
+                 disabled
                  class="text-center qtyModify"
                    min="1"
                    data-id="${data[i].product.id}"
@@ -105,21 +156,19 @@ function getData() {
                    value="${data[i].qty}"
                    style="max-width: 40%;"
                  />
-                 <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${
-                   data[i].product.id
-                 }"=>刪除</button>
+                 <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${data[i].product.id}"=>刪除</button>
                </div>
-               <div class="col-4">NT$ ${data[i].product.price}</div>
-               <div class="col-4 subTotal" data-subTotal="${
-                 data[i].subTotal
-               }">NT$ ${data[i].subTotal}</div>
+               <div class="col-4">NT$ ${data[i].product.price} 
+               <br /> <br /> NT$90</div>
+               <div class="col-4 subTotal" data-subTotal="${data[i].subTotal}">NT$ ${data[i].subTotal}  <br /> <br /> NT$90</div>
              </div>
            </div>
          </div>
        </div>
      </div>
    </div>`;
-        total += data[i].subTotal;
+          total += data[i].subTotal + 90;
+        }
       }
       cartData += `<div class="col-12 my-2 cartCard">
       <div class="container">
@@ -194,19 +243,103 @@ function getData() {
           e.preventDefault();
           actionToDo = $(this).data("action");
           id = $(this).data("id");
-
-          $.ajax({
-            type: "POST",
-            cache: false,
-            url: "http://localhost:8080/ezfit/ShopCart.do",
-            data: { itemId: id, action: actionToDo },
-            dataType: "text",
-            success: function(response) {
-              getData();
-            }
-          });
+          deleteItem(id, actionToDo);
         });
       }
+    }
+  });
+}
+
+function getDate(date, id) {
+  ship = date.split("月");
+  shipMonth = parseInt(ship[0]);
+  shipDate = parseInt(ship[1].split(",")[0]);
+  shipYear = parseInt(ship[1].split(",")[1]);
+  month = new Date().getMonth() + 1;
+  var day = 0;
+  if (shipMonth > month) {
+    switch (month) {
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        shipDate += 31;
+        date = shipDate - new Date().getDate();
+        day = date + new Date().getDay();
+        shipDate -= 31;
+        break;
+      case 2:
+        shipDate += 28;
+        date = shipDate - new Date().getDate();
+        day = date + new Date().getDay();
+        shipDate -= 28;
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        shipDate += 30;
+        date = shipDate - new Date().getDate();
+        day = date + new Date().getDay();
+        shipDate -= 30;
+        break;
+
+      default:
+        break;
+    }
+  } else {
+    date = shipDate - new Date().getDate();
+    day = date + new Date().getDay();
+  }
+
+  if (day >= 7) {
+    day -= 7;
+  } else if (day < 2) {
+    deleteItem(id, "delete");
+  }
+
+  var week = "";
+  switch (day) {
+    case 0:
+      week = "星期日";
+      break;
+    case 1:
+      week = "星期一";
+      break;
+    case 2:
+      week = "星期二";
+      break;
+    case 3:
+      week = "星期二";
+      break;
+    case 4:
+      week = "星期三";
+      break;
+    case 5:
+      week = "星期四";
+      break;
+    case 6:
+      week = "星期五";
+      break;
+    default:
+      break;
+  }
+
+  return `${shipMonth}/${shipDate}${week}`;
+}
+
+function deleteItem(id, actionToDo) {
+  $.ajax({
+    type: "POST",
+    cache: false,
+    url: "http://localhost:8080/ezfit/ShopCart.do",
+    data: { itemId: id, action: actionToDo },
+    dataType: "text",
+    success: function(response) {
+      getData();
     }
   });
 }

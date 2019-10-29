@@ -39,6 +39,9 @@
 		<mapping class="shopping.model.OrderItemBean" />
 		<mapping class="shopping.model.PlaneProduct" />
 		<mapping class="shopping.model.PlaneItem" />
+		<mapping class="shopping.model.OrderPlaneItem" />
+		<mapping class="shopping.model.GroupBuyBean" />
+
 
 
 

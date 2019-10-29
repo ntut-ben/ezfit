@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,8 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
-import shopping.model.PlaneItem;
 
 @Entity
 @Table(name = "`Member`") // Table要移掉``
@@ -36,9 +35,15 @@ public class MemberBean implements Serializable {
 	Date birthday;
 	String address;
 	String tel;
+
 	@OneToMany
 	@JoinColumn(name = "FK_MemberID", referencedColumnName = "pkey")
 	List<OrderBean> orderBeans = new ArrayList<OrderBean>();
+
+	@OneToMany
+	@JoinColumn(name = "FK_MemberID", referencedColumnName = "pkey")
+	List<GroupBuyBean> groupBuyBeans = new ArrayList<GroupBuyBean>();
+
 	Blob memberImage;
 	Timestamp registerTime;
 

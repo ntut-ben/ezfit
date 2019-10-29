@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class PlaneItem {
+	@Expose
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	@Expose
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "Product_FK")
 	private CuisineProduct cuisineProduct;

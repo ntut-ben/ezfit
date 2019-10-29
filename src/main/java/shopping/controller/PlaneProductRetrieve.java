@@ -35,7 +35,6 @@ public class PlaneProductRetrieve extends HttpServlet {
 		response.setContentType("application/json");
 		planeProducts = planeProductService.getAllPlaneProducts();
 		json = toJson.getArrayJson(planeProducts);
-		System.out.println(json);
 		PrintWriter out = response.getWriter();
 		out.print(json);
 		return;

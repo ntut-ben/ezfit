@@ -14,6 +14,8 @@ public interface CartItemDao {
 
 	public CartItem checkItem(CartItem cartItem);
 
+	public CartItem checkItem(Integer cartId, MemberBean memberBean);
+
 	public CartItem checkItem(Product productBean, MemberBean memberBean);
 
 	public int delete(MemberBean memberBean);

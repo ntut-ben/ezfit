@@ -101,11 +101,28 @@ public class CartItemDaoImpl implements CartItemDao {
 			String hql = "FROM CartItem WHERE product = :product and memberBean = :memberBean";
 			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("product", productBean)
 					.setParameter("memberBean", memberBean).getSingleResult();
-			if (cartItemPersist != null) {
-				session.evict(cartItemPersist);
-			}
+//			if (cartItemPersist != null) {
+//				session.evict(cartItemPersist);
+//			}
 		} catch (NoResultException e) {
-			e.printStackTrace();
+			System.out.println("此會員購物車沒有該筆商品");
+		}
+		return cartItemPersist;
+	}
+
+	@Override
+	public CartItem checkItem(Integer cartId, MemberBean memberBean) {
+		Session session = factory.getCurrentSession();
+		CartItem cartItemPersist = null;
+		try {
+			String hql = "FROM CartItem WHERE id = :id and memberBean = :memberBean";
+			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("id", cartId)
+					.setParameter("memberBean", memberBean).getSingleResult();
+//			if (cartItemPersist != null) {
+//				session.evict(cartItemPersist);
+//			}
+		} catch (NoResultException e) {
+			System.out.println("此會員購物車沒有該筆商品");
 		}
 		return cartItemPersist;
 	}

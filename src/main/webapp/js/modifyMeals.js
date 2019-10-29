@@ -96,10 +96,10 @@ function getData() {
           // 判斷哪個餐點先前被選擇
           if (element.id == mealArray[index]) {
             mealData += `
-            <div class=" cardItem selected m-5" data-id="${element.id}" style=" width: 185px;">`;
+            <div class="hover_shadow cardItem selected m-5" data-id="${element.id}" style=" width: 185px;">`;
           } else {
             mealData += `
-          <div class=" cardItem m-5" data-id="${element.id}" style=" width: 185px;">`;
+          <div class="hover_shadow cardItem m-5" data-id="${element.id}" style=" width: 185px;">`;
           }
           // 餐點資訊
           mealData += `
@@ -161,8 +161,7 @@ function getData() {
         e.preventDefault();
         e.stopPropagation();
         id = $(this).data("id");
-        console.log(this);
-        console.log(id);
+      
         getSingleMealBox(id);
       });
 

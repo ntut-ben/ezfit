@@ -4,6 +4,13 @@ var checkPrice = $("#workoutPlane option:selected").data("price");
 var shipPrice = 90;
 
 $(document).ready(function() {
+  // 購物車按鈕
+  $(".btn-addCart").click(function(e) {
+    e.preventDefault();
+    console.log(1);
+    cart(this);
+  });
+
   imgCircleWidth = $(".nutritionCircle").css("width");
   $(".nutritionCircle").css("height", imgCircleWidth);
 
@@ -94,7 +101,7 @@ function getDate() {
     year = new Date().getFullYear();
     dateForShip = `${year}年${month}月${date}日，${week}`;
 
-    dateData = `<option value="${year}-${month}-${date}-${week}">${dateForShip}</option>`;
+    dateData = `<option data-ship="${year}-${month}-${date}" value="${year}-${month}-${date}-${week}">${dateForShip}</option>`;
 
     $("#dateForSelect").append(dateData);
   }
@@ -205,7 +212,7 @@ function createProductElement(array) {
   for (let index = 0; index < array.length; index++) {
     fileName = array[index].fileName.split(",");
     countDay = index + 1;
-    appData += `<div class="col-2 col-2-c" data-id="${
+    appData += `<div class="col-2 col-2-c hover_shadow" data-id="${
       array[index].id
     }" data-day="${countDay}">
 第${index + 1}天
@@ -354,7 +361,7 @@ function getSingleMealBox(id) {
       $("#detialInfoContainer")
         .children(".detialInfo")
         .remove();
-      console.log(data);
+
       fileName = data.fileName.split(",");
       detailData = "";
       detailData += `<!-- left product image -->
@@ -688,11 +695,6 @@ function main(breakfastArray, lunchArray, dinnerArray) {
         }
         window.location.href = href;
       });
-      // 購物車按鈕
-      $(".btn-addCart").click(function(e) {
-        e.preventDefault();
-        cart(this);
-      });
     }
   });
 }
@@ -702,13 +704,10 @@ function cart(cartBtn) {
   breakfast = $("#breakfastRow").find(".col-2-c");
   lunch = $("#lunchRow").find(".col-2-c");
   dinner = $("#dinnerRow").find(".col-2-c");
-  breakfasts = [];
-  lunches = [];
-  dinners = [];
 
-  Array.from(breakfast).forEach(element => {
-    breakfasts.push($(element).data("id"));
-  });
+  // Array.from(breakfast).forEach(element => {
+  //   breakfasts.push($(element).data("id"));
+  // });
   breakfasts = [];
   lunches = [];
   dinners = [];
@@ -726,16 +725,25 @@ function cart(cartBtn) {
   var json1 = {
     breakfasts: breakfasts,
     dinners: dinners,
-    lunches: lunches
+    lunches: lunches,
+    action: ["planeAdd"],
+    productId: [$("#workoutPlane option:selected").data("id")],
+    ship: [$("#dateForSelect option:selected").data("ship")]
   };
 
   $.ajax({
     type: "POST",
-    url: "http://localhost:8080/ezfit/ShopCart.do",
+    url: "http://localhost:8080/ezfit/ShopCart.do?",
     contentType: "application/json;charset=utf-8",
     cache: false,
     data: JSON.stringify(json1),
     dataType: "json",
-    success: function(response) {}
+    beforeSend: function() {
+      $(".btn-addCart").attr("disabled", true);
+    },
+    complete: function(xhr) {
+      $(".btn-addCart").attr("disabled", false);
+      location.href = "http://localhost:8080/ezfit/cartList.html";
+    }
   });
 }
