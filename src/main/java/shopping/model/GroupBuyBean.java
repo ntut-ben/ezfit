@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 
 import com.google.gson.annotations.Expose;
 
+import createAccount.model.MemberBean;
+
 @Entity
 public class GroupBuyBean {
 	@Id
@@ -24,41 +26,36 @@ public class GroupBuyBean {
 	private Integer id;
 
 	@Expose
-	@Column(nullable = false)
 	private String groupName;
 
 	@Expose
 	private String groupAlias;
-	
+
 	@Expose
 	private String initiatorName;
-	
+
 	@Expose
 	@Column(nullable = false)
 	private Integer role;
 
 	@Expose
-	@Column(nullable = false)
 	private Integer status;
 
 	@Expose
-	@Column(nullable = false)
 	private Date deadLine;
 
 	@Expose
-	@Column(nullable = false)
 	private String shippingCity;
+	@Expose
+	private String shippingZipCode;
 
 	@Expose
-	@Column(nullable = false)
 	private String shippingDistrict;
 
 	@Expose
-	@Column(nullable = false)
 	private String shippingAddress;
 
 	@Expose
-	@Column(nullable = false)
 	private String shippingPhone;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -68,9 +65,16 @@ public class GroupBuyBean {
 	@OneToMany(mappedBy = "initiator")
 	private Set<GroupBuyBean> joiner = new HashSet<GroupBuyBean>();
 
-	@OneToMany(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "FK_GroupBuyID", referencedColumnName = "id")
+	@OneToMany(mappedBy = "groupBuyBean")
 	Set<OrderBean> orderBeans = new HashSet<OrderBean>();
+
+	@OneToMany(mappedBy = "groupBuyBean")
+	Set<CartItem> cartItems = new HashSet<CartItem>();
+
+	@Expose
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "FK_MemberID", nullable = false)
+	MemberBean memberBean = new MemberBean();
 
 	public GroupBuyBean(Integer id, String groupName, String groupAlias, Integer role, Integer status, Date deadLine,
 			String shippingCity, String shippingDistrict, String shippingAddress, String shippingPhone,
@@ -188,6 +192,46 @@ public class GroupBuyBean {
 
 	public void setJoiner(Set<GroupBuyBean> joiner) {
 		this.joiner = joiner;
+	}
+
+	public String getInitiatorName() {
+		return initiatorName;
+	}
+
+	public void setInitiatorName(String initiatorName) {
+		this.initiatorName = initiatorName;
+	}
+
+	public String getShippingZipCode() {
+		return shippingZipCode;
+	}
+
+	public void setShippingZipCode(String shippingZipCode) {
+		this.shippingZipCode = shippingZipCode;
+	}
+
+	public Set<OrderBean> getOrderBeans() {
+		return orderBeans;
+	}
+
+	public void setOrderBeans(Set<OrderBean> orderBeans) {
+		this.orderBeans = orderBeans;
+	}
+
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
+	}
+
+	public Set<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(Set<CartItem> cartItems) {
+		this.cartItems = cartItems;
 	}
 
 }

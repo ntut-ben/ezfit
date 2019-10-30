@@ -86,7 +86,8 @@ button {
   padding-right: 0 !important;
 }
 
-*.show {
+*.show,
+.modal {
   padding-right: 0 !important;
 }
 

@@ -421,7 +421,7 @@ function getSingleMealBox(id) {
               </table>
             </div>
             <!-- 食材標示 -->
-            <div id="tab2" class="tab_content p-2">
+            <div id="tab2" class="tab_content p-3">
               <p class="mb-1">食材</p>
               <table id="materialTable" class="mx-0 tabTable w-100">
               </table>

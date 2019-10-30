@@ -12,8 +12,8 @@
     <line id="Line_4" data-name="Line 4" x2="160" transform="translate(546.5 186.5)" fill="none" stroke="#439a23" stroke-width="3"/>
     <line id="Line_6" data-name="Line 6" x2="160" transform="translate(733.5 186.5)" fill="none" stroke="#838383" stroke-width="3"/>
     <text id="建立揪團資料" transform="translate(494 222)" fill="#439a23" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">建立揪團資料</tspan></text>
-    <text id="找人來訂餐" transform="translate(688 222)" fill="#439a23" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">找人來訂餐</tspan></text>
-    <text id="開始點餐" transform="translate(882 222)" fill="#3b3b3b" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">開始點餐</tspan></text>
+    <text id="找人來團購" transform="translate(688 222)" fill="#439a23" font-size="14" font-family="SourceHanSansTW-Bold, Source Han Sans TW" font-weight="700"><tspan x="0" y="0">找人來團購</tspan></text>
+    <text id="開始購買" transform="translate(882 222)" fill="#838383" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">開始購買</tspan></text>
     <path id="ic_check_24px" d="M9,16.17,4.83,12,3.41,13.41,9,19,21,7,19.59,5.59Z" transform="translate(520.59 174.41)" fill="#fff"/>
   </g>
 </svg>

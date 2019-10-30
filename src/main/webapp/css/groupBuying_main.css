@@ -17,3 +17,27 @@ body {
   border: 1px solid #707070;
   background: #707070;
 }
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 60%;
+    margin: 1.75rem auto;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog-centered {
+    min-height: calc(100% - 3.5rem);
+  }
+}
+
+*.modal-open {
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-right: 0 !important;
+}
+
+*.show,
+.modal {
+  padding-right: 0 !important;
+}

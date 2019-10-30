@@ -333,6 +333,7 @@ public class ShopCart extends HttpServlet {
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 				orderBean.setOrderItemBeans(orderItemBeans);
 				orderBean.setCreateTime(ts);
+				orderBean.setMemberBean(mb);
 				orderServiceImpl.save(orderBean);
 //				int count = cartItemServiceImpl.delete(mb);
 

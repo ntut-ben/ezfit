@@ -41,9 +41,9 @@ public class CreateTable {
 		List<CuisineProduct> cuisineProducts = new ArrayList<CuisineProduct>();
 		List<PlaneProduct> planeProducts = new ArrayList<PlaneProduct>();
 		String line = "";
-		File fileIngredient = new File("src\\main\\resources\\data\\productFood.data");
-		File fileCuisine = new File("src\\main\\resources\\data\\productCuisine.data");
-		File filePlane = new File("src\\main\\resources\\data\\productPlane.data");
+		File fileIngredient = new File("src/main/resources/data/productFood.data");
+		File fileCuisine = new File("src/main/resources/data/productCuisine.data");
+		File filePlane = new File("src/main/resources/data/productPlane.data");
 
 //		創建商品分類
 		String category[] = { "muscle", "fit", "keep", "brute", "vegetable", "poultry", "fruit", "seafood", "egg",
@@ -67,7 +67,9 @@ public class CreateTable {
 				if (line.startsWith(UTF8_BOM)) {
 					line = line.substring(1);
 				}
+
 				String[] token = line.split("\\|");
+
 				IngredientProduct ingredientProduct = new IngredientProduct();
 				ingredientProduct.setName(token[0]);
 				ingredientProduct.setPrice(Integer.parseInt(token[1]));

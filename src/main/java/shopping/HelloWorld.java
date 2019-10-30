@@ -1,14 +1,17 @@
 package shopping;
 
-import createAccount.service.MemberServiceImpl;
-import shopping.service.impl.CartItemServiceImpl;
-
 public class HelloWorld {
 
 	public static void main(String[] args) {
-		CartItemServiceImpl cartItemServiceImpl = new CartItemServiceImpl();
-		MemberServiceImpl memberServiceImpl = new MemberServiceImpl();
 
+//		String test = "(盤克夏)絞肉|120";
+//		String token[] = test.split("\\|");
+//		System.out.println(token[0]);
+//		System.out.println(Integer.parseInt(token[1]));
+		
+		System.out.println("|");
+		
+		System.out.println("\\\\|");
 	}
 
 }

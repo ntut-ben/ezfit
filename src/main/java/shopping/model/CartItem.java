@@ -41,6 +41,10 @@ public class CartItem {
 	@Expose
 	private Date shipDate;
 
+	@JoinColumn(name = "FK_GroupBuyBeanID")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private GroupBuyBean groupBuyBean;
+
 	public CartItem(Integer id, Product product, MemberBean memberBean, Integer qty, Integer subTotal) {
 		super();
 		this.id = id;

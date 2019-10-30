@@ -20,7 +20,7 @@ import _00.utils.HibernateUtils;
  * Servlet Filter implementation class ServiceController
  */
 @WebFilter({ "/ListIngredient.do", "/MemberLogin.do", "/ShopCart.do", "/CheckShopCart.do", "/login/loginServlet.do",
-		"/OrderProcess.do", "/MealBox.do","/PlaneProductRetrieve.do" })
+		"/OrderProcess.do", "/MealBox.do", "/PlaneProductRetrieve.do", "/GroupBuy.do" })
 public class ServiceController implements Filter {
 
 	SessionFactory factory;

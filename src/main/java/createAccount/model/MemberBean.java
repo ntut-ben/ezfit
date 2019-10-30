@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -36,12 +35,10 @@ public class MemberBean implements Serializable {
 	String address;
 	String tel;
 
-	@OneToMany
-	@JoinColumn(name = "FK_MemberID", referencedColumnName = "pkey")
+	@OneToMany(mappedBy = "memberBean")
 	List<OrderBean> orderBeans = new ArrayList<OrderBean>();
 
-	@OneToMany
-	@JoinColumn(name = "FK_MemberID", referencedColumnName = "pkey")
+	@OneToMany(mappedBy = "memberBean")
 	List<GroupBuyBean> groupBuyBeans = new ArrayList<GroupBuyBean>();
 
 	Blob memberImage;
@@ -172,4 +169,21 @@ public class MemberBean implements Serializable {
 	public void setRegisterTime(Timestamp registerTime) {
 		this.registerTime = registerTime;
 	}
+
+	public List<OrderBean> getOrderBeans() {
+		return orderBeans;
+	}
+
+	public void setOrderBeans(List<OrderBean> orderBeans) {
+		this.orderBeans = orderBeans;
+	}
+
+	public List<GroupBuyBean> getGroupBuyBeans() {
+		return groupBuyBeans;
+	}
+
+	public void setGroupBuyBeans(List<GroupBuyBean> groupBuyBeans) {
+		this.groupBuyBeans = groupBuyBeans;
+	}
+
 }

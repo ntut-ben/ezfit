@@ -13,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.google.gson.annotations.Expose;
+
+import createAccount.model.MemberBean;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -89,6 +92,15 @@ public class OrderBean {
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_OrderID", referencedColumnName = "id")
 	List<OrderItemBean> orderItemBeans = new ArrayList<OrderItemBean>();
+
+	@Expose
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "FK_MemberID")
+	MemberBean memberBean = new MemberBean();
+
+	@JoinColumn(name = "FK_GroupBuyBeanID")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private GroupBuyBean groupBuyBean;
 
 	public OrderBean(Integer id, Timestamp createTime, Integer totalAmount, String subscriberName, String shippingName,
 			String subscriberCity, String subscriberDistrict, String subscriberAddress, String subscriberEmail,
@@ -249,6 +261,14 @@ public class OrderBean {
 
 	public void setShippingZipCode(String shippingZipCode) {
 		this.shippingZipCode = shippingZipCode;
+	}
+
+	public MemberBean getMemberBean() {
+		return memberBean;
+	}
+
+	public void setMemberBean(MemberBean memberBean) {
+		this.memberBean = memberBean;
 	}
 
 	@Override

@@ -31,8 +31,9 @@ public class OrderDaoImpl implements OrderDao {
 	public OrderBean query(MemberBean memberBean) {
 		Session session = factory.getCurrentSession();
 		OrderBean orderBean = null;
-		orderBean = (OrderBean) session.createQuery("from OrderBean ORDER BY id DESC").setMaxResults(1)
-				.getSingleResult();
+		orderBean = (OrderBean) session.createQuery(
+				"from OrderBean where memberBean =:FK_MemberID ORDER BY id DESC")
+				.setParameter("FK_MemberID", memberBean).setMaxResults(1).getSingleResult();
 		return orderBean;
 	}
 

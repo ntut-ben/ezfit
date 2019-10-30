@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="440" height="53" viewBox="0 0 440 53">
-  <g id="Group_103" data-name="Group 103" transform="translate(-494 -173)">
+<svg xmlns="http://www.w3.org/2000/svg" width="443" height="53" viewBox="0 0 443 53">
+  <g id="Group_103" data-name="Group 103" transform="translate(-491 -173)">
     <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(519 173)" fill="#fff" stroke="#439a23" stroke-width="2">
       <circle cx="13.5" cy="13.5" r="13.5" stroke="none"/>
       <circle cx="13.5" cy="13.5" r="12.5" fill="none"/>
@@ -7,8 +7,8 @@
     <circle id="Ellipse_2" data-name="Ellipse 2" cx="13.5" cy="13.5" r="13.5" transform="translate(706 173)" fill="#838383"/>
     <circle id="Ellipse_3" data-name="Ellipse 3" cx="13.5" cy="13.5" r="13.5" transform="translate(894 173)" fill="#838383"/>
     <line id="Line_4" data-name="Line 4" x2="348" transform="translate(546.5 186.5)" fill="none" stroke="#838383" stroke-width="3"/>
-    <text id="建立揪團資料" transform="translate(494 222)" fill="#439a23" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">建立揪團資料</tspan></text>
-    <text id="找人來訂餐" transform="translate(688 222)" fill="#3b3b3b" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">找人來訂餐</tspan></text>
-    <text id="一起點餐" transform="translate(882 222)" fill="#3b3b3b" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">一起點餐</tspan></text>
+    <text id="建立揪團資料" transform="translate(491 222)" fill="#439a23" font-size="14" font-family="SourceHanSansTW-Bold, Source Han Sans TW" font-weight="700"><tspan x="0" y="0">建立揪團資料</tspan></text>
+    <text id="找人來團購" transform="translate(688 222)" fill="#838383" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">找人來團購</tspan></text>
+    <text id="開始購買" transform="translate(882 222)" fill="#838383" font-size="13" font-family="SourceHanSansTW-Regular, Source Han Sans TW"><tspan x="0" y="0">開始購買</tspan></text>
   </g>
 </svg>
