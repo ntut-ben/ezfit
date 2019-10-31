@@ -1,3 +1,4 @@
+groupAlias = "";
 $(document).ready(function() {
   // load file into header and footer
   $("#header").load("header.html");
@@ -21,6 +22,7 @@ $(document).ready(function() {
     };
     category = $.urlParam("category"); // 取出分類
     page = $.urlParam("page");
+    group = $.urlParam("group");
     var pages = 0;
     // 清空頁面
     $("#listProduct").empty();
@@ -33,6 +35,28 @@ $(document).ready(function() {
     }
     setQueryStringParameter("category", category);
     setQueryStringParameter("page", page);
+
+    if ((group != false) & (group != null)) {
+      $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/ezfit/GroupBuy.do?action=query&group=${group}`,
+        dataType: "json",
+        success: function(data) {
+          if (data.valid == "false") {
+          } else {
+            deadLine = data.deadLine;
+            deadLine = deadLine.replace("月", ",");
+            deadLine = deadLine.split(",");
+            deadLine = `${deadLine[2].trim()}-${deadLine[0].trim()}-${deadLine[1].trim()}`;
+
+            $("#groupContainer").css("visibility", "unset");
+            $("#groupName").html(data.groupName);
+            $("#groupDeadLine").html(`團購結單日期 : ${deadLine}`);
+            groupAlias = group;
+          }
+        }
+      });
+    }
 
     $.ajax({
       type: "get",
@@ -109,7 +133,7 @@ $(document).ready(function() {
           apiData += `<p class="card-text m-0  m-2">$${data[index].price}</p>`;
           apiData += `</div>`;
           apiData += `<form action=http://localhost:8080/ezfit/ShopCart.do class="text-right" method="POST">
-          <input type="text" name="action" value="add" style="display: none;"/>
+
           <input type="text" name="category" value="IngredientProduct" style="display: none;"/>
           <input type="text" name="itemId" value="${data[index].id}" style="display: none;"/>
           <input type="number" name="quantity" min="1" max="${data[index].stock}" value="1" class="text-center w-25 m-1 font-size-08rem"/>
@@ -363,6 +387,16 @@ $(document).ready(function() {
     parentCart = $(cartBtn).parent();
     var targetUrl = $(parentCart).attr("action");
     var data = $(parentCart).serialize();
+    if (groupAlias.trim() == "") {
+      data = data + `&action=add`;
+      cartAjax(data, targetUrl);
+    } else if (groupAlias.trim() != "") {
+      data = data + `&group=${groupAlias.trim()}&action=groupAdd`;
+      cartAjax(data, targetUrl);
+    }
+  }
+
+  function cartAjax(data, targetUrl) {
     $.ajax({
       type: "post",
       url: targetUrl,
@@ -370,7 +404,6 @@ $(document).ready(function() {
       data: data,
       dataType: "json",
       success: function(data) {
-        console.log(data.status);
         if (data.status == "false") {
           $(".toast-header").empty();
           $(".toast-body").empty();

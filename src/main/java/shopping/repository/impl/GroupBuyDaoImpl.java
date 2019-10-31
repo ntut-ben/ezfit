@@ -1,5 +1,8 @@
 package shopping.repository.impl;
 
+import javax.persistence.NoResultException;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -37,9 +40,15 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 	@Override
 	public GroupBuyBean queryGroupBuyByAlias(String alias) {
 		Session session = factory.getCurrentSession();
-		String hql = "From GroupBuyBean where groupAlias =:groupAlias";
-		GroupBuyBean bean = (GroupBuyBean) factory.getCurrentSession().createQuery(hql)
-				.setParameter("groupAlias", alias).getSingleResult();
+		GroupBuyBean bean = null;
+		try {
+			String hql = "From GroupBuyBean where groupAlias =:groupAlias";
+			bean = (GroupBuyBean) factory.getCurrentSession().createQuery(hql).setParameter("groupAlias", alias)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return bean;
 	}
 

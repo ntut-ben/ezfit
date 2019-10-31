@@ -271,6 +271,14 @@ public class OrderBean {
 		this.memberBean = memberBean;
 	}
 
+	public GroupBuyBean getGroupBuyBean() {
+		return groupBuyBean;
+	}
+
+	public void setGroupBuyBean(GroupBuyBean groupBuyBean) {
+		this.groupBuyBean = groupBuyBean;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

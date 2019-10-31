@@ -71,7 +71,7 @@ public class GroupBuyBean {
 	@OneToMany(mappedBy = "groupBuyBean")
 	Set<CartItem> cartItems = new HashSet<CartItem>();
 
-	@Expose
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_MemberID", nullable = false)
 	MemberBean memberBean = new MemberBean();

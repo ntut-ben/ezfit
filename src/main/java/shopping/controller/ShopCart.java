@@ -28,17 +28,18 @@ import createAccount.model.MemberBean;
 import login.service.LoginServiceImpl;
 import shopping.model.CartItem;
 import shopping.model.CuisineProduct;
+import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
 import shopping.model.OrderItemBean;
 import shopping.model.OrderPlaneItem;
 import shopping.model.PlaneItem;
 import shopping.model.Product;
 import shopping.service.CuisineProductService;
-import shopping.service.PlaneItemService;
+import shopping.service.GroupBuyService;
 import shopping.service.impl.CartItemServiceImpl;
 import shopping.service.impl.CuisineProductServiceImpl;
+import shopping.service.impl.GroupBuyServiceImpl;
 import shopping.service.impl.OrderServiceImpl;
-import shopping.service.impl.PlaneItemServiceImpl;
 import shopping.service.impl.ProductServiceImpl;
 
 /**
@@ -55,9 +56,10 @@ public class ShopCart extends HttpServlet {
 		request.setCharacterEncoding(CHARSET);
 		response.setCharacterEncoding(CHARSET);
 		HttpSession session = request.getSession(false);
-		PlaneItemService planeItemService = new PlaneItemServiceImpl();
+
 		CartItemServiceImpl cartItemServiceImpl = new CartItemServiceImpl();
 		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		GroupBuyService groupBuyService = new GroupBuyServiceImpl();
 		ProductServiceImpl productServiceImpl = new ProductServiceImpl();
 		OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 		CuisineProductService cuisineProductService = new CuisineProductServiceImpl();
@@ -68,7 +70,7 @@ public class ShopCart extends HttpServlet {
 		String subscriberCity = null, subscriberDistrict = null, subscriberAddress = null, subscriberEmail = null,
 				subscriberPhone = null, shippingCity = null, shippingDistrict = null, shippingAddress = null,
 				shippingPhone = null, subscriberName = null, shippingName = null, subscriberZipCode = null,
-				shippingZipCode = null;
+				shippingZipCode = null, group = null;
 		ToJson<CartItem> toJson = new ToJson<CartItem>();
 		CartItem cartItem = new CartItem();
 		CartItem cartItemEvict = null;
@@ -255,6 +257,51 @@ public class ShopCart extends HttpServlet {
 				}
 			}
 
+		} else if (action.equals("groupAdd")) {
+			// 取出目標商品資訊
+			itemId = request.getParameter("itemId");
+			productQTY = request.getParameter("quantity");
+			group = request.getParameter("group");
+			GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
+			// 如果itemId and productQTY 不為空值
+			if ((itemId != null && productQTY != null && groupBuyBean != null)
+					|| (!itemId.trim().equals("") && !productQTY.trim().equals(""))) {
+				// 取出商品
+				product = productServiceImpl.getProductById(Integer.parseInt(itemId));
+				// 檢查存貨
+				Integer checkStock = product.getStock() - Integer.parseInt(productQTY);
+
+				cartItemEvict = cartItemServiceImpl.checkItem(product, mb, groupBuyBean);
+
+				if (cartItemEvict != null) {
+					Integer updateQty = cartItemEvict.getQty() + (Integer.parseInt(productQTY));
+					Integer updateSubtotal = updateQty * product.getPrice();
+
+					cartItemEvict.setQty(updateQty);
+					cartItemEvict.setSubTotal(updateSubtotal);
+					cartItemServiceImpl.saveOrUpdate(cartItemEvict);
+
+				} else {
+					if (checkStock >= 0) {
+						Integer subTotal = product.getPrice() * Integer.parseInt(productQTY);
+						cartItem.setMemberBean(mb);
+						cartItem.setProduct(product);
+						cartItem.setQty(Integer.parseInt(productQTY));
+						cartItem.setSubTotal(subTotal);
+						cartItem.setGroupBuyBean(groupBuyBean);
+						cartItemServiceImpl.saveOrUpdate(cartItem);
+					} else {
+						json = "{\"status\":\"false\"}";
+						PrintWriter out = response.getWriter();
+						out.print(json);
+						out.close();
+					}
+				}
+				json = "{\"status\":\"ok\"}";
+				PrintWriter out = response.getWriter();
+				out.print(json);
+				out.close();
+			}
 		} else if (action.equals("delete")) {
 			// 透過商品ID從購物車移除該品項
 			itemId = request.getParameter("itemId");
@@ -338,6 +385,68 @@ public class ShopCart extends HttpServlet {
 //				int count = cartItemServiceImpl.delete(mb);
 
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/orderDetail.html"));
+				return;
+			}
+
+		} else if (action.equals("groupBill")) {
+			group = request.getParameter("group");
+
+			GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
+			System.out.println(group);
+			System.out.println(groupBuyBean);
+			subscriberName = request.getParameter("subscriberName");
+			shippingName = request.getParameter("name");
+			subscriberCity = request.getParameter("subscribercity");
+			subscriberDistrict = request.getParameter("subscriberdistrict");
+			subscriberAddress = request.getParameter("subscriberAddress");
+			subscriberEmail = request.getParameter("subscriberEmail");
+			subscriberPhone = request.getParameter("subscriberPhone");
+			shippingCity = request.getParameter("county");
+			shippingDistrict = request.getParameter("district");
+			shippingAddress = request.getParameter("address");
+			shippingPhone = request.getParameter("phone");
+			shippingZipCode = request.getParameter("zipcode");
+			subscriberZipCode = request.getParameter("subscriberzipCode");
+
+			orderBean.setShippingAddress(shippingAddress);
+			orderBean.setShippingCity(shippingCity);
+			orderBean.setShippingDistrict(shippingDistrict);
+			orderBean.setShippingName(shippingName);
+			orderBean.setShippingPhone(shippingPhone);
+			orderBean.setSubscriberAddress(subscriberAddress);
+			orderBean.setSubscriberCity(subscriberCity);
+			orderBean.setSubscriberDistrict(subscriberDistrict);
+			orderBean.setSubscriberEmail(subscriberEmail);
+			orderBean.setSubscriberName(subscriberName);
+			orderBean.setSubscriberPhone(subscriberPhone);
+			orderBean.setSubscriberZipCode(subscriberZipCode);
+			orderBean.setShippingZipCode(shippingZipCode);
+
+			if (mb != null && groupBuyBean != null) {
+				cartItems = cartItemServiceImpl.checkAllItems(groupBuyBean, mb);
+				for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
+					OrderItemBean orderItemBean = new OrderItemBean();
+
+					cartItem = (CartItem) iterator.next();
+
+					orderItemBean.setQty(cartItem.getQty());
+					orderItemBean.setSubTotal(cartItem.getSubTotal());
+					orderItemBean.setProduct(cartItem.getProduct());
+					orderItemBeans.add(orderItemBean);
+					totalAmount += cartItem.getSubTotal();
+					cartItemServiceImpl.delete(cartItem.getProduct().getId(), mb, groupBuyBean);
+				}
+				orderBean.setTotalAmount(totalAmount);
+				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+				orderBean.setOrderItemBeans(orderItemBeans);
+				orderBean.setCreateTime(ts);
+				orderBean.setMemberBean(mb);
+				orderBean.setGroupBuyBean(groupBuyBean);
+				orderServiceImpl.save(orderBean);
+
+				response.sendRedirect(
+						response.encodeRedirectURL(request.getContextPath() + "/orderDetail.html?group=" + group));
+				return;
 			}
 
 		}

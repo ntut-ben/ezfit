@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
+import _00.utils.ToJson;
 import createAccount.model.MemberBean;
 import login.service.LoginServiceImpl;
 import shopping.model.GroupBuyBean;
@@ -145,7 +146,15 @@ public class GroupBuy extends HttpServlet {
 				// 依照group alias 取出 團購bean
 				GroupBuyBean groupBuyBeanInit = groupBuyService.queryGroupBuyByAlias(group);
 				Set<GroupBuyBean> groupBuyBeans = groupBuyBeanInit.getJoiner();
-				// 檢查會員是否已經參加此團購
+
+				// avoid Initiator
+				if (groupBuyBeanInit.getMemberBean().equals(mb)) {
+					response.sendRedirect(
+							response.encodeRedirectURL("shopMaterial.html?category=all&page=1&group=" + group));
+					return;
+				}
+
+				// 檢查會員(Joiner)是否已經參加此團購
 				if (groupBuyBeans.size() > 0) {
 					for (Iterator iterator = groupBuyBeans.iterator(); iterator.hasNext();) {
 						GroupBuyBean joiners = (GroupBuyBean) iterator.next();
@@ -173,6 +182,32 @@ public class GroupBuy extends HttpServlet {
 					return;
 				}
 
+			} else if (action.equals("query")) {
+				Enumeration<String> enumeration = request.getParameterNames();
+				// 判斷是否有資料少填，回覆錯誤
+				while (enumeration.hasMoreElements()) {
+					String string = (String) enumeration.nextElement();
+					if (request.getParameter(string) == null) {
+						response.sendError(HttpServletResponse.SC_NOT_FOUND);
+						return;
+					}
+				}
+				GroupBuyBean groupBuyBeanInit = groupBuyService.queryGroupBuyByAlias(group);
+				if (groupBuyBeanInit == null) {
+					response.setContentType("application/json");
+					response.getWriter().println("{\"valid\":\"false\"}");
+					response.setStatus(200);
+					response.getWriter().close();
+					return;
+				} else {
+					response.setContentType("application/json");
+					ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
+//					response.getWriter().println("{\"valid\":\"true\"}");
+					response.getWriter().println(toJson.getJson(groupBuyBeanInit));
+					response.setStatus(200);
+					response.getWriter().close();
+					return;
+				}
 			}
 
 		}

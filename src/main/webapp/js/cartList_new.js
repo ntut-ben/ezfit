@@ -40,11 +40,6 @@ $(document).ready(function() {
     .find("input")
     .attr("name", "subscriberzipCode");
 
-  $("#clickBtn").click(function(e) {
-    e.preventDefault();
-    inheritInfo();
-  });
-
   getData();
 });
 
@@ -61,15 +56,71 @@ function inheritInfo() {
   $("#address").val(subscriberAddress);
 }
 
+function inheritInfoGroup() {
+  subscriberName = $("#subscriberName").val();
+  subscriberPhone = $("#subscriberPhone").val();
+
+  $("#name").val(subscriberName);
+  $("#phone").val(subscriberPhone);
+}
+
 function getData() {
+  $.urlParam = function(name) {
+    var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+      window.location.search
+    );
+    return results !== null ? results[1] || 0 : false;
+  };
+  group = $.urlParam("group");
+
   $("#cartListRow")
     .children(".cartCard")
     .remove();
   $.ajax({
     type: "GET",
-    url: `http://localhost:8080/ezfit/CheckShopCart.do`,
+    url: `http://localhost:8080/ezfit/CheckShopCart.do?group=${group}`,
     dataType: "json",
     success: function(data) {
+      if (data.groupBuy == undefined) {
+        $("#clickBtn").click(function(e) {
+          e.preventDefault();
+          inheritInfo();
+        });
+        data = data;
+      } else {
+        // 團購複製聯繫人按鈕
+        $("#clickBtn").click(function(e) {
+          e.preventDefault();
+          inheritInfoGroup();
+        });
+        // 增加group alias
+        groupData = `<input
+                      type="text"
+                      name="group"
+                      value="${data.groupBuy.groupAlias}"
+                      style="display: none;"
+                      />`;
+
+        $("#cartListAction").append(groupData);
+        $("#cartListAction").val("groupBill");
+        // 收件地址不能更改
+        addressSelect = $("#twzipcode")
+          .find("select")
+          .attr("disabled", "true");
+        $(addressSelect[0]).val(data.groupBuy.shippingCity);
+        $(addressSelect[1]).val(data.groupBuy.shippingDistrict);
+        $("#address").val(data.groupBuy.shippingAddress);
+        $("#address").attr("readonly", "true");
+        // 送出時，資料要解封
+        $("#btn-submit").click(function(e) {
+     
+          Array.from(addressSelect).forEach(element => {
+            $(element).removeAttr("disabled");
+          });
+        });
+        data = data.cartItems;
+      }
+
       total = 0;
       cartData = "";
       for (let i = 0; i < data.length; i++) {

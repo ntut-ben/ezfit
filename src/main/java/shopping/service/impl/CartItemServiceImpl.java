@@ -4,6 +4,7 @@ import java.util.List;
 
 import createAccount.model.MemberBean;
 import shopping.model.CartItem;
+import shopping.model.GroupBuyBean;
 import shopping.model.Product;
 import shopping.repository.impl.CartItemDaoImpl;
 import shopping.repository.impl.ProductDaoImpl;
@@ -78,6 +79,24 @@ public class CartItemServiceImpl implements CartItemService {
 	@Override
 	public CartItem checkItem(Integer cartId, MemberBean memberBean) {
 		return cartItemDaoImpl.checkItem(cartId, memberBean);
+	}
+
+	@Override
+	public List<CartItem> checkAllItems(GroupBuyBean groupBuyBean, MemberBean memberBean) {
+
+		return cartItemDaoImpl.checkAllItems(groupBuyBean, memberBean);
+	}
+
+	@Override
+	public CartItem checkItem(Product productBean, MemberBean memberBean, GroupBuyBean groupBuyBean) {
+
+		return cartItemDaoImpl.checkItem(productBean, memberBean, groupBuyBean);
+	}
+
+	@Override
+	public void delete(Integer id, MemberBean memberBean, GroupBuyBean groupBuyBean) {
+		Product productBean = productDaoImpl.getProductById(id);
+		cartItemDaoImpl.delete(productBean, memberBean, groupBuyBean);
 	}
 
 }

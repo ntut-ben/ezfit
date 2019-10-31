@@ -40,7 +40,8 @@ public class CartItem {
 	List<PlaneItem> planeItems = new ArrayList<PlaneItem>();
 	@Expose
 	private Date shipDate;
-
+	
+	
 	@JoinColumn(name = "FK_GroupBuyBeanID")
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private GroupBuyBean groupBuyBean;
@@ -111,6 +112,14 @@ public class CartItem {
 
 	public void setPlaneItems(List<PlaneItem> planeItems) {
 		this.planeItems = planeItems;
+	}
+
+	public GroupBuyBean getGroupBuyBean() {
+		return groupBuyBean;
+	}
+
+	public void setGroupBuyBean(GroupBuyBean groupBuyBean) {
+		this.groupBuyBean = groupBuyBean;
 	}
 
 }

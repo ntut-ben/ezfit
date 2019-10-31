@@ -4,24 +4,30 @@ import java.util.List;
 
 import createAccount.model.MemberBean;
 import shopping.model.CartItem;
+import shopping.model.GroupBuyBean;
 import shopping.model.Product;
 
 public interface CartItemDao {
 
-	public void save(CartItem cartItem);
+	void save(CartItem cartItem);
 
-	public CartItem update(CartItem cartItem);
+	CartItem update(CartItem cartItem);
 
-	public CartItem checkItem(CartItem cartItem);
+	CartItem checkItem(CartItem cartItem);
 
-	public CartItem checkItem(Integer cartId, MemberBean memberBean);
+	CartItem checkItem(Integer cartId, MemberBean memberBean);
 
-	public CartItem checkItem(Product productBean, MemberBean memberBean);
+	CartItem checkItem(Product productBean, MemberBean memberBean);
 
-	public int delete(MemberBean memberBean);
+	CartItem checkItem(Product productBean, MemberBean memberBean, GroupBuyBean groupBuyBean);
 
-	public List<CartItem> checkAllItems(MemberBean memberBean);
+	List<CartItem> checkAllItems(GroupBuyBean groupBuyBean, MemberBean memberBean);
 
-	public void delete(Product productBean, MemberBean memberBean);
+	int delete(MemberBean memberBean);
 
+	List<CartItem> checkAllItems(MemberBean memberBean);
+
+	void delete(Product productBean, MemberBean memberBean);
+
+	void delete(Product productBean, MemberBean memberBean, GroupBuyBean groupBuyBean);
 }

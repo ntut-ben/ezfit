@@ -26,22 +26,25 @@ button {
 
 #menu {
   background: white;
+  box-shadow: 0px 0px 30px #0000001a;
   max-height: 90vh;
 }
 
 #presentArea {
   background: #e7ebed;
+  box-shadow: 0px 0px 30px #0000001a;
 }
 
 .serarchBarInput {
   width: 90%;
-  border: 2px solid #83ac75;
+  border: 2px solid #83ac75 !important;
 }
 
 .serarchBarBtn {
   background: #83ac75;
   border-radius: 0px 5px 5px 0px;
   border: 2px solid #83ac75;
+  width: 5%;
 }
 
 .font-size-08rem {
@@ -99,4 +102,8 @@ button {
   position: fixed;
   top: 15vh;
   right: 0;
+}
+
+.color-439A23 {
+  color: #439a23;
 }
