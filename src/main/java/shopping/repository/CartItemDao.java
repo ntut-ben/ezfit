@@ -7,6 +7,7 @@ import shopping.model.CartItem;
 import shopping.model.GroupBuyBean;
 import shopping.model.Product;
 
+
 public interface CartItemDao {
 
 	void save(CartItem cartItem);

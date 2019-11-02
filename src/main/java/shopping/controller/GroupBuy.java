@@ -19,6 +19,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import _00.utils.ToJson;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 import shopping.model.GroupBuyBean;
 import shopping.service.GroupBuyService;
@@ -47,7 +48,7 @@ public class GroupBuy extends HttpServlet {
 		request.setCharacterEncoding(CHARSET);
 		response.setCharacterEncoding(CHARSET);
 		GroupBuyService groupBuyService = new GroupBuyServiceImpl();
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		LoginService loginServiceImpl = new LoginServiceImpl();
 		String account = null, pwd = null, action = null, groupName = null, initiatorName = null, initiatorPhone = null,
 				country = null, district = null, zipcode = null, address = null, deadLine = null, group = null;
 		HttpSession session = request.getSession(false);

@@ -2,44 +2,43 @@ package shopping.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import createAccount.model.MemberBean;
 import shopping.model.CartItem;
 import shopping.model.GroupBuyBean;
 import shopping.model.Product;
+import shopping.repository.CartItemDao;
+import shopping.repository.ProductDao;
 import shopping.repository.impl.CartItemDaoImpl;
 import shopping.repository.impl.ProductDaoImpl;
 import shopping.service.CartItemService;
 
+@Service
 public class CartItemServiceImpl implements CartItemService {
 
-	CartItemDaoImpl cartItemDaoImpl;
-	ProductDaoImpl productDaoImpl;
+	CartItemDao cartItemDaoImpl;
+	ProductDao productDaoImpl;
 
-	public CartItemServiceImpl() {
-		cartItemDaoImpl = new CartItemDaoImpl();
-		productDaoImpl = new ProductDaoImpl();
+	@Autowired
+	public CartItemServiceImpl(CartItemDao cartItemDaoImpl, ProductDao productDaoImpl) {
+		this.cartItemDaoImpl = cartItemDaoImpl;
+		this.productDaoImpl = productDaoImpl;
 	}
 
 	@Override
+	@Transactional
 	public void saveOrUpdate(CartItem cartItem) {
-//		CartItem cartItemEvict = null;
-//		cartItemEvict = cartItemDaoImpl.checkItem(cartItem);
-//
-//		if (cartItemEvict == null) {
-//			cartItemDaoImpl.save(cartItem);
-//		} else {
-//			Integer qty = cartItem.getQty() + cartItemEvict.getQty();
-//			Integer subTotal = qty * cartItem.getProduct().getPrice();
-//			cartItemEvict.setQty(qty);
-//			cartItemEvict.setSubTotal(subTotal);
-//			cartItemDaoImpl.update(cartItemEvict);
-//		}
 
 		cartItemDaoImpl.update(cartItem);
 
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id, MemberBean memberBean) {
 		Product productBean = productDaoImpl.getProductById(id);
 		cartItemDaoImpl.delete(productBean, memberBean);
@@ -47,12 +46,14 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
+	@Transactional
 	public List<CartItem> checkAllItems(MemberBean memberBean) {
 
 		return cartItemDaoImpl.checkAllItems(memberBean);
 	}
 
 	@Override
+	@Transactional
 	public CartItem modifyQTY(Integer id, MemberBean memberBean, Integer qty) {
 		CartItem cartItemEvict = null;
 		Product productBean = productDaoImpl.getProductById(id);
@@ -65,35 +66,41 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
+	@Transactional
 	public int delete(MemberBean memberBean) {
 		return cartItemDaoImpl.delete(memberBean);
 
 	}
 
 	@Override
+	@Transactional
 	public CartItem checkItem(Product productBean, MemberBean memberBean) {
 
 		return cartItemDaoImpl.checkItem(productBean, memberBean);
 	}
 
 	@Override
+	@Transactional
 	public CartItem checkItem(Integer cartId, MemberBean memberBean) {
 		return cartItemDaoImpl.checkItem(cartId, memberBean);
 	}
 
 	@Override
+	@Transactional
 	public List<CartItem> checkAllItems(GroupBuyBean groupBuyBean, MemberBean memberBean) {
 
 		return cartItemDaoImpl.checkAllItems(groupBuyBean, memberBean);
 	}
 
 	@Override
+	@Transactional
 	public CartItem checkItem(Product productBean, MemberBean memberBean, GroupBuyBean groupBuyBean) {
 
 		return cartItemDaoImpl.checkItem(productBean, memberBean, groupBuyBean);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id, MemberBean memberBean, GroupBuyBean groupBuyBean) {
 		Product productBean = productDaoImpl.getProductById(id);
 		cartItemDaoImpl.delete(productBean, memberBean, groupBuyBean);

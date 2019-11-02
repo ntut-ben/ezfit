@@ -4,16 +4,19 @@ import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import shopping.model.OrderItemBean;
 import shopping.repository.OrderItemDao;
 
+@Repository
 public class OrderItemDaoImpl implements OrderItemDao {
 	SessionFactory factory;
 
-	public OrderItemDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public OrderItemDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override

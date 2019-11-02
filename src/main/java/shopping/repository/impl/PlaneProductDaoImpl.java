@@ -5,17 +5,20 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import shopping.model.PlaneProduct;
 import shopping.repository.PlaneProductDao;
 
+@Repository
 public class PlaneProductDaoImpl implements PlaneProductDao {
 
 	SessionFactory factory;
 
-	public PlaneProductDaoImpl() {
-		this.factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public PlaneProductDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override

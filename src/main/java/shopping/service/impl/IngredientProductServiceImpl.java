@@ -2,53 +2,57 @@ package shopping.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import _00.utils.HibernateUtils;
 import shopping.model.IngredientProduct;
 import shopping.model.ProductCategory;
-import shopping.repository.impl.IngredientProductDaoImpl;
-import shopping.repository.impl.ProductCategoryDaoImpl;
+import shopping.repository.IngredientProductDao;
+import shopping.repository.ProductCategoryDao;
 import shopping.service.IngredientProductService;
 
+@Service
 public class IngredientProductServiceImpl implements IngredientProductService {
-	IngredientProductDaoImpl ingredientDao;
-	ProductCategoryDaoImpl categoryDao;
+	IngredientProductDao ingredientDaoImpl;
+	ProductCategoryDao categoryDaoImpl;
 
-	public IngredientProductServiceImpl() {
-		ingredientDao = new IngredientProductDaoImpl();
-		categoryDao = new ProductCategoryDaoImpl();
+	@Autowired
+	public IngredientProductServiceImpl(IngredientProductDao ingredientDaoImpl, ProductCategoryDao categoryDaoImpl) {
+		this.ingredientDaoImpl = ingredientDaoImpl;
+		this.categoryDaoImpl = categoryDaoImpl;
 	}
 
+	@Transactional
 	@Override
 	public List<IngredientProduct> getAllIngredientProducts() {
 		List<IngredientProduct> ingredientProducts = null;
 		try {
-			ingredientProducts = ingredientDao.getIngredientProductsAll();
+			ingredientProducts = ingredientDaoImpl.getIngredientProductsAll();
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
 		return ingredientProducts;
 	}
-
+	
+	@Transactional
 	@Override
 	public List<IngredientProduct> getIngredientProductByCategory(String category) {
 		List<IngredientProduct> ingredientProducts = null;
 		try {
-			ProductCategory productCategory = categoryDao.getProductCategoryByCategory(category);
-			ingredientProducts = ingredientDao.getIngredientProductsByCategory(productCategory);
+			ProductCategory productCategory = categoryDaoImpl.getProductCategoryByCategory(category);
+			ingredientProducts = ingredientDaoImpl.getIngredientProductsByCategory(productCategory);
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
 		return ingredientProducts;
 	}
 
+	@Transactional
+	@Override
 	public void insertFakeData(List<IngredientProduct> ingredientProducts) {
 		try {
-			ingredientDao.insertFakeData(ingredientProducts);
+			ingredientDaoImpl.insertFakeData(ingredientProducts);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -56,10 +60,11 @@ public class IngredientProductServiceImpl implements IngredientProductService {
 	}
 
 	@Override
+	@Transactional
 	public IngredientProduct getIngredientProductById(Integer id) {
 		IngredientProduct ingredientProduct = new IngredientProduct();
 		try {
-			ingredientProduct = ingredientDao.getIngredientProductById(id);
+			ingredientProduct = ingredientDaoImpl.getIngredientProductById(id);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

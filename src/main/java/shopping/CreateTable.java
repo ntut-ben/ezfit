@@ -12,31 +12,37 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import _00.utils.HibernateUtils;
 import _00.utils.SystemUtils2018;
 import shopping.model.CuisineProduct;
 import shopping.model.IngredientProduct;
 import shopping.model.PlaneProduct;
 import shopping.model.ProductCategory;
-import shopping.repository.impl.PlaneProductDaoImpl;
+import shopping.service.CuisineProductService;
+import shopping.service.IngredientProductService;
 import shopping.service.PlaneProductService;
+import shopping.service.ProductCategoryService;
 import shopping.service.impl.CuisineProductServiceImpl;
 import shopping.service.impl.IngredientProductServiceImpl;
 import shopping.service.impl.PlaneProductServiceImpl;
 import shopping.service.impl.ProductCategoryServiceImpl;
 
 public class CreateTable {
-	public static final String UTF8_BOM = "\uFEFF";
 
 	public static void main(String[] args) {
-		SessionFactory factory = HibernateUtils.getSessionFactory();
+		final String UTF8_BOM = "\\uFEFF";
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+		SessionFactory factory = ctx.getBean(SessionFactory.class);
 		Session session = factory.getCurrentSession();
 
-		ProductCategoryServiceImpl categoryServiceImpl = new ProductCategoryServiceImpl();
-		CuisineProductServiceImpl cuisineProductServiceImpl = new CuisineProductServiceImpl();
-		IngredientProductServiceImpl ingredientProductServiceImpl = new IngredientProductServiceImpl();
-		PlaneProductService planeProductService = new PlaneProductServiceImpl();
+		ProductCategoryService categoryServiceImpl = ctx.getBean(ProductCategoryServiceImpl.class);
+		System.out.println(categoryServiceImpl);
+		CuisineProductService cuisineProductServiceImpl = ctx.getBean(CuisineProductServiceImpl.class);
+		IngredientProductService ingredientProductServiceImpl = ctx.getBean(IngredientProductServiceImpl.class);
+		PlaneProductService planeProductService = ctx.getBean(PlaneProductServiceImpl.class);
+
 		List<IngredientProduct> ingredientProducts = new ArrayList<IngredientProduct>();
 		List<CuisineProduct> cuisineProducts = new ArrayList<CuisineProduct>();
 		List<PlaneProduct> planeProducts = new ArrayList<PlaneProduct>();
@@ -45,7 +51,7 @@ public class CreateTable {
 		File fileCuisine = new File("src/main/resources/data/productCuisine.data");
 		File filePlane = new File("src/main/resources/data/productPlane.data");
 
-//		創建商品分類
+//			創建商品分類
 		String category[] = { "muscle", "fit", "keep", "brute", "vegetable", "poultry", "fruit", "seafood", "egg",
 				"rice" };
 		List<ProductCategory> list = new ArrayList<ProductCategory>();
@@ -53,12 +59,11 @@ public class CreateTable {
 			ProductCategory productCategory = new ProductCategory(null, category[i]);
 			list.add(productCategory);
 		}
-
 		Transaction tx = session.beginTransaction();
-//		Insert 商品分類 into Table
+//			Insert 商品分類 into Table
 		categoryServiceImpl.insertFakeData(list);
 
-//		讀取食材商品資料
+//			讀取食材商品資料
 		try (FileInputStream fis = new FileInputStream(fileIngredient);
 				InputStreamReader isr = new InputStreamReader(fis, "UTF8");
 				BufferedReader br = new BufferedReader(isr);) {
@@ -91,10 +96,10 @@ public class CreateTable {
 			e.printStackTrace();
 		}
 
-//		Insert 食材商品資料 into Table
+//			Insert 食材商品資料 into Table
 		ingredientProductServiceImpl.insertFakeData(ingredientProducts);
 
-//		讀取餐點商品資料
+//			讀取餐點商品資料
 		try (FileInputStream fis = new FileInputStream(fileCuisine);
 				InputStreamReader isr = new InputStreamReader(fis, "UTF8");
 				BufferedReader br = new BufferedReader(isr);) {
@@ -135,10 +140,10 @@ public class CreateTable {
 			e.printStackTrace();
 		}
 
-//		Insert 餐點商品資料 into Table
+//			Insert 餐點商品資料 into Table
 		cuisineProductServiceImpl.insertFakeData(cuisineProducts);
 
-//		讀取計畫商品資料
+//			讀取計畫商品資料
 		try (FileInputStream fis = new FileInputStream(filePlane);
 				InputStreamReader isr = new InputStreamReader(fis, "UTF8");
 				BufferedReader br = new BufferedReader(isr);) {

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import createAccount.model.GlobalService;
 import createAccount.model.MemberBean;
 import createAccount.service.CodeServiceImpl;
+import createAccount.service.MemberService;
 import createAccount.service.MemberServiceImpl;
 
 @WebServlet("/createAccount/memberServlet.do")
@@ -39,7 +40,7 @@ public class MemberServlet extends HttpServlet {
 
 		String code = request.getParameter("veriCode");
 		CodeServiceImpl csi = new CodeServiceImpl();
-		MemberServiceImpl msi = new MemberServiceImpl();
+		MemberService msi = new MemberServiceImpl();
 		String correctCode = csi.queryCode(email);
 
 		// 檢查驗證碼

@@ -2,28 +2,29 @@ package shopping.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import _00.utils.HibernateUtils;
-import shopping.model.IngredientProduct;
 import shopping.model.ProductCategory;
-import shopping.repository.impl.ProductCategoryDaoImpl;
+import shopping.repository.ProductCategoryDao;
 import shopping.service.ProductCategoryService;
 
+@Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
-	private SessionFactory factory;
-	private ProductCategoryDaoImpl categoryDao;
 
-	public ProductCategoryServiceImpl() {
-		factory = HibernateUtils.getSessionFactory();
-		categoryDao = new ProductCategoryDaoImpl();
+	private ProductCategoryDao categoryDao;
+
+	@Autowired
+	public ProductCategoryServiceImpl(ProductCategoryDao categoryDao) {
+
+		this.categoryDao = categoryDao;
 	}
 
 	@Override
+	@Transactional
 	public List<ProductCategory> getAllProcutCategorys() {
-		Session session = factory.getCurrentSession();
+
 		List<ProductCategory> categories = null;
 		try {
 			categories = categoryDao.getAllProcutCategorys();
@@ -34,8 +35,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Transactional
 	public ProductCategory getProcutCategoryByCategory(String category) {
-		Session session = factory.getCurrentSession();
+
 		ProductCategory productCategory = null;
 		try {
 			productCategory = categoryDao.getProductCategoryByCategory(category);
@@ -46,8 +48,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
+	@Transactional
 	public void insertFakeData(List<ProductCategory> productCategories) {
-		Session session = factory.getCurrentSession();
+
 		try {
 			categoryDao.insertFakeData(productCategories);
 		} catch (Exception e) {

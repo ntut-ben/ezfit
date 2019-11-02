@@ -7,18 +7,20 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
-import shopping.model.CuisineProduct;
 import shopping.model.IngredientProduct;
 import shopping.model.ProductCategory;
 import shopping.repository.IngredientProductDao;
 
+@Repository
 public class IngredientProductDaoImpl implements IngredientProductDao {
 	private SessionFactory factory;
 
-	public IngredientProductDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public IngredientProductDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 //	回傳共幾筆資料

@@ -1,55 +1,47 @@
 package createAccount.service;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
-import createAccount.repository.MemberDaoImpl;
+import createAccount.repository.MemeberDao;
 
-public class MemberServiceImpl {
+@Service
+public class MemberServiceImpl implements MemberService {
 
-	MemberDaoImpl dao;
-	SessionFactory factory;
+	MemeberDao dao;
 
-	public MemberServiceImpl() {
-		this.dao = new MemberDaoImpl();
-		this.factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public MemberServiceImpl(MemeberDao dao) {
+		this.dao = dao;
+
 	}
 
 	// 新增會員到Member
+	@Override
+	@Transactional
 	public int saveMember(MemberBean mb) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
 		int n = 0;
 		try {
-			tx = session.beginTransaction();
 			dao.saveMember(mb);
 			n++;
-			tx.commit();
 		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
 			throw new RuntimeException(e);
 		}
 		return n;
 	}
 
-	//檢查Email是否已存在
+	// 檢查Email是否已存在
+	@Override
+	@Transactional
 	public boolean emailExists(String email) {
 		boolean result = false;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
 		try {
-			tx = session.beginTransaction();
 			result = dao.emailExists(email);
-			tx.commit();
 		} catch (Exception e) {
-			if (tx != null) {
-				tx.rollback();
-			}
 			throw new RuntimeException(e);
 		}
 		return result;

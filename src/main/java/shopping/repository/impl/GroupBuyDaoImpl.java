@@ -1,34 +1,54 @@
 package shopping.repository.impl;
 
-import javax.persistence.NoResultException;
+import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-import org.hibernate.HibernateException;
+import javax.persistence.NoResultException;
+import javax.xml.bind.DatatypeConverter;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
 import shopping.model.GroupBuyBean;
 import shopping.repository.GroupBuyDao;
 
+@Repository
 public class GroupBuyDaoImpl implements GroupBuyDao {
 
 	SessionFactory factory;
 
-	public GroupBuyDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	public GroupBuyDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override
-	public GroupBuyBean createGroupBuy(GroupBuyBean groupBuyBean) {
+	public String createGroupBuy(GroupBuyBean groupBuyBean) {
 
 		factory.getCurrentSession().persist(groupBuyBean);
+		String myHash = null;
+
 		MemberBean memberBean = groupBuyBean.getMemberBean();
 		String hql = "From GroupBuyBean where memberBean =:FK_MemberID ORDER BY id DESC";
 		GroupBuyBean bean = (GroupBuyBean) factory.getCurrentSession().createQuery(hql)
 				.setParameter("FK_MemberID", memberBean).setMaxResults(1).getSingleResult();
-		return bean;
 
+		Integer idHash = bean.getId().toString().hashCode();
+		Integer groupNameHash = bean.getGroupName().toString().hashCode();
+		Integer combainHash = (idHash.toString() + groupNameHash.toString()).hashCode();
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(combainHash.toString().getBytes());
+			byte[] digest = md.digest();
+			myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+			bean.setGroupAlias(myHash);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return myHash;
 	}
 
 	@Override
@@ -39,7 +59,6 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
 	@Override
 	public GroupBuyBean queryGroupBuyByAlias(String alias) {
-		Session session = factory.getCurrentSession();
 		GroupBuyBean bean = null;
 		try {
 			String hql = "From GroupBuyBean where groupAlias =:groupAlias";
@@ -50,6 +69,11 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 			e.printStackTrace();
 		}
 		return bean;
+	}
+
+	@Override
+	public void saveOrUpdate(GroupBuyBean groupBuyBean) {
+		factory.getCurrentSession().saveOrUpdate(groupBuyBean);
 	}
 
 }

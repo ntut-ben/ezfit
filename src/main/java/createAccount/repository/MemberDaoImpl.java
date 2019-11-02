@@ -3,19 +3,24 @@ package createAccount.repository;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
 
-public class MemberDaoImpl {
+@Repository
+public class MemberDaoImpl implements MemeberDao {
 	SessionFactory factory;
 
-	public MemberDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public MemberDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
+	@Override
 	public int saveMember(MemberBean mb) {
 		int n = 0;
 		Session session = factory.getCurrentSession();
@@ -24,6 +29,7 @@ public class MemberDaoImpl {
 		return n;
 	}
 
+	@Override
 	public boolean emailExists(String email) {
 		boolean exist = false;
 		MemberBean cb = null;
@@ -42,6 +48,7 @@ public class MemberDaoImpl {
 		return exist;
 	}
 
+	@Override
 	public MemberBean checkIDPassword(String email, String password) {
 		MemberBean mb = null;
 		String hql = "FROM MemberBean WHERE email = :email AND password = :password";

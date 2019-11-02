@@ -1,35 +1,36 @@
 package login.service;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
-import createAccount.repository.MemberDaoImpl;
+import createAccount.repository.MemeberDao;
 
-public class LoginServiceImpl {
-	MemberDaoImpl dao;
-	SessionFactory factory;
+@Service
+public class LoginServiceImpl implements LoginService {
+	MemeberDao dao;
 
-	public LoginServiceImpl() {
-		dao = new MemberDaoImpl();
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public LoginServiceImpl(MemeberDao dao) {
+		this.dao = dao;
 	}
 
+	@Override
+	@Transactional
 	public MemberBean checkIDPassword(String email, String password) {
 		MemberBean mb = null;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
 		try {
 
 			mb = dao.checkIDPassword(email, password);
-	
+
 		} catch (Exception ex) {
-		
+
 			ex.printStackTrace();
 			throw new RuntimeException(ex);
 		}
+		
 		return mb;
 	}
 

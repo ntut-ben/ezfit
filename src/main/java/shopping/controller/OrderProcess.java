@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import _00.utils.ToJson;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 import shopping.model.OrderBean;
 import shopping.service.impl.OrderServiceImpl;
@@ -25,7 +26,7 @@ public class OrderProcess extends HttpServlet {
 		final String CHARSET = "UTF8";
 		request.setCharacterEncoding(CHARSET);
 		response.setCharacterEncoding(CHARSET);
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		LoginService loginServiceImpl = new LoginServiceImpl();
 		OrderServiceImpl orderServiceImpl = new OrderServiceImpl();
 		OrderBean orderBean = null;
 		ToJson<OrderBean> toJson = new ToJson<OrderBean>();

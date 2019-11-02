@@ -8,19 +8,20 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
-import shopping.model.IngredientProduct;
 import shopping.model.ProductCategory;
 import shopping.repository.ProductCategoryDao;
 
+@Repository
 public class ProductCategoryDaoImpl implements ProductCategoryDao {
 	SessionFactory factory;
 	ProductCategory productCategory = null;
 
-	public ProductCategoryDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public ProductCategoryDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	public List<ProductCategory> getAllProcutCategorys() {

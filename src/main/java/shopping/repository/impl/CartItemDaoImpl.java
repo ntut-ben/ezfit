@@ -8,20 +8,23 @@ import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
 import shopping.model.CartItem;
 import shopping.model.GroupBuyBean;
 import shopping.model.Product;
 import shopping.repository.CartItemDao;
 
+@Repository
 public class CartItemDaoImpl implements CartItemDao {
 
 	SessionFactory factory;
 
-	public CartItemDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public CartItemDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override
@@ -116,9 +119,11 @@ public class CartItemDaoImpl implements CartItemDao {
 			String hql = "FROM CartItem WHERE product = :product and memberBean = :memberBean";
 			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("product", productBean)
 					.setParameter("memberBean", memberBean).getSingleResult();
-//			if (cartItemPersist != null) {
-//				session.evict(cartItemPersist);
-//			}
+			if (cartItemPersist.getGroupBuyBean() == null) {
+				;
+			} else {
+				throw new NoResultException();
+			}
 		} catch (NoResultException e) {
 			System.out.println("此會員購物車沒有該筆商品");
 		}
@@ -133,9 +138,12 @@ public class CartItemDaoImpl implements CartItemDao {
 			String hql = "FROM CartItem WHERE id = :id and memberBean = :memberBean";
 			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("id", cartId)
 					.setParameter("memberBean", memberBean).getSingleResult();
-//			if (cartItemPersist != null) {
-//				session.evict(cartItemPersist);
-//			}
+			if (cartItemPersist.getGroupBuyBean() == null) {
+				;
+			} else {
+				cartItemPersist = null;
+				throw new NoResultException();
+			}
 		} catch (NoResultException e) {
 			System.out.println("此會員購物車沒有該筆商品");
 		}

@@ -19,9 +19,9 @@ import javax.servlet.http.HttpSession;
 
 import createAccount.model.MemberBean;
 
-@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "mustLogin1", value = "/_03_listBooks/*"),
-		@WebInitParam(name = "mustLogin2", value = "/_20_productMaintain/*"),
-		@WebInitParam(name = "mustLogin3", value = "/cartList.html") })
+//@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "mustLogin1", value = "/_03_listBooks/*"),
+//		@WebInitParam(name = "mustLogin2", value = "/_20_productMaintain/*"),
+//		@WebInitParam(name = "mustLogin3", value = "/cartList.html") })
 public class LoginCheckingFilter implements Filter {
 	List<String> url = new ArrayList<String>();
 	String servletPath;

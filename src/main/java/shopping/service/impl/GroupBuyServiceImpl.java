@@ -1,34 +1,48 @@
 package shopping.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import shopping.model.GroupBuyBean;
 import shopping.repository.GroupBuyDao;
-import shopping.repository.impl.GroupBuyDaoImpl;
 import shopping.service.GroupBuyService;
 
+@Service
 public class GroupBuyServiceImpl implements GroupBuyService {
 
-	GroupBuyDao groupBuyDao;
+	GroupBuyDao groupBuyDaoImpl;
 
-	public GroupBuyServiceImpl() {
-		groupBuyDao = new GroupBuyDaoImpl();
+	@Autowired
+	public GroupBuyServiceImpl(GroupBuyDao groupBuyDaoImpl) {
+		this.groupBuyDaoImpl = groupBuyDaoImpl;
 	}
 
 	@Override
-	public GroupBuyBean createGroupBuy(GroupBuyBean groupBuyBean) {
+	@Transactional
+	public String createGroupBuy(GroupBuyBean groupBuyBean) {
 
-		return groupBuyDao.createGroupBuy(groupBuyBean);
+		return groupBuyDaoImpl.createGroupBuy(groupBuyBean);
 	}
 
 	@Override
+	@Transactional
 	public GroupBuyBean queryGroupBuyById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@Transactional
 	public GroupBuyBean queryGroupBuyByAlias(String alias) {
 
-		return groupBuyDao.queryGroupBuyByAlias(alias);
+		return groupBuyDaoImpl.queryGroupBuyByAlias(alias);
+	}
+
+	@Override
+	public void saveOrUpdate(GroupBuyBean groupBuyBean) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

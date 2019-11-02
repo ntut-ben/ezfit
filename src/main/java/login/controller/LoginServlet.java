@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import createAccount.model.GlobalService;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 
 @WebServlet("/login/loginServlet.do")
@@ -93,7 +94,7 @@ public class LoginServlet extends HttpServlet {
 
 		// 4. 進行 Business Logic 運算
 		// 將LoginServiceImpl類別new為物件，存放物件參考的變數為 loginService
-		LoginServiceImpl loginService = new LoginServiceImpl();
+		LoginService loginService = new LoginServiceImpl();
 
 		// 將密碼加密兩次，以便與存放在表格內的密碼比對
 		password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));

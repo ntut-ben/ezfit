@@ -2,18 +2,21 @@ package shopping.repository.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.MemberBean;
 import shopping.model.OrderBean;
 import shopping.repository.OrderDao;
 
+@Repository
 public class OrderDaoImpl implements OrderDao {
 
 	SessionFactory factory;
 
-	public OrderDaoImpl() {
-		this.factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public OrderDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override
@@ -31,8 +34,7 @@ public class OrderDaoImpl implements OrderDao {
 	public OrderBean query(MemberBean memberBean) {
 		Session session = factory.getCurrentSession();
 		OrderBean orderBean = null;
-		orderBean = (OrderBean) session.createQuery(
-				"from OrderBean where memberBean =:FK_MemberID ORDER BY id DESC")
+		orderBean = (OrderBean) session.createQuery("from OrderBean where memberBean =:FK_MemberID ORDER BY id DESC")
 				.setParameter("FK_MemberID", memberBean).setMaxResults(1).getSingleResult();
 		return orderBean;
 	}

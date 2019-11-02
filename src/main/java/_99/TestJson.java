@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import _00.utils.HibernateUtils;
 import _00.utils.ToJson;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 import shopping.model.CartItem;
 import shopping.service.impl.CartItemServiceImpl;
@@ -18,7 +19,7 @@ public class TestJson {
 
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		Session session = factory.getCurrentSession();
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		LoginService loginServiceImpl = new LoginServiceImpl();
 		CartItemServiceImpl cartItemServiceImpl = new CartItemServiceImpl();
 		ToJson<CartItem> toJson = new ToJson<CartItem>();
 		Transaction tx = null;

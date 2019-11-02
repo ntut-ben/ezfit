@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import createAccount.model.GlobalService;
 
-@WebFilter("/login/login.jsp")
+//@WebFilter("/login/login.jsp")
 public class FindUserPassword implements Filter {
 	String requestURI;
 

@@ -2,32 +2,32 @@ package shopping.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import _00.utils.HibernateUtils;
 import shopping.model.CuisineProduct;
 import shopping.model.ProductCategory;
-import shopping.repository.impl.CuisineProductDaoImpl;
-import shopping.repository.impl.IngredientProductDaoImpl;
-import shopping.repository.impl.ProductCategoryDaoImpl;
+import shopping.repository.CuisineProductDao;
+import shopping.repository.ProductCategoryDao;
 import shopping.service.CuisineProductService;
 
+@Service
 public class CuisineProductServiceImpl implements CuisineProductService {
-	SessionFactory factory;
-	CuisineProductDaoImpl cuisineProductDaoImpl;
-	ProductCategoryDaoImpl categoryDao;
 
-	public CuisineProductServiceImpl() {
-		factory = HibernateUtils.getSessionFactory();
-		cuisineProductDaoImpl = new CuisineProductDaoImpl();
-		categoryDao = new ProductCategoryDaoImpl();
+	CuisineProductDao cuisineProductDaoImpl;
+	ProductCategoryDao categoryDaoImpl;
+
+	@Autowired
+	public CuisineProductServiceImpl(CuisineProductDao cuisineProductDaoImpl, ProductCategoryDao categoryDaoImpl) {
+		this.cuisineProductDaoImpl = cuisineProductDaoImpl;
+		this.categoryDaoImpl = categoryDaoImpl;
 	}
 
 	@Override
+	@Transactional
 	public List<CuisineProduct> getAllCuisineProducts() {
-		Session session = factory.getCurrentSession();
+
 		List<CuisineProduct> cuisineProducts = null;
 		try {
 			cuisineProducts = cuisineProductDaoImpl.getCuisineProductProductsAll();
@@ -38,11 +38,12 @@ public class CuisineProductServiceImpl implements CuisineProductService {
 	}
 
 	@Override
+	@Transactional
 	public List<CuisineProduct> getCuisineProductByCategory(String category) {
-		Session session = factory.getCurrentSession();
+
 		List<CuisineProduct> cuisineProducts = null;
 		try {
-			ProductCategory productCategory = categoryDao.getProductCategoryByCategory(category);
+			ProductCategory productCategory = categoryDaoImpl.getProductCategoryByCategory(category);
 			cuisineProducts = cuisineProductDaoImpl.getCuisineProductProductsByCategory(productCategory);
 		} catch (Exception e) {
 			throw new RuntimeException();
@@ -51,8 +52,9 @@ public class CuisineProductServiceImpl implements CuisineProductService {
 	}
 
 	@Override
+	@Transactional
 	public void insertFakeData(List<CuisineProduct> cuisineProducts) {
-		Session session = factory.getCurrentSession();
+
 		try {
 			cuisineProductDaoImpl.insertFakeData(cuisineProducts);
 		} catch (Exception e) {
@@ -62,6 +64,7 @@ public class CuisineProductServiceImpl implements CuisineProductService {
 	}
 
 	@Override
+	@Transactional
 	public CuisineProduct getCuisineProductById(Integer id) {
 		CuisineProduct cuisineProduct = new CuisineProduct();
 		try {
@@ -73,9 +76,9 @@ public class CuisineProductServiceImpl implements CuisineProductService {
 	}
 
 	@Override
+	@Transactional
 	public void saveOrUpdate(CuisineProduct cuisineProduct) {
 
-		Session session = factory.getCurrentSession();
 		try {
 			cuisineProductDaoImpl.saveOrUpdate(cuisineProduct);
 		} catch (Exception e) {

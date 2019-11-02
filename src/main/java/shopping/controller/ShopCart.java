@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 
 import _00.utils.ToJson;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 import shopping.model.CartItem;
 import shopping.model.CuisineProduct;
@@ -58,7 +59,7 @@ public class ShopCart extends HttpServlet {
 		HttpSession session = request.getSession(false);
 
 		CartItemServiceImpl cartItemServiceImpl = new CartItemServiceImpl();
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		LoginService loginServiceImpl = new LoginServiceImpl();
 		GroupBuyService groupBuyService = new GroupBuyServiceImpl();
 		ProductServiceImpl productServiceImpl = new ProductServiceImpl();
 		OrderServiceImpl orderServiceImpl = new OrderServiceImpl();

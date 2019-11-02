@@ -15,17 +15,18 @@ import javax.servlet.http.HttpSession;
 
 import _00.utils.ToJson;
 import createAccount.model.MemberBean;
+import login.service.LoginService;
 import login.service.LoginServiceImpl;
 import shopping.model.CartItem;
 import shopping.model.GroupBuyBean;
 import shopping.model.OrderItemBean;
 import shopping.model.PlaneProduct;
 import shopping.repository.OrderItemService;
-import shopping.repository.impl.OrderItemServiceImpl;
 import shopping.service.GroupBuyService;
 import shopping.service.ProductService;
 import shopping.service.impl.CartItemServiceImpl;
 import shopping.service.impl.GroupBuyServiceImpl;
+import shopping.service.impl.OrderItemServiceImpl;
 import shopping.service.impl.ProductServiceImpl;
 
 /**
@@ -43,7 +44,7 @@ public class CheckShopCart extends HttpServlet {
 		response.setCharacterEncoding(CHARSET);
 
 		CartItemServiceImpl cartItemServiceImpl = new CartItemServiceImpl();
-		LoginServiceImpl loginServiceImpl = new LoginServiceImpl();
+		LoginService loginServiceImpl = new LoginServiceImpl();
 		GroupBuyService groupBuyService = new GroupBuyServiceImpl();
 		OrderItemService orderService = new OrderItemServiceImpl();
 		ProductService productService = new ProductServiceImpl();

@@ -6,18 +6,21 @@ import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import shopping.model.Product;
 import shopping.model.ProductCategory;
 import shopping.repository.ProductDao;
 
+@Repository
 public class ProductDaoImpl implements ProductDao {
 	SessionFactory factory;
 	ProductCategory productCategory = null;
 
-	public ProductDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	@Autowired
+	public ProductDaoImpl(SessionFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override
