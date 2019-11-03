@@ -1,13 +1,12 @@
 package shopping.repository.impl;
 
-import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.xml.bind.DatatypeConverter;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -82,4 +81,30 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
 	}
 
+	@Override
+	public void checkoutGroupBuy(Integer id, MemberBean memberBean) {
+		GroupBuyBean bean = null;
+		try {
+			String hql = "From GroupBuyBean where id =:id and memberBean=:memberBean";
+			bean = (GroupBuyBean) factory.getCurrentSession().createQuery(hql).setParameter("id", id)
+					.setParameter("memberBean", memberBean).getSingleResult();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bean.setStatus(1);
+	}
+
+	@Override
+	public List<GroupBuyBean> queryGroupBuyByMember(MemberBean memberBean) {
+		List<GroupBuyBean> beans = null;
+		try {
+			String hql = "From GroupBuyBean where memberBean =:memberBean";
+			beans = factory.getCurrentSession().createQuery(hql).setParameter("memberBean", memberBean).getResultList();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return beans;
+	}
 }

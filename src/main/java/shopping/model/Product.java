@@ -35,6 +35,7 @@ public class Product {
 	protected Blob coverImage;
 	@Expose
 	private String fileName;
+	@Expose
 	@ManyToOne
 	@JoinColumn(name = "FK_ProductCategory")
 	protected ProductCategory productCategory;

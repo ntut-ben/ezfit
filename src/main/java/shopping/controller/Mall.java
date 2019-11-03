@@ -82,6 +82,7 @@ public class Mall {
 	List<CartItem> cartItems = null;
 	List<CuisineProduct> cuisineProducts = null;
 	List<OrderItemBean> orderItemBeans = null;
+	List<OrderBean> orderBeans = null;
 
 	// 食材商城頁面
 	@RequestMapping(value = "/shopMaterial", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -683,6 +684,21 @@ public class Mall {
 		return json;
 	}
 
+	// 訂單明細(根據訂單Id)
+	@RequestMapping(value = "api/orders/query/order/{orderId}", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+	public @ResponseBody String perOrderDetail(@PathVariable("orderId") Integer orderId, HttpServletRequest req) {
+
+		ToJson<OrderBean> toJson = new ToJson<OrderBean>();
+		String json = null;
+
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+
+		orderBean = orderService.query(orderId, memberBean);
+		json = toJson.getJson(orderBean);
+		return json;
+	}
+
 	// 創立團購
 	@RequestMapping(value = "api/GroupBuy/create", method = RequestMethod.POST)
 	public String groupBuyCreate(@RequestParam("groupName") String groupName,
@@ -779,6 +795,28 @@ public class Mall {
 			ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
 			return toJson.getJson(groupBuyBeanInit);
 		}
+	}
+
+	// 查詢該會員所有已結帳/收單的訂單紀錄
+	@RequestMapping(value = "api/orders/query/order", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	public @ResponseBody String orderQuery(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		orderBeans = orderService.queryOrderBeans(memberBean);
+		if (orderBeans != null) {
+			return new ToJson<OrderBean>().getArrayJson(orderBeans);
+		} else {
+			return null;
+		}
+	}
+
+	// 團購收單
+	@RequestMapping(value = "api/GroupBuy/checkout/{groupId}", method = RequestMethod.GET)
+	public void groupBuyCheckout(@PathVariable("groupId") Integer groupId, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		groupBuyService.checkoutGroupBuy(groupId, memberBean);
+
 	}
 
 	public MemberBean checkMemberBean(HttpSession session) {

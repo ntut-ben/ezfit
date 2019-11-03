@@ -76,14 +76,14 @@ pageEncoding="UTF-8"%>
                         <th scope="col">總金額</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
+                    <tbody id="orderTbody">
+                      <!-- <tr>
                         <td>2019-10-03 18:04</td>
                         <td>#A201910138843</td>
                         <td>王小明</td>
                         <td><a href="#">點此查看明細</a></td>
                         <td>1380 元</td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>

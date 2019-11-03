@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
       <div class="container py-5">
         <div class="row">
           <div class="col-12 mt-5">
-            <h3 class="text-white">健身強體計畫</h3>
+            <h3 id="title" class="text-white">健身強體計畫</h3>
           </div>
           <div class="col-12  mb-5 text-white">幫助你在短時間內達成目標</div>
         </div>
@@ -37,16 +37,23 @@ pageEncoding="UTF-8"%>
               <p>平均營養標示</p>
               <hr class="border border-white bg-white" />
               <div class="d-flex ">
-                <div class="mx-auto text-center">卡路里 <br />450-650</div>
-                <div class="mx-auto text-center">蛋白質 <br />55g</div>
-                <div class="mx-auto text-center">脂肪 <br />15g</div>
-                <div class="mx-auto text-center">碳水化合物 <br />30g</div>
+                <div id="col" class="mx-auto text-center">
+                  卡路里 <br />450-650
+                </div>
+                <div id="protien" class="mx-auto text-center">
+                  蛋白質 <br />55g
+                </div>
+                <div id="fat" class="mx-auto text-center">脂肪 <br />15g</div>
+                <div id="carb" class="mx-auto text-center">
+                  碳水化合物 <br />30g
+                </div>
               </div>
             </div>
             <div class="col-2">
               <img
+                id="titlePic"
                 class="rounded-circle nutritionCircle"
-                src="images/basil-delicious-food-459469.jpg"
+                src="images/nutrition_workout.svg"
                 alt=""
               />
             </div>

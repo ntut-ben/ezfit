@@ -3,6 +3,7 @@ $(document).ready(function() {
   $(".nutritionCircle").css("height", imgCircleWidth);
 
   getFoodData();
+  console.log(123);
   $(".btn-Back").click(function(e) {
     e.preventDefault();
     history.back();
@@ -40,7 +41,36 @@ function getFoodData() {
       $("#dinnerRow")
         .children(".col-2-c")
         .remove();
-      console.log(data);
+
+      console.log(data.planeItems[0].cuisineProduct.productCategory);
+      plane = data.planeItems[0].cuisineProduct.productCategory.category;
+
+      if (plane == "muscle") {
+        $("#planeBody").addClass("planeBody-muscle");
+        $("#titlePic").attr("src", "images/nutrition_workout.svg");
+        $("#title").text("健身強體計畫");
+        $("#col").html("卡路里 <br />450-650");
+        $("#protien").html("蛋白質 <br />55g");
+        $("#fat").html("脂肪 <br />15g");
+        $("#carb").html("碳水化合物 <br />30g");
+      } else if (plane == "fit") {
+        $("#planeBody").addClass("planeBody-fit");
+        $("#titlePic").attr("src", "images/nutrition_slim.svg");
+        $("#title").text("輕盈窈窕計畫");
+        $("#col").html("卡路里 <br />300-400");
+        $("#protien").html("蛋白質 <br />30g");
+        $("#fat").html("脂肪 <br />7g");
+        $("#carb").html("碳水化合物 <br />17g");
+      } else if (plane == "keep") {
+        $("#planeBody").addClass("planeBody-keep");
+        $("#titlePic").attr("src", "images/nutrition_well_bing.svg");
+        $("#title").text("健康營養計畫");
+        $("#col").html("卡路里 <br />350-650");
+        $("#protien").html("蛋白質 <br />45g");
+        $("#fat").html("脂肪 <br />10g");
+        $("#carb").html("碳水化合物 <br />25g");
+      }
+
       lunchArray = [];
       dinnerArray = [];
       breakfastArray = [];
@@ -178,7 +208,6 @@ function createProductElement(array) {
   countDay = 0;
   for (let index = 0; index < array.length; index++) {
     fileName = array[index].cuisineProduct.fileName.split(",");
-    console.log(fileName[0]);
     countDay = index + 1;
     appData += `<div class="col-2 col-2-c hover_shadow" data-id="${
       array[index].id
@@ -215,7 +244,6 @@ function getSingleMealBox(id) {
       $("#detialInfoContainer")
         .children(".detialInfo")
         .remove();
-
       fileName = data.fileName.split(",");
       detailData = "";
       detailData += `<!-- left product image -->

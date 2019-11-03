@@ -1,16 +1,31 @@
 $(document).ready(function() {
-  // load file into header and footer
-  $("#header").load("header.html");
-  $("#footer").load("footer.html");
-
   getData();
+
+  $(".btn-Back").click(function(e) {
+    e.preventDefault();
+    history.back();
+  });
 });
 
 function getData() {
+  $.urlParam = function(name) {
+    var results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+      window.location.search
+    );
+    return results !== null ? results[1] || 0 : false;
+  };
+  orderId = $.urlParam("orderId");
+
+  if (orderId != undefined && orderId != null && orderId != false) {
+    apiURL = `http://localhost:8080/ezfit/api/orders/query/order/${orderId}`;
+  } else {
+    apiURL = `http://localhost:8080/ezfit/api/orderDetail`;
+  }
+
   $.ajax({
     type: "GET",
     cache: false,
-    url: `http://localhost:8080/ezfit/api/orderDetail`,
+    url: apiURL,
     dataType: "json",
     success: function(data) {
       console.log(data);
@@ -116,12 +131,13 @@ function getData() {
     `;
 
       $("#cartListRow").append(cartData);
-
-      $("#orderInfo").html(
-        `<h3>${data.subscriberName}，訂購成功!您的訂單編號為#${data.id}</h3>`
-      );
-      $("#orderId").html(`訂單編號: #${data.id}`);
-      $("#orderTime").html(`時間: ${data.createTime}`);
+      if (orderId == undefined || orderId == null || orderId == false) {
+        $("#orderInfo").html(
+          `<h3>${data.subscriberName}，訂購成功!您的訂單編號為#${data.id}</h3>`
+        );
+        $("#orderId").html(`訂單編號: #${data.id}`);
+        $("#orderTime").html(`時間: ${data.createTime}`);
+      }
     }
   });
 }

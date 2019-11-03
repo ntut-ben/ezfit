@@ -1,5 +1,21 @@
-#planeBody {
+.planeBody-muscle {
   background: url(../images/abs-adult-athlete-1229356.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.planeBody-keep {
+  background: url(../images/quan-nguyen-sGHnXezeo-Q-unsplash_0.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.planeBody-fit {
+  background: url(../images/adult-bowl-brunette-1153371_0.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

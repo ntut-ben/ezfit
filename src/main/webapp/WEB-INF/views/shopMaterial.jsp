@@ -194,7 +194,7 @@
 		</div>
 	</div>
 	<!-- footer -->
- <jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 
 	<!-- Item Modal -->
 	<div class="modal fade" id="itemModel" tabindex="-1" role="dialog"
@@ -283,6 +283,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="js/nav.js"></script>
 	<script src="js/shopMaterial_new.js"></script>
 </body>
 </html>

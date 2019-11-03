@@ -6,6 +6,13 @@
 <!-- <link rel="stylesheet" -->
 <!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" /> -->
 
+<head>
+<link rel="stylesheet" href="css/nav.css" />
+
+
+</head>
+
+
 <c:set var='debug' value='true' scope='application' />
 
 <div class="header-one">
@@ -81,7 +88,8 @@
 														<div class="card-body">
 															<p class="card-text">堅持使用新鮮食材，少油、低鈉，讓外食族的您也 能吃得健康。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=keep" class="btn btn-success">現在就訂</a>
+																<a href="work-out-plane.jsp?plane=keep"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>
@@ -98,7 +106,8 @@
 														<div class="card-body">
 															<p class="card-text">針對增肌族群，提供最豐富、優質的蛋白質，讓您 的一天充滿活力。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=muscle" class="btn btn-success">現在就訂</a>
+																<a href="work-out-plane.jsp?plane=muscle"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 														</div>
 													</div>
@@ -119,7 +128,8 @@
 														<div class="card-body">
 															<p class="card-text">減肥不用再餓肚子，精算熱量、營養調配，讓您吃 的健康，瘦的漂亮。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=fit" class="btn btn-success">現在就訂</a>
+																<a href="work-out-plane.jsp?plane=fit"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>

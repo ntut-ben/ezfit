@@ -1,5 +1,7 @@
 package shopping.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,18 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public OrderBean query(MemberBean memberBean) {
 		return orderDaoImpl.query(memberBean);
+	}
+
+	@Override
+	@Transactional
+	public List<OrderBean> queryOrderBeans(MemberBean memberBean) {
+		return orderDaoImpl.queryOrderBeans(memberBean);
+	}
+
+	@Override
+	@Transactional
+	public OrderBean query(Integer orderId, MemberBean memberBean) {
+		return orderDaoImpl.query(orderId, memberBean);
 	}
 
 }

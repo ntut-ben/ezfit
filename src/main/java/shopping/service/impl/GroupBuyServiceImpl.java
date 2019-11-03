@@ -1,9 +1,12 @@
 package shopping.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import createAccount.model.MemberBean;
 import shopping.model.GroupBuyBean;
 import shopping.repository.GroupBuyDao;
 import shopping.service.GroupBuyService;
@@ -34,6 +37,13 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
 	@Override
 	@Transactional
+	public List<GroupBuyBean> queryGroupBuyByMember(MemberBean memberBean) {
+		// TODO Auto-generated method stub
+		return groupBuyDaoImpl.queryGroupBuyByMember(memberBean);
+	}
+
+	@Override
+	@Transactional
 	public GroupBuyBean queryGroupBuyByAlias(String alias) {
 
 		return groupBuyDaoImpl.queryGroupBuyByAlias(alias);
@@ -48,8 +58,14 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	@Override
 	@Transactional
 	public void joinGroupBuy(GroupBuyBean groupBuyBean) {
-		// TODO Auto-generated method stub
+		groupBuyDaoImpl.joinGroupBuy(groupBuyBean);
 
+	}
+
+	@Override
+	@Transactional
+	public void checkoutGroupBuy(Integer id, MemberBean memberBean) {
+		groupBuyDaoImpl.checkoutGroupBuy(id, memberBean);
 	}
 
 }
