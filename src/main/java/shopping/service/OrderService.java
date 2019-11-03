@@ -3,6 +3,7 @@ package shopping.service;
 import java.util.List;
 
 import createAccount.model.MemberBean;
+import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
 
 public interface OrderService {
@@ -13,4 +14,7 @@ public interface OrderService {
 	public OrderBean query(Integer orderId, MemberBean memberBean);
 
 	public OrderBean query(MemberBean memberBean);
+
+	public OrderBean query(GroupBuyBean groupBuyBean, MemberBean memberBean);
+
 }

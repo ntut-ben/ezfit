@@ -83,6 +83,7 @@ public class Mall {
 	List<CuisineProduct> cuisineProducts = null;
 	List<OrderItemBean> orderItemBeans = null;
 	List<OrderBean> orderBeans = null;
+	List<GroupBuyBean> groupBeans = null;
 
 	// 食材商城頁面
 	@RequestMapping(value = "/shopMaterial", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -308,7 +309,10 @@ public class Mall {
 		MemberBean memberBean = checkMemberBean(session);
 
 		GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
-		// 如果itemId and productQTY 不為空值
+		if (groupBuyBean.getStatus() != 0) {
+			return null;
+		}
+		;
 
 		// 取出商品
 		product = productService.getProductById(itemId);
@@ -699,6 +703,31 @@ public class Mall {
 		return json;
 	}
 
+	// 訂單明細(根據團購Id)
+	@RequestMapping(value = "api/orders/query/order/groupBuy/{groupId}", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
+	public @ResponseBody String perOrderDetailByGroup(@PathVariable("groupId") Integer groupId,
+			HttpServletRequest req) {
+
+		ToJson<OrderBean> toJson = new ToJson<OrderBean>();
+		String json = null;
+		System.out.println(groupId);
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		groupBuyBean = groupBuyService.queryGroupBuyById(groupId);
+
+		orderBean = orderService.query(groupBuyBean, memberBean);
+		if (orderBean != null) {
+			json = toJson.getJson(orderBean);
+			return json;
+		} else {
+//			Map<String, String> status = new HashMap<String, String>();
+//			status.put("status", "false");
+//			json = new ToJson<Map<String, String>>().getJson(status);
+			return null;
+		}
+
+	}
+
 	// 創立團購
 	@RequestMapping(value = "api/GroupBuy/create", method = RequestMethod.POST)
 	public String groupBuyCreate(@RequestParam("groupName") String groupName,
@@ -733,6 +762,8 @@ public class Mall {
 		groupBuyBean.setShippingAddress(address);
 		groupBuyBean.setMemberBean(memberBean);
 		groupBuyBean.setRole(0);
+		Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+		groupBuyBean.setCreateTime(ts);
 		String myHash = groupBuyService.createGroupBuy(groupBuyBean);
 
 		return ("redirect:/groupBuying?group=" + myHash);
@@ -812,11 +843,30 @@ public class Mall {
 
 	// 團購收單
 	@RequestMapping(value = "api/GroupBuy/checkout/{groupId}", method = RequestMethod.GET)
-	public void groupBuyCheckout(@PathVariable("groupId") Integer groupId, HttpServletRequest req) {
+	public @ResponseBody String groupBuyCheckout(@PathVariable("groupId") Integer groupId, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MemberBean memberBean = checkMemberBean(session);
 		groupBuyService.checkoutGroupBuy(groupId, memberBean);
 
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("status", "ok");
+		return new ToJson<Map<String, String>>().getJson(map);
+	}
+
+	// 該會員所有團購紀錄
+	@RequestMapping(value = "api/GroupBuy/query", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	public @ResponseBody String groupBuyQuery(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		groupBeans = groupBuyService.queryGroupBuyByMember(memberBean);
+
+		if (groupBeans == null) {
+			return null;
+		} else {
+			ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
+			String json = toJson.getArrayJson(groupBeans);
+			return json;
+		}
 	}
 
 	public MemberBean checkMemberBean(HttpSession session) {

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import createAccount.model.MemberBean;
+import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
 import shopping.repository.OrderDao;
 
@@ -73,6 +74,16 @@ public class OrderDaoImpl implements OrderDao {
 		OrderBean orderBean = null;
 		orderBean = (OrderBean) session.createQuery("from OrderBean where memberBean =:FK_MemberID and id =:id")
 				.setParameter("FK_MemberID", memberBean).setParameter("id", orderId).getSingleResult();
+		return orderBean;
+	}
+
+	@Override
+	public OrderBean query(GroupBuyBean groupBuyBean, MemberBean memberBean) {
+		Session session = factory.getCurrentSession();
+		OrderBean orderBean = null;
+		orderBean = (OrderBean) session
+				.createQuery("from OrderBean where memberBean =:FK_MemberID and groupBuyBean =:groupBuyBean")
+				.setParameter("FK_MemberID", memberBean).setParameter("groupBuyBean", groupBuyBean).getSingleResult();
 		return orderBean;
 	}
 }

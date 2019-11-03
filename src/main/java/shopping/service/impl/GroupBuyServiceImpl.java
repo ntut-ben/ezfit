@@ -31,8 +31,8 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	@Override
 	@Transactional
 	public GroupBuyBean queryGroupBuyById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return groupBuyDaoImpl.queryGroupBuyById(id);
 	}
 
 	@Override

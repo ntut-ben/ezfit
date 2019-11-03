@@ -1,12 +1,10 @@
 package login.controller;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +20,7 @@ import createAccount.model.GlobalService;
 import createAccount.model.MemberBean;
 import createAccount.service.CodeServiceImpl;
 import createAccount.service.MemberService;
-import createAccount.service.MemberServiceImpl;
 import login.service.LoginService;
-import login.service.LoginServiceImpl;
 
 @Controller
 public class Member {

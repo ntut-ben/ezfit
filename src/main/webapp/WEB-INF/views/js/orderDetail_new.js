@@ -15,7 +15,6 @@ function getData() {
     return results !== null ? results[1] || 0 : false;
   };
   orderId = $.urlParam("orderId");
-
   if (orderId != undefined && orderId != null && orderId != false) {
     apiURL = `http://localhost:8080/ezfit/api/orders/query/order/${orderId}`;
   } else {
@@ -28,7 +27,6 @@ function getData() {
     url: apiURL,
     dataType: "json",
     success: function(data) {
-      console.log(data);
       total = 0;
       cartData = "";
 
@@ -131,12 +129,14 @@ function getData() {
     `;
 
       $("#cartListRow").append(cartData);
-      if (orderId == undefined || orderId == null || orderId == false) {
+
+      if (orderId != undefined || orderId != null || orderId != false) {
+        $("#orderId").html(`訂單編號: #${data.id}`);
+        $("#orderTime").html(`時間: ${data.createTime}`);
+      } else {
         $("#orderInfo").html(
           `<h3>${data.subscriberName}，訂購成功!您的訂單編號為#${data.id}</h3>`
         );
-        $("#orderId").html(`訂單編號: #${data.id}`);
-        $("#orderTime").html(`時間: ${data.createTime}`);
       }
     }
   });

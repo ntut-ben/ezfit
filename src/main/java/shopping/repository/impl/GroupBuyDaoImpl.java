@@ -7,11 +7,13 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.xml.bind.DatatypeConverter;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import createAccount.model.MemberBean;
 import shopping.model.GroupBuyBean;
+import shopping.model.OrderBean;
 import shopping.repository.GroupBuyDao;
 
 @Repository
@@ -52,8 +54,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
 	@Override
 	public GroupBuyBean queryGroupBuyById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = factory.getCurrentSession();
+		return session.load(GroupBuyBean.class, id);
 	}
 
 	@Override

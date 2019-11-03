@@ -1,6 +1,7 @@
 package shopping.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,8 @@ public class GroupBuyBean {
 	@Expose
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	@Expose
+	Timestamp createTime;
 	@Expose
 	private String groupName;
 
@@ -57,14 +59,17 @@ public class GroupBuyBean {
 
 	@Expose
 	private String shippingPhone;
-
+	
+	@Expose
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "FK_InitiatorID")
 	private GroupBuyBean initiator;
 
+	
 	@OneToMany(mappedBy = "initiator")
 	private Set<GroupBuyBean> joiner = new HashSet<GroupBuyBean>();
 
+	@Expose
 	@OneToMany(mappedBy = "groupBuyBean")
 	Set<OrderBean> orderBeans = new HashSet<OrderBean>();
 
@@ -232,6 +237,14 @@ public class GroupBuyBean {
 
 	public void setCartItems(Set<CartItem> cartItems) {
 		this.cartItems = cartItems;
+	}
+
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 
 }

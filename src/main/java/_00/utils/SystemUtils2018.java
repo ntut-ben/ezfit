@@ -20,7 +20,7 @@ import javax.sql.rowset.serial.SerialClob;
 public class SystemUtils2018 {
 
 	public static Blob fileToBlob(String imageFileName) throws IOException, SQLException {
-		File imageFile = new File("src\\main\\resources\\productImage\\" + imageFileName);
+		File imageFile = new File("src/main/resources/productImage/" + imageFileName);
 		long size = imageFile.length();
 		byte[] b = new byte[(int) size];
 		SerialBlob sb = null;

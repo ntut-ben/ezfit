@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import createAccount.model.MemberBean;
+import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
 import shopping.repository.OrderDao;
 import shopping.service.OrderService;
@@ -43,6 +44,11 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public OrderBean query(Integer orderId, MemberBean memberBean) {
 		return orderDaoImpl.query(orderId, memberBean);
+	}
+
+	@Override
+	public OrderBean query(GroupBuyBean groupBuyBean, MemberBean memberBean) {
+		return orderDaoImpl.query(groupBuyBean, memberBean);
 	}
 
 }

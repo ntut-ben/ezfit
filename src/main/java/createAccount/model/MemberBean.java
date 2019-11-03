@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 import shopping.model.GroupBuyBean;
 import shopping.model.OrderBean;
 
@@ -27,6 +29,7 @@ public class MemberBean implements Serializable {
 	Integer pkey;
 	String email;
 	String password;
+	@Expose
 	String name;
 	String gender;
 	Double height;

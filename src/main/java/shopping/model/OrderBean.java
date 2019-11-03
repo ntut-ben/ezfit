@@ -100,7 +100,7 @@ public class OrderBean {
 
 	@JoinColumn(name = "FK_GroupBuyBeanID")
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	private GroupBuyBean groupBuyBean;
+	private GroupBuyBean groupBuyBean = new GroupBuyBean();
 
 	public OrderBean(Integer id, Timestamp createTime, Integer totalAmount, String subscriberName, String shippingName,
 			String subscriberCity, String subscriberDistrict, String subscriberAddress, String subscriberEmail,
