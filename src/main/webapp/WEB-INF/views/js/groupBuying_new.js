@@ -275,7 +275,7 @@ function generateView() {
         </div>
         <div class="col-12 m-2 text-center main-Font-Color bg-white">
           <button class="btn btn-success text-white w-25">
-            <a class="text-white h5 " href="">點餐去</a>
+            <a class="text-white h5 " href="api/GroupBuy/join/${group}">點餐去</a>
           </button>
         </div>
       </div>

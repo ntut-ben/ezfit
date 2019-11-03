@@ -391,7 +391,6 @@ public class ShopCart extends HttpServlet {
 
 		} else if (action.equals("groupBill")) {
 			group = request.getParameter("group");
-
 			GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
 			System.out.println(group);
 			System.out.println(groupBuyBean);

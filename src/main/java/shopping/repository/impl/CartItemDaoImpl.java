@@ -76,19 +76,15 @@ public class CartItemDaoImpl implements CartItemDao {
 	}
 
 	@Override
-	public void delete(Product productBean, MemberBean memberBean) {
+	public void delete(Integer id, MemberBean memberBean) {
 		Session session = factory.getCurrentSession();
-		List<CartItem> cartItems = null;
-		String hql = "From CartItem WHERE memberBean = :memberBean and product = :product";
-		cartItems = session.createQuery(hql).setParameter("memberBean", memberBean).setParameter("product", productBean)
-				.getResultList();
+		CartItem cartItem = null;
+		String hql = "From CartItem WHERE memberBean = :memberBean and id = :id";
+		cartItem = (CartItem) session.createQuery(hql).setParameter("memberBean", memberBean).setParameter("id", id)
+				.getSingleResult();
 
-		for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
-			CartItem cartItem = (CartItem) iterator.next();
-			if (cartItem.getGroupBuyBean() == null) {
-				session.delete(cartItem);
-			}
-		}
+		session.delete(cartItem);
+
 	}
 
 	@Override
@@ -116,14 +112,9 @@ public class CartItemDaoImpl implements CartItemDao {
 		Session session = factory.getCurrentSession();
 		CartItem cartItemPersist = null;
 		try {
-			String hql = "FROM CartItem WHERE product = :product and memberBean = :memberBean";
+			String hql = "FROM CartItem WHERE product = :product and memberBean = :memberBean and groupBuyBean is null ";
 			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("product", productBean)
 					.setParameter("memberBean", memberBean).getSingleResult();
-			if (cartItemPersist.getGroupBuyBean() == null) {
-				;
-			} else {
-				throw new NoResultException();
-			}
 		} catch (NoResultException e) {
 			System.out.println("此會員購物車沒有該筆商品");
 		}
@@ -138,12 +129,7 @@ public class CartItemDaoImpl implements CartItemDao {
 			String hql = "FROM CartItem WHERE id = :id and memberBean = :memberBean";
 			cartItemPersist = (CartItem) session.createQuery(hql).setParameter("id", cartId)
 					.setParameter("memberBean", memberBean).getSingleResult();
-			if (cartItemPersist.getGroupBuyBean() == null) {
-				;
-			} else {
-				cartItemPersist = null;
-				throw new NoResultException();
-			}
+
 		} catch (NoResultException e) {
 			System.out.println("此會員購物車沒有該筆商品");
 		}
@@ -194,6 +180,16 @@ public class CartItemDaoImpl implements CartItemDao {
 				.setParameter("groupBuyBean", groupBuyBean).setParameter("product", productBean).getSingleResult();
 		session.delete(cartItem);
 
+	}
+
+	@Override
+	public void remove(Product productBean, MemberBean memberBean) {
+		Session session = factory.getCurrentSession();
+		CartItem cartItem = null;
+		String hql = "From CartItem WHERE memberBean = :memberBean and product = :product and groupBuyBean is null";
+		cartItem = (CartItem) session.createQuery(hql).setParameter("memberBean", memberBean)
+				.setParameter("product", productBean).getSingleResult();
+		session.delete(cartItem);
 	}
 
 }

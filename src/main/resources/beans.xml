@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<context:component-scan base-package="shopping"></context:component-scan>
+	<context:component-scan base-package="shopping,createAccount,login"></context:component-scan>
 
 
 	<bean id="dataSourceMySQL"

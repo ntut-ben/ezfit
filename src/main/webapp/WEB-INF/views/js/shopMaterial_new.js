@@ -49,6 +49,11 @@ $(document).ready(function() {
             $("#groupName").html(data.groupName);
             $("#groupDeadLine").html(`團購結單日期 : ${deadLine}`);
             groupAlias = group;
+
+            $("#groupShareBtn").click(function(e) {
+              e.preventDefault();
+              window.location.href = `groupBuying?group=${group}`;
+            });
           }
         }
       });

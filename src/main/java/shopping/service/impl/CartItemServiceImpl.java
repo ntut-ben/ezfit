@@ -40,8 +40,8 @@ public class CartItemServiceImpl implements CartItemService {
 	@Override
 	@Transactional
 	public void delete(Integer id, MemberBean memberBean) {
-		Product productBean = productDaoImpl.getProductById(id);
-		cartItemDaoImpl.delete(productBean, memberBean);
+
+		cartItemDaoImpl.delete(id, memberBean);
 
 	}
 
@@ -54,10 +54,9 @@ public class CartItemServiceImpl implements CartItemService {
 
 	@Override
 	@Transactional
-	public CartItem modifyQTY(Integer id, MemberBean memberBean, Integer qty) {
+	public CartItem modifyQTY(Integer cartId, MemberBean memberBean, Integer qty) {
 		CartItem cartItemEvict = null;
-		Product productBean = productDaoImpl.getProductById(id);
-		cartItemEvict = cartItemDaoImpl.checkItem(productBean, memberBean);
+		cartItemEvict = cartItemDaoImpl.checkItem(cartId, memberBean);
 		cartItemEvict.setQty(qty);
 		Integer subTotal = qty * cartItemEvict.getProduct().getPrice();
 		cartItemEvict.setSubTotal(subTotal);
@@ -104,6 +103,13 @@ public class CartItemServiceImpl implements CartItemService {
 	public void delete(Integer id, MemberBean memberBean, GroupBuyBean groupBuyBean) {
 		Product productBean = productDaoImpl.getProductById(id);
 		cartItemDaoImpl.delete(productBean, memberBean, groupBuyBean);
+	}
+
+	@Override
+	public void remove(Integer id, MemberBean memberBean) {
+		Product productBean = productDaoImpl.getProductById(id);
+		cartItemDaoImpl.remove(productBean, memberBean);
+
 	}
 
 }

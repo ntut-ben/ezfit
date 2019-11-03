@@ -40,7 +40,14 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 
 	@Override
+	@Transactional
 	public void saveOrUpdate(GroupBuyBean groupBuyBean) {
+		groupBuyDaoImpl.saveOrUpdate(groupBuyBean);
+	}
+
+	@Override
+	@Transactional
+	public void joinGroupBuy(GroupBuyBean groupBuyBean) {
 		// TODO Auto-generated method stub
 
 	}

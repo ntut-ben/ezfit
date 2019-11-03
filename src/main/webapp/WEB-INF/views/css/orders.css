@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+
+
+
+body {
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體',
+    sans-serif;
+  background-color: #e2e7e8;
+}
+
+.orders-body {
+  padding-top: 150px;
+  padding-bottom: 80px;
+}
+
+.orders-title {
+  font-size: 30px;
+  font-weight: 400;
+  color: #2c6716;
+  letter-spacing: 2px;
+}
+
+.orders-main .orders-body .orders-title img {
+  width: 32px;
+  padding-bottom: 6px;
+}
+.orders-main .order-detail-tabs .nav-link {
+  color: #b2b2b2;
+  border-bottom: 3px solid #b2b2b2;
+  border-radius: 0px;
+  letter-spacing: 1px;
+}
+
+.orders-main .order-detail-tabs .nav-item .active {
+  color: #439a23;
+  background-color: #fff;
+  border-radius: 0px;
+  border-bottom: 3px solid #439a23;
+  letter-spacing: 1px;
+}
+
+.orders-main .order-detail-tabs .tab-content {
+  background-color: #fff;
+  box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.2);
+}
+.orders-main .order-detail-tabs thead tr th {
+  background-color: #2c6716;
+  color: white;
+  font-weight: 400 !important;
+  letter-spacing: 2px;
+}
+
+.orders-main .order-detail-tabs tbody tr td {
+  font-weight: 400;
+  color: #838383;
+  font-size: 14px;
+}
+
+.orders-main .order-detail-tabs tbody tr td a {
+  color: #838383;
+}
+
+.order-detail-tabs .group-buy-main .btn-link,
+.order-detail-tabs .group-buy-main .btn-link p {
+  text-decoration: none;
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 0;
+}
+
+.action-btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-btns button{
+    font-size: 12px;
+    margin: 5px;
+}
+.btn-icons-w{
+    display: none;
+}
+
+.action-btns button:hover .btn-icons-w{
+    display: inline;
+}
+
+.action-btns button:hover .btn-icons-g{
+    display: none;
+}
+
+.action-btns img{
+    padding-bottom: 3px;
+}
+
+.group-list {
+  font-weight: 400;
+  color: #838383;
+  letter-spacing: 1px;
+  padding: 0;
+}
+
+.group-buy-member-name {
+    border-top: 3px solid #439a23;
+  color: #3b3b3b;
+}
+
+.group-buy-order-items{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.unit-price{
+    color: #838383;
+}
+
+.group-buy-order-items .group-buy-product {
+  display: flex;
+}
+
+.group-buy-member-name img{
+    margin-right: 10px;
+    padding-bottom: 3px;
+}
+
+.group-buy-order-items .group-buy-product p, 
+.group-buy-order-items .group-buy-product span {
+    font-size: 13px;
+    font-weight: 300;
+  color: #838383;
+  margin: 0;
+  padding: 0;
+}
+
+.group-buy-order-items .group-buy-product #product-name{
+    font-size: 15px;
+    font-weight: 400;
+  color: #838383;
+}
+
+.group-buy-order-items .group-buy-product img {
+  object-fit: cover;
+  overflow: hidden;
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+.total-cost{
+    border-top: 1px solid #c5c5c5;
+}
+
+
+.total-cost, .total-cost span{
+    font-size: 15px;
+    font-weight: 400;
+  color: #439a23;
+}

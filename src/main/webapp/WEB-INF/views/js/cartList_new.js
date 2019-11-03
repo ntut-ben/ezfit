@@ -71,11 +71,13 @@ function getData() {
     return results !== null ? results[1] || 0 : false;
   };
   group = $.urlParam("group");
-  console.log(group);
+
   if (group != false && group != null) {
     apiCall = `http://localhost:8080/ezfit/api/CheckShopCart/${group}`;
+    $("#cartForm").attr("action", "api/shopCart/groupBill");
   } else {
     apiCall = `http://localhost:8080/ezfit/api/CheckShopCart`;
+    $("#cartForm").attr("action", `api/shopCart/bill`);
   }
   $("#cartListRow")
     .children(".cartCard")
@@ -156,6 +158,7 @@ function getData() {
                    <input
                    class="text-center qtyModify"
                      min="1"
+                     data-cartId="${data[i].id}"
                      data-id="${data[i].product.id}"
                      data-action="modify"
                      type="number"
@@ -164,7 +167,7 @@ function getData() {
                      style="max-width: 40%;"
                    />
                    <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${
-                     data[i].product.id
+                    data[i].id
                    }"=>刪除</button>
                  </div>
                  <div class="col-4">NT$ ${data[i].product.price}</div>
@@ -203,6 +206,7 @@ function getData() {
                  disabled
                  class="text-center qtyModify"
                    min="1"
+                   data-cartId="${data[i].id}"
                    data-id="${data[i].product.id}"
                    data-action="modify"
                    type="number"
@@ -210,7 +214,7 @@ function getData() {
                    value="${data[i].qty}"
                    style="max-width: 40%;"
                  />
-                 <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${data[i].product.id}"=>刪除</button>
+                 <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${data[i].id}"=>刪除</button>
                </div>
                <div class="col-4">NT$ ${data[i].product.price} 
                <br /> <br /> NT$90</div>
@@ -255,14 +259,14 @@ function getData() {
           if (this.value !== value) {
             value = this.value;
             actionToDo = $(this).data("action");
-            id = $(this).data("id");
+            id = $(this).data("cartid");
             // $(`${parentList} .subTotal`).data(subTotal);
             inputClicked = this;
             $.ajax({
               type: "POST",
               cache: false,
-              url: "http://localhost:8080/ezfit/ShopCart.do",
-              data: { itemId: id, action: actionToDo, qty: value },
+              url: "http://localhost:8080/ezfit/api/mealBox/modifyCount",
+              data: { cartId: id, qty: value },
               dataType: "json",
               success: function(data) {
                 // 更新顯示

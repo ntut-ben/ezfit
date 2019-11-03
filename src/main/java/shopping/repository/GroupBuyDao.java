@@ -11,4 +11,6 @@ public interface GroupBuyDao {
 	GroupBuyBean queryGroupBuyByAlias(String alias);
 
 	void saveOrUpdate(GroupBuyBean groupBuyBean);
+
+	void joinGroupBuy(GroupBuyBean groupBuyBean);
 }

@@ -76,4 +76,10 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 		factory.getCurrentSession().saveOrUpdate(groupBuyBean);
 	}
 
+	@Override
+	public void joinGroupBuy(GroupBuyBean groupBuyBean) {
+		factory.getCurrentSession().persist(groupBuyBean);
+
+	}
+
 }

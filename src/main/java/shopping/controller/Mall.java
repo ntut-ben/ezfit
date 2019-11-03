@@ -1,6 +1,5 @@
 package shopping.controller;
 
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class Mall {
 	GroupBuyService groupBuyService;
 
 	String account, pwd;
-	OrderBean orderBean = new OrderBean();
+	OrderBean orderBean = null;
 	Product product = null;
 	GroupBuyBean groupBuyBean = null;
 	CartItem cartItem = null;
@@ -82,7 +81,7 @@ public class Mall {
 	CuisineProduct cuisineProduct = null;
 	List<CartItem> cartItems = null;
 	List<CuisineProduct> cuisineProducts = null;
-	List<OrderItemBean> orderItemBeans = new ArrayList<OrderItemBean>();
+	List<OrderItemBean> orderItemBeans = null;
 
 	// 食材商城頁面
 	@RequestMapping(value = "/shopMaterial", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -131,6 +130,20 @@ public class Mall {
 	public String groupBuying() {
 
 		return "groupBuying";
+	}
+
+	// 訂單管理頁面
+	@RequestMapping(value = "/orders", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	public String orders() {
+
+		return "orders";
+	}
+
+	// 訂單管理頁面
+	@RequestMapping(value = "/helloWorld", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+	public String helloWorld() {
+
+		return "helloWorld";
 	}
 
 	// 食材商城依分類顯示
@@ -339,6 +352,22 @@ public class Mall {
 		}
 	}
 
+	// 修改購物車內的食材商品數量
+	@RequestMapping(value = "api/mealBox/modifyCount", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public @ResponseBody String modifyCount(@RequestParam("qty") Integer qty, @RequestParam("cartId") Integer cartId,
+			HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		// 透過商品ID從購物車修改該品項
+		if (qty < 1) {
+		} else {
+			cartItem = cartItemService.modifyQTY(cartId, memberBean, qty);
+			String json = new ToJson<CartItem>().getJson(cartItem);
+			return json;
+		}
+		return null;
+	}
+
 //	計畫商品加入購物車
 	@RequestMapping(value = "api/shopCart/planeAdd", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String planeProductCart(@RequestBody Map<String, Object> productInfo, HttpServletRequest req) {
@@ -450,13 +479,13 @@ public class Mall {
 
 	// 購物車刪除(非團購)
 	@RequestMapping(value = "api/shopCart/delete", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public @ResponseBody String deleteCartItem(@RequestParam(value = "itemId") String itemId, HttpServletRequest req) {
+	public @ResponseBody String deleteCartItem(@RequestParam(value = "itemId") Integer itemId, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MemberBean memberBean = checkMemberBean(session);
 
-		// 透過商品ID從購物車移除該品項
+		// 透過購物車ID從購物車移除該品項
 
-		cartItemService.delete(Integer.parseInt(itemId), memberBean);
+		cartItemService.delete(itemId, memberBean);
 		Map<String, String> status = new HashMap<String, String>();
 		status.put("status", "ok");
 		String json = new ToJson<Map<String, String>>().getJson(status);
@@ -523,6 +552,8 @@ public class Mall {
 			@RequestParam("address") String shippingAddress, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MemberBean memberBean = checkMemberBean(session);
+		orderBean = new OrderBean();
+		orderItemBeans = new ArrayList<OrderItemBean>();
 		orderBean.setShippingAddress(shippingAddress);
 		orderBean.setShippingCity(shippingCity);
 		orderBean.setShippingDistrict(shippingDistrict);
@@ -562,7 +593,7 @@ public class Mall {
 				orderItemBean.setProduct(cartItem.getProduct());
 				orderItemBeans.add(orderItemBean);
 				totalAmount += cartItem.getSubTotal();
-				cartItemService.delete(cartItem.getProduct().getId(), memberBean);
+				cartItemService.remove(cartItem.getProduct().getId(), memberBean);
 			}
 			orderBean.setTotalAmount(totalAmount);
 			Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
@@ -575,6 +606,65 @@ public class Mall {
 			return "redirect:/orderDetail";
 		}
 
+		return null;
+	}
+
+	// 購物車結帳商品(團購)
+	@RequestMapping(value = "api/shopCart/groupBill", method = RequestMethod.POST)
+	public String groupBillCartItem(@RequestParam("subscriberName") String subscriberName,
+			@RequestParam("subscriberPhone") String subscriberPhone,
+			@RequestParam("subscriberEmail") String subscriberEmail,
+			@RequestParam("subscribercity") String subscriberCity,
+			@RequestParam("subscriberdistrict") String subscriberDistrict,
+			@RequestParam("subscriberzipCode") String subscriberZipCode,
+			@RequestParam("subscriberAddress") String subscriberAddress, @RequestParam("name") String shippingName,
+			@RequestParam("phone") String shippingPhone, @RequestParam("county") String shippingCity,
+			@RequestParam("district") String shippingDistrict, @RequestParam("zipcode") String shippingZipCode,
+			@RequestParam("address") String shippingAddress, @RequestParam("group") String group,
+			HttpServletRequest req) {
+		orderBean = new OrderBean();
+		orderItemBeans = new ArrayList<OrderItemBean>();
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
+		orderBean.setShippingAddress(shippingAddress);
+		orderBean.setShippingCity(shippingCity);
+		orderBean.setShippingDistrict(shippingDistrict);
+		orderBean.setShippingName(shippingName);
+		orderBean.setShippingPhone(shippingPhone);
+		orderBean.setSubscriberAddress(subscriberAddress);
+		orderBean.setSubscriberCity(subscriberCity);
+		orderBean.setSubscriberDistrict(subscriberDistrict);
+		orderBean.setSubscriberEmail(subscriberEmail);
+		orderBean.setSubscriberName(subscriberName);
+		orderBean.setSubscriberPhone(subscriberPhone);
+		orderBean.setSubscriberZipCode(subscriberZipCode);
+		orderBean.setShippingZipCode(shippingZipCode);
+
+		if (memberBean != null && groupBuyBean != null) {
+			cartItems = cartItemService.checkAllItems(groupBuyBean, memberBean);
+			for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
+				OrderItemBean orderItemBean = new OrderItemBean();
+
+				cartItem = (CartItem) iterator.next();
+
+				orderItemBean.setQty(cartItem.getQty());
+				orderItemBean.setSubTotal(cartItem.getSubTotal());
+				orderItemBean.setProduct(cartItem.getProduct());
+				orderItemBeans.add(orderItemBean);
+				totalAmount += cartItem.getSubTotal();
+				cartItemService.delete(cartItem.getProduct().getId(), memberBean, groupBuyBean);
+			}
+			orderBean.setTotalAmount(totalAmount);
+			Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+			orderBean.setOrderItemBeans(orderItemBeans);
+			orderBean.setCreateTime(ts);
+			orderBean.setMemberBean(memberBean);
+			orderBean.setGroupBuyBean(groupBuyBean);
+			orderService.save(orderBean);
+
+			return ("redirect:/orderDetail.html?group=" + group);
+		}
 		return null;
 	}
 
@@ -660,7 +750,7 @@ public class Mall {
 					groupBuyBean.setInitiator(groupBuyBeanInit);
 					groupBuyBean.setRole(1);
 					groupBuyBean.setMemberBean(memberBean);
-					groupBuyService.createGroupBuy(groupBuyBean);
+					groupBuyService.saveOrUpdate(groupBuyBean);
 					return ("redirect:/shopMaterial?group=" + group);
 				}
 			}
@@ -668,7 +758,7 @@ public class Mall {
 			groupBuyBean.setInitiator(groupBuyBeanInit);
 			groupBuyBean.setRole(1);
 			groupBuyBean.setMemberBean(memberBean);
-			groupBuyService.createGroupBuy(groupBuyBean);
+			groupBuyService.saveOrUpdate(groupBuyBean);
 			return ("redirect:/shopMaterial?group=" + group);
 		}
 

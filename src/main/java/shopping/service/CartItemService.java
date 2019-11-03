@@ -10,12 +10,16 @@ import shopping.model.Product;
 public interface CartItemService {
 	public void saveOrUpdate(CartItem cartItem);
 
-	public CartItem modifyQTY(Integer id, MemberBean memberBean, Integer qty);
+//	public CartItem modifyQTY(Integer id, MemberBean memberBean, Integer qty);
+
+	public CartItem modifyQTY(Integer cartId, MemberBean memberBean, Integer qty);
 
 	public List<CartItem> checkAllItems(MemberBean memberBean);
 
 	public void delete(Integer id, MemberBean memberBean);
-
+	
+	public void remove(Integer id, MemberBean memberBean);
+	
 	public void delete(Integer id, MemberBean memberBean, GroupBuyBean groupBuyBean);
 
 	public int delete(MemberBean memberBean);

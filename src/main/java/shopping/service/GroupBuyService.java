@@ -10,4 +10,6 @@ public interface GroupBuyService {
 	GroupBuyBean queryGroupBuyByAlias(String alias);
 
 	void saveOrUpdate(GroupBuyBean groupBuyBean);
+
+	void joinGroupBuy(GroupBuyBean groupBuyBean);
 }
