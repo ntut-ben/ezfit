@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import createAccount.model.MemberBean;
 import shopping.model.GroupBuyBean;
-import shopping.model.OrderBean;
 import shopping.repository.GroupBuyDao;
 
 @Repository

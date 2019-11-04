@@ -308,6 +308,7 @@ public class Mall {
 	// 食材搜尋
 	@RequestMapping(value = "api/search", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String searchProduct(@RequestParam(value = "search") String search) {
+		System.out.println(search);
 		String json = null;
 		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 		DataSource ds = ctx.getBean("dataSource", DataSource.class);
@@ -315,7 +316,15 @@ public class Mall {
 		ToJson<IngredientProduct> toJson = new ToJson<IngredientProduct>();
 		json = toJson.getArrayJson(ingredientProducts);
 		System.out.println(json);
-		return json;
+
+		if (ingredientProducts == null) {
+			return "null";
+		} else if (ingredientProducts.size() == 0) {
+			return "null";
+		} else {
+			return json;
+		}
+
 	}
 
 	// 食材加入購物車 (團購)

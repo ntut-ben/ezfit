@@ -101,15 +101,40 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 	@Override
 	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
 		List<IngredientProduct> ingredientProducts = null;
+		Connection connection = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			Connection connection = ds.getConnection();
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(getQuerySqlFor(search));
-			System.out.println(rs);
-			ingredientProducts = getMaterial(rs);
+			connection = ds.getConnection();
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(getQuerySqlFor(search));
+			if (rs.next()) {
+				ingredientProducts = getMaterial(rs);
+			} else {
+				ingredientProducts = null;
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return ingredientProducts;
 	}

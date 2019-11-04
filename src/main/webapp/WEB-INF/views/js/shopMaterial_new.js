@@ -141,7 +141,7 @@ $(document).ready(function() {
 
           <input type="text" name="category" value="IngredientProduct" style="display: none;"/>
           <input type="text" name="itemId" value="${data[index].id}" style="display: none;"/>
-          <input type="number" name="quantity" min="1" max="${data[index].stock}" value="1" class="text-center w-25 m-1 font-size-08rem"/>
+          <input type="number" id="quantity" name="quantity" min="1" max="${data[index].stock}" value="1" class="text-center w-25 m-1 font-size-08rem"/>
                <button
                  class="text-white font-size-08rem m-1 btn btn-success letter-spacing-015rem p-1 cartAdd"
              type="button">
@@ -272,6 +272,7 @@ $(document).ready(function() {
     }" style="display: none;"/>
       數量 : <input
         type="number"
+        id="quantity"
         name="quantity"
         min="1"
         max=${response.stock}
@@ -386,103 +387,109 @@ function search(form) {
     data: $(form).serialize(),
     dataType: "json",
     success: function(data) {
-      $("#listProduct")
-        .find("div")
-        .remove();
+      console.log(data);
+      $("#listProduct").empty();
       page = 1;
-      // 計算頁碼
-      let numbers = 12;
-      pages = Math.floor(data.length / numbers);
-      if (data.length % numbers != 0) {
-        pages += 1;
-      }
-      $("#page").html("");
-
-      pageData = `<li id="pagePrevious" class="page-item">
-        <a class="page-link" href="" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>`;
-
-      // 產生頁碼
-      for (let index = 1; index <= pages; index++) {
-        if (index == parseInt(page)) {
-          pageData += `<li class="page-item active disabled">`;
-        } else {
-          pageData += `<li class="page-item ">`;
+      console.log(data);
+      if (data != null) {
+        // 計算頁碼
+        let numbers = 12;
+        pages = Math.floor(data.length / numbers);
+        if (data.length % numbers != 0) {
+          pages += 1;
         }
-        pageData += `<a  class="page-link pageNumber" href="" data-page=${index}>${index}</a>`;
-        pageData += `</li>`;
-      }
+        $("#page").html("");
 
-      pageData += ` <li id="pageNext" class="page-item disabled">
-        <a class="page-link" href="" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>`;
+        pageData = `<li id="pagePrevious" class="page-item disabled">
+      <a class="page-link" href="" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>`;
 
-      $("#page").append(pageData);
+        // 產生頁碼
+        for (let index = 1; index <= pages; index++) {
+          if (index == parseInt(page)) {
+            pageData += `<li class="page-item active disabled">`;
+          } else {
+            pageData += `<li class="page-item ">`;
+          }
+          pageData += `<a  class="page-link pageNumber" href="" data-page=${index}>${index}</a>`;
+          pageData += `</li>`;
+        }
 
-      // 根據頁碼產生商品資料
-      let lastItem = page * numbers;
-      let firstItem = page * numbers - numbers;
-      if (lastItem > data.length) {
-        lastItem = data.length;
-      }
+        pageData += ` <li id="pageNext" class="page-item disabled">
+      <a class="page-link" href="" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>`;
 
-      // 產生分類標題
-      typeName = "健康食材";
-      if (typeName == 404) {
+        $("#page").append(pageData);
+
+        // 根據頁碼產生商品資料
+        let lastItem = page * numbers;
+        let firstItem = page * numbers - numbers;
+        if (lastItem > data.length) {
+          lastItem = data.length;
+        }
+
+        // 產生分類標題
+        typeName = "健康食材";
+        if (typeName == 404) {
+        } else {
+          headerData = `<div class="col-12 my-3"><span class="border-bottom-success font-size-2rem letter-spacing-015rem">${typeName}</span></div>`;
+          $("#listProduct").append(headerData);
+        }
+
+        for (let index = firstItem; index < lastItem; index++) {
+          fileName = data[index].fileName.split(",");
+          let apiData = ` <div class="col-3 my-3">`;
+          apiData += `<div data-itemId=${data[index].id} class="card" style="width: 100%;">`;
+          apiData += `<div class="popupCard">`;
+          apiData += `<span style="display: none;">${data[index].id}</span>`;
+          apiData += `<img src="productImage/${
+            fileName[0]
+          }" class="card-img-top" alt=""/>`;
+          apiData += ` </div>`;
+          apiData += ` <div class="card-body p-0">`;
+          apiData += ` <div class="popupCard" >`;
+          apiData += `<span style="display: none;">${data[index].id}</span>`;
+          apiData += `<h6 class="card-text m-0 m-2">${data[index].name}</h6>`;
+          apiData += `</div>`;
+          apiData += `<p class="card-text font-size-08rem m-0  m-2">${data[index].unit}</p>`;
+          apiData += `<p class="card-text m-0  m-2">$${data[index].price}</p>`;
+          apiData += `</div>`;
+          apiData += `<form action=http://localhost:8080/ezfit/api/shopCart/ class="text-right" method="POST">
+
+        <input type="text" name="category" value="IngredientProduct" style="display: none;"/>
+        <input type="text" name="itemId" value="${data[index].id}" style="display: none;"/>
+        <input type="number" id="quantity" name="quantity" min="1" max="${data[index].stock}" value="1" class="text-center w-25 m-1 font-size-08rem"/>
+             <button
+               class="text-white font-size-08rem m-1 btn btn-success letter-spacing-015rem p-1 cartAdd"
+           type="button">
+               <i class="fas fa-shopping-cart"></i>加入購物車
+               </button> 
+               </form>`;
+
+          apiData += `</div>`;
+          apiData += `</div>`;
+
+          $("#listProduct").append(apiData);
+
+          setQueryStringParameter("category", category);
+          setQueryStringParameter("page", page);
+          setQueryStringParameter(
+            "search",
+            $(form)
+              .serialize()
+              .split("=")[1]
+          );
+        }
       } else {
-        headerData = `<div class="col-12 my-3"><span class="border-bottom-success font-size-2rem letter-spacing-015rem">${typeName}</span></div>`;
-        $("#listProduct").append(headerData);
-      }
-
-      for (let index = firstItem; index < lastItem; index++) {
-        fileName = data[index].fileName.split(",");
-        let apiData = ` <div class="col-3 my-3">`;
-        apiData += `<div data-itemId=${data[index].id} class="card" style="width: 100%;">`;
-        apiData += `<div class="popupCard">`;
-        apiData += `<span style="display: none;">${data[index].id}</span>`;
-        apiData += `<img src="productImage/${
-          fileName[0]
-        }" class="card-img-top" alt=""/>`;
-        apiData += ` </div>`;
-        apiData += ` <div class="card-body p-0">`;
-        apiData += ` <div class="popupCard" >`;
-        apiData += `<span style="display: none;">${data[index].id}</span>`;
-        apiData += `<h6 class="card-text m-0 m-2">${data[index].name}</h6>`;
-        apiData += `</div>`;
-        apiData += `<p class="card-text font-size-08rem m-0  m-2">${data[index].unit}</p>`;
-        apiData += `<p class="card-text m-0  m-2">$${data[index].price}</p>`;
-        apiData += `</div>`;
-        apiData += `<form action=http://localhost:8080/ezfit/api/shopCart/ class="text-right" method="POST">
-
-          <input type="text" name="category" value="IngredientProduct" style="display: none;"/>
-          <input type="text" name="itemId" value="${data[index].id}" style="display: none;"/>
-          <input type="number" name="quantity" min="1" max="${data[index].stock}" value="1" class="text-center w-25 m-1 font-size-08rem"/>
-               <button
-                 class="text-white font-size-08rem m-1 btn btn-success letter-spacing-015rem p-1 cartAdd"
-             type="button">
-                 <i class="fas fa-shopping-cart"></i>加入購物車
-                 </button> 
-                 </form>`;
-
-        apiData += `</div>`;
-        apiData += `</div>`;
-
+        apiData = `<h1> Sorry ， 沒有相關結果 </h1>`;
         $("#listProduct").append(apiData);
-
-        setQueryStringParameter("category", category);
-        setQueryStringParameter("page", page);
-        setQueryStringParameter(
-          "search",
-          $(form)
-            .serialize()
-            .split("=")[1]
-        );
+        $("#page").empty();
       }
     },
     complete: function(xhr) {
@@ -490,43 +497,6 @@ function search(form) {
         imgWidth = $(".card-img-top").css("width");
         $(".card-img-top").css("height", imgWidth);
 
-        // 判斷當前頁碼，決定是否開啟上一頁、下一頁
-        if (page == 1) {
-          $("#pagePrevious").addClass("disabled");
-        } else {
-          $("#pagePrevious").removeClass("disabled");
-        }
-
-        if (page == pages) {
-          $("#pageNext").addClass("disabled");
-        } else {
-          $("#pageNext").removeClass("disabled");
-        }
-        // 上一頁
-        $("#pagePrevious").click(function(e) {
-          e.preventDefault();
-          if (page != 1) {
-            page -= 1;
-            setQueryStringParameter("page", page);
-            getData();
-          }
-        });
-        // 下一頁
-        $("#pageNext").click(function(e) {
-          e.preventDefault();
-          if (page != pages) {
-            page = parseInt(page) + 1;
-            setQueryStringParameter("page", page);
-            getData();
-          }
-        });
-        // 點擊頁碼
-        $(".pageNumber").click(function(e) {
-          e.preventDefault();
-          page = $(this).data("page");
-          setQueryStringParameter("page", page);
-          getData();
-        });
         // 滑鼠 move to card
         $(".popupCard").hover(
           function() {
@@ -598,6 +568,7 @@ function search(form) {
     }" style="display: none;"/>
       數量 : <input
         type="number"
+        id="quantity"
         name="quantity"
         min="1"
         max=${response.stock}
@@ -666,6 +637,11 @@ function cart(cartBtn) {
   parentCart = $(cartBtn).parent();
   var targetUrl = $(parentCart).attr("action");
   var data = $(parentCart).serialize();
+
+  $(parentCart)
+    .find("#quantity")
+    .val("1");
+
   if (groupAlias.trim() == "") {
     data = data;
     targetUrl += "add";
@@ -716,7 +692,7 @@ function cartAjax(data, targetUrl) {
       $(".toast").toast("show");
     },
     complete: function(xhr) {
-      getData();
+      // getData();
     }
   });
 }
