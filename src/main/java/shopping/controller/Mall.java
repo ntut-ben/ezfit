@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.google.gson.Gson;
 
@@ -71,7 +75,8 @@ public class Mall {
 	OrderItemService orderItemService;
 	@Autowired
 	GroupBuyService groupBuyService;
-
+	@Autowired
+	ServletContext context;
 	String account, pwd;
 	OrderBean orderBean = null;
 	Product product = null;
@@ -300,6 +305,19 @@ public class Mall {
 		}
 	}
 
+	// 食材搜尋
+	@RequestMapping(value = "api/search", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String searchProduct(@RequestParam(value = "search") String search) {
+		String json = null;
+		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+		DataSource ds = ctx.getBean("dataSource", DataSource.class);
+		List<IngredientProduct> ingredientProducts = ingredientProductService.getIngredientProductBySearch(ds, search);
+		ToJson<IngredientProduct> toJson = new ToJson<IngredientProduct>();
+		json = toJson.getArrayJson(ingredientProducts);
+		System.out.println(json);
+		return json;
+	}
+
 	// 食材加入購物車 (團購)
 	@RequestMapping(value = "api/shopCart/groupAdd/{group}", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String ingredientProductCartGroup(@RequestParam(value = "category") String category,
@@ -310,7 +328,7 @@ public class Mall {
 
 		GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
 		if (groupBuyBean.getStatus() != 0) {
-			return null;
+			return "(redirect:/shopMaterial)";
 		}
 		;
 
@@ -723,7 +741,10 @@ public class Mall {
 //			Map<String, String> status = new HashMap<String, String>();
 //			status.put("status", "false");
 //			json = new ToJson<Map<String, String>>().getJson(status);
-			return null;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("id", null);
+			json = new ToJson<Map<String, String>>().getJson(map);
+			return json;
 		}
 
 	}
@@ -817,7 +838,7 @@ public class Mall {
 	public @ResponseBody String groupBuyQuery(@PathVariable("group") String group, HttpServletRequest req) {
 
 		GroupBuyBean groupBuyBeanInit = groupBuyService.queryGroupBuyByAlias(group);
-		if (groupBuyBeanInit == null) {
+		if (groupBuyBeanInit == null || groupBuyBeanInit.getStatus() != 0) {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("valid", "false");
 			Gson gson = new Gson();
@@ -865,6 +886,7 @@ public class Mall {
 		} else {
 			ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
 			String json = toJson.getArrayJson(groupBeans);
+			System.out.println(groupBeans.size());
 			return json;
 		}
 	}

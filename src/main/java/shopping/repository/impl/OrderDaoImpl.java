@@ -80,10 +80,17 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public OrderBean query(GroupBuyBean groupBuyBean, MemberBean memberBean) {
 		Session session = factory.getCurrentSession();
-		OrderBean orderBean = null;
-		orderBean = (OrderBean) session
-				.createQuery("from OrderBean where memberBean =:FK_MemberID and groupBuyBean =:groupBuyBean")
-				.setParameter("FK_MemberID", memberBean).setParameter("groupBuyBean", groupBuyBean).getSingleResult();
+		OrderBean orderBean;
+		orderBean = null;
+		try {
+			orderBean = (OrderBean) session
+					.createQuery("from OrderBean where memberBean =:FK_MemberID and groupBuyBean =:groupBuyBean")
+					.setParameter("FK_MemberID", memberBean).setParameter("groupBuyBean", groupBuyBean)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			System.out.println("沒有該筆訂單");
+		}
 		return orderBean;
 	}
 }

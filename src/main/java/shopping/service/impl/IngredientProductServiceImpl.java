@@ -1,6 +1,12 @@
 package shopping.service.impl;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +40,7 @@ public class IngredientProductServiceImpl implements IngredientProductService {
 		}
 		return ingredientProducts;
 	}
-	
+
 	@Transactional
 	@Override
 	public List<IngredientProduct> getIngredientProductByCategory(String category) {
@@ -72,4 +78,11 @@ public class IngredientProductServiceImpl implements IngredientProductService {
 
 		return ingredientProduct;
 	}
+
+	@Override
+	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
+
+		return ingredientDaoImpl.getIngredientProductBySearch(ds, search);
+	}
+
 }

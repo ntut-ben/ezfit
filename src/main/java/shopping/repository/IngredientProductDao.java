@@ -2,6 +2,8 @@ package shopping.repository;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import shopping.model.IngredientProduct;
 import shopping.model.ProductCategory;
 
@@ -11,6 +13,8 @@ public interface IngredientProductDao {
 	public List<IngredientProduct> getIngredientProductsAll();
 
 	public List<IngredientProduct> getIngredientProductsByCategory(ProductCategory category);
+
+	List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search);
 
 	public void insertFakeData(List<IngredientProduct> ingredientProducts);
 

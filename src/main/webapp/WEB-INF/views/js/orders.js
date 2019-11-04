@@ -1,6 +1,16 @@
 $(document).ready(function() {
   getOrderData();
   getGroupBuyData();
+
+  $("#pills-home-tab").click(function(e) {
+    e.preventDefault();
+    getOrderData();
+  });
+
+  $("#pills-profile-tab").click(function(e) {
+    e.preventDefault();
+    getGroupBuyData();
+  });
 });
 
 function getGroupBuyData() {
@@ -10,7 +20,10 @@ function getGroupBuyData() {
     dataType: "json",
     success: function(data) {
       count = 0;
-
+      $("#accordionExample")
+        .children()
+        .remove();
+      groupBuyData = "";
       data.reverse().forEach(element => {
         // 判斷是不是主揪
         if (element.role == 1) {
@@ -26,7 +39,7 @@ function getGroupBuyData() {
         createTimeWeek = parseWeek(createTime);
         deadLineWeek = parseWeek(deadLine);
 
-        groupBuyData = ` <div class="card">
+        groupBuyData += ` <div class="card">
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
             <button
@@ -56,22 +69,25 @@ function getGroupBuyData() {
           url: `http://localhost:8080/ezfit/api/orders/query/order/groupBuy/${element.id}`,
           dataType: "json",
           success: function(order) {
-            groupBuyData += `<span
+            if (order.id == undefined) {
+              orderStatus = false;
+              groupBuyData += `<span
+              >訂單編號：<span id="group-buy-order-no"
+                >尚未訂購</span
+              >
+              &nbsp;|&nbsp;
+            </span>`;
+            } else {
+              orderStatus = true;
+              groupBuyData += `<span
             >訂單編號：<span id="group-buy-order-no"
               >${order.id}</span
             >
             &nbsp;|&nbsp;
           </span>`;
-          },
-          complete: function(xhr) {
-            if (xhr.status != 200) {
-              console.log(xhr.status);
-              orderStatus = false;
-            } else {
-              console.log(xhr.status);
-              orderStatus = true;
             }
-          }
+          },
+          complete: function(xhr) {}
         });
 
         groupBuyData += `  <span
@@ -116,7 +132,7 @@ function getGroupBuyData() {
               <div class="group-list pt-2">揪團名單</div>
               <div>`;
 
-        if (orderStatus != true) {
+        if (orderStatus != true && element.status == 0) {
           groupBuyData += `<button
                  data-join="http://localhost:8080/ezfit/api/GroupBuy/join/${element.groupAlias}"
                 type="button"
@@ -135,34 +151,54 @@ function getGroupBuyData() {
                 加入點餐
               </button>`;
         }
+        if (element.status == 0) {
+          groupBuyData += `<button
+          type="button"
+          class="copyLink btn btn-outline-success btn-sm action-btn"
+        >
+          <img
+            class="btn-icons-g"
+            src="img/orders/ic_content_copy_24px.svg"
+            alt=""
+          />
+          <img
+            class="btn-icons-w"
+            src="img/orders/ic_content_copy_24px_w.svg"
+            alt=""
+          />
+          複製分享連結
+        </button>
+        <input
+        style = "position: absolute; left: -1000px; top: -1000px;";
+        class="w-100 link"
+        type="text"
+        value="http://localhost:8080/ezfit/api/GroupBuy/join/${element.groupAlias}"
+        readonly
+      />
+        `;
+        }
 
-        groupBuyData += `<button
-                  type="button"
-                  class="copyLink btn btn-outline-success btn-sm action-btn"
-                >
-                  <img
-                    class="btn-icons-g"
-                    src="img/orders/ic_content_copy_24px.svg"
-                    alt=""
-                  />
-                  <img
-                    class="btn-icons-w"
-                    src="img/orders/ic_content_copy_24px_w.svg"
-                    alt=""
-                  />
-                  複製分享連結
-                </button>
-                <input
-                style = "position: absolute; left: -1000px; top: -1000px;";
-                class="w-100 link"
-                type="text"
-                value="http://localhost:8080/ezfit/api/GroupBuy/join/${element.groupAlias}"
-                readonly
-              />
-                `;
+        if (orderStatus != true && element.status == 0) {
+          groupBuyData += `<button
+                onclick="location.href='cartList?group=${element.groupAlias}'"
+                type="button"
+                class=" btn btn-outline-success btn-sm action-btn"
+              >
+                <img
+                  class="btn-icons-g"
+                  src="img/orders/ic_local_grocery_store_24px.svg"
+                  alt=""
+                />
+                <img
+                  class="btn-icons-w"
+                  src="img/orders/ic_local_grocery_store_24px_w.svg"
+                  alt=""
+                />
+                查看購物車
+              </button>`;
+        }
 
-        if (initiator == true) {
-          console.log(initiator);
+        if (initiator == true && element.status == 0) {
           groupBuyData += ` <button
           data-id=${element.id};
                   type="button"
@@ -215,6 +251,7 @@ function getGroupBuyData() {
         });
         groupBuyData += `</div></div></div>`;
         count += 1;
+        console.log(count);
       });
 
       $("#accordionExample").append(groupBuyData);
@@ -346,8 +383,6 @@ function parseDeadLine(deadLine) {
 
 function parseWeek(date) {
   ship = date.split("-");
-
-  console.log(ship);
 
   shipYear = parseInt(ship[0]);
   shipDate = parseInt(ship[2]);

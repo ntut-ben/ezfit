@@ -1,9 +1,15 @@
 package shopping.repository.impl;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.sql.DataSource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -73,5 +79,66 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 			e.printStackTrace();
 		}
 		return ingredientProduct;
+	}
+
+//	@Override
+//	public List<IngredientProduct> getIngredientProductBySearch(String search) {
+//		List<IngredientProduct> results = null;
+//		Session session = factory.getCurrentSession();
+//		try {
+//			String sql = "select a.id,a.name,a.price,a.fileName,b.unit from product as a  join IngredientProduct "
+//					+ "as b on (a.id=b.id) where match (a.name , a.introduction) against "
+//					+ "(?) and FK_ProductCategory between 4 and 10;";
+//
+//			results = session.createSQLQuery(sql).setParameter(1, search).getResultList();
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return results;
+//	}
+
+	@Override
+	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
+		List<IngredientProduct> ingredientProducts = null;
+		try {
+			Connection connection = ds.getConnection();
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(getQuerySqlFor(search));
+			System.out.println(rs);
+			ingredientProducts = getMaterial(rs);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ingredientProducts;
+	}
+
+	private List<IngredientProduct> getMaterial(ResultSet rs) {
+		List<IngredientProduct> ingredientProducts = new ArrayList<IngredientProduct>();
+		try {
+			while (rs.next()) {
+
+				IngredientProduct ingredientProduct = new IngredientProduct();
+				ingredientProduct.setId(rs.getInt("id"));
+				ingredientProduct.setName(rs.getString("name"));
+				ingredientProduct.setUnit(rs.getString("unit"));
+				ingredientProduct.setFileName(rs.getString("fileName"));
+				ingredientProduct.setPrice(rs.getInt("price"));
+
+				ingredientProducts.add(ingredientProduct);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ingredientProducts;
+	}
+
+	private String getQuerySqlFor(String search) {
+		// TODO Auto-generated method stub
+		return "select a.id,a.name,a.price,a.fileName,b.unit from product as a  join IngredientProduct "
+				+ "as b on (a.id=b.id) where match (a.name) against ('" + search
+				+ "') and FK_ProductCategory between 4 and 10;";
 	}
 }

@@ -282,7 +282,7 @@ function generateView() {
     </div>
     <div class="text-center">
       如已建立揪團資料，請至「訂單管理」查看明細 <br />
-      <a href="">前往訂單管理</a>
+      <a href="orders">前往訂單管理</a>
     </div>`;
     $(mainBody).append(viewData);
     // 複製參加連結
