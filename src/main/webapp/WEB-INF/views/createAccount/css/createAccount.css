@@ -1,301 +1,291 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 * {
-    font-family: 'Noto Sans TC';
-  }
-
-input:focus{
-    outline: none;
+  font-family: "Noto Sans TC";
 }
 
-#topWhite{
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 10vh;
-    /* UI Properties */
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    opacity: 1;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-    position: relative;
+input:focus {
+  outline: none;
 }
 
-#textInTop{
-    top: 40px;
-    left: 78px;
-    width: 228px;
-    height: 26px;
-    text-align: center;
-    font: Bold 18px/26px Source Han Sans TW;
-    letter-spacing: 1.8px;
-    color: #838383;
-    opacity: 1;
-    position: absolute;
-    float: left;
+#topWhite {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 10vh;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  position: relative;
 }
 
-#logo{
-    top: 21px;
-    left: 50%;
-    width: 189px;
-    height: 65px;
-    background-image:url(../pic/logo.png);
-    background-size:contain;
-    background-repeat: no-repeat;
-    position: absolute;
+#textInTop {
+  top: 40px;
+  left: 78px;
+  width: 228px;
+  height: 26px;
+  text-align: center;
+  font: Bold 18px/26px Source Han Sans TW;
+  letter-spacing: 1.8px;
+  color: #838383;
+  opacity: 1;
+  position: absolute;
+  float: left;
 }
 
-.greenBackground{
-    top: 103px;
-    left: 0px;
-    width: 100%;
-    height: 5vh;
-    background: #2EAA00 0% 0% no-repeat padding-box;
-    opacity: 1;
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
-    position: absolute;
-    text-align: center;
-    line-height: 53px;
+#logo {
+  top: 21px;
+  left: 50%;
+  width: 189px;
+  height: 65px;
+  background-image: url(../pic/logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
 }
 
-.main{
-    margin-left: 80px;
-    text-align: center;
-    font: Regular 18px/26px Source Han Sans TW;
-    letter-spacing: 1.44px;
-    color: white;
-    position: relative;
-    float: left;
-    line-height: 5vh;
+.greenBackground {
+  top: 103px;
+  left: 0px;
+  width: 100%;
+  height: 5vh;
+  background: #2eaa00 0% 0% no-repeat padding-box;
+  opacity: 1;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  position: absolute;
+  text-align: center;
+  line-height: 53px;
 }
 
-#image{
-    top: 17.3vh;
-    left: 0px;
-    width: 100%;
-    height: 900px;
-    background-image: url(../pic/component.png);
-    opacity: 1;
-    position: absolute;
-    background-size:contain;
-    background-repeat: no-repeat;
+.main {
+  margin-left: 80px;
+  text-align: center;
+  font: Regular 18px/26px Source Han Sans TW;
+  letter-spacing: 1.44px;
+  color: white;
+  position: relative;
+  float: left;
+  line-height: 5vh;
 }
 
-#login{
-    top: 187px;
-    margin-left: 25%;
-    width: 55%;
-    height: 60%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0px 0px 10px #00000080;
-    border-radius: 8px;
-    opacity: 1;
-    position: absolute;
+#image {
+  top: 17.3vh;
+  left: 0px;
+  width: 100%;
+  height: 900px;
+  background-image: url(../pic/component.png);
+  opacity: 1;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-#loginLeft{
-    width: 60%;
-    text-align: center;
-    font-size:27px;
-    font: Regular 27px/39px Source Han Sans TW;
-    letter-spacing: 2.16px;
-    color: #2C6716;
-    margin-top: 0px;
+#login {
+
+  width: 55%;
+  height: 60%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 0px 10px #00000080;
+  border-radius: 8px;
+  opacity: 1;
 }
 
-#theForm{
-    width: 80%;
-    align-content: center;
-    margin-left: 10%;
-    text-align: center;
-    font-size: 14px;
-    font: Regular 14px/20px Source Han Sans TW;
-    letter-spacing: 1.12px;
-    color: #838383;
-    opacity: 1;
-    
+#loginLeft {
+  width: 60%;
+  text-align: center;
+  font-size: 27px;
+  font: Regular 27px/39px Source Han Sans TW;
+  letter-spacing: 2.16px;
+  color: #2c6716;
+  margin-top: 0px;
+}
+
+#theForm {
+  width: 80%;
+  align-content: center;
+  margin-left: 10%;
+  text-align: center;
+  font-size: 14px;
+  font: Regular 14px/20px Source Han Sans TW;
+  letter-spacing: 1.12px;
+  color: #838383;
+  opacity: 1;
 }
 
 .greenLine {
-    width: 80%;
-    height: 10px;
-    border-bottom: solid #439A23 2px;
-    margin-left:auto; 
-    margin-right:auto;
+  width: 80%;
+  height: 10px;
+  border-bottom: solid #439a23 2px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.accountInfo{
-    width: 100%;
-    height:30px;
-    margin-top: 10px;
-    border: 2px solid #B2B2B2;
-    border-radius: 8px;
+.accountInfo {
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  border: 2px solid #b2b2b2;
+  border-radius: 8px;
 }
 
-.submit{
-    width: 100%;
-    height:30px;
-    background-color: #2EAA00;
-    border-radius: 8px;
-    color: #F4FFF0;
-    font-size: 12px;
-    border:0px solid transparent;
+.submit {
+  width: 100%;
+  height: 30px;
+  background-color: #2eaa00;
+  border-radius: 8px;
+  color: #f4fff0;
+  font-size: 12px;
+  border: 0px solid transparent;
 }
 
-.error{
-    color:red;
-    font-size: 10px; 
-    text-align: left;
+.error {
+  color: red;
+  font-size: 10px;
+  text-align: left;
 }
 
-#createButton{
-    width: 85%;
-    height:30px;
-    margin-top: 20px;
-    position: relative;
-    border: transparent;
-    background: transparent;
+#createButton {
+  width: 85%;
+  height: 30px;
+  margin-top: 20px;
+  position: relative;
+  border: transparent;
+  background: transparent;
 }
 
-.img{
-    width: 100%;
-    height:30px;
+.img {
+  width: 100%;
+  height: 30px;
 }
 
-#veriCode{
-    width: 70%;
-    margin-left: 0em;
-
-
+#veriCode {
+  width: 70%;
+  margin-left: 0em;
 }
 
-#veriCodeButton{
-    width:25%;
-    height:30px;
-    margin-top: 10px;
-    border: 2px solid #B2B2B2;
-    border-radius: 8px;
+#veriCodeButton {
+  width: 25%;
+  height: 30px;
+  margin-top: 10px;
+  border: 2px solid #b2b2b2;
+  border-radius: 8px;
 }
 
-
-
-#serviceRule-error{
-    text-align: center;
+#serviceRule-error {
+  text-align: center;
 }
 
-#OR{
-    width: 85%;
+#OR {
+  width: 85%;
 }
 
-#facebookButton{
-    width: 85%;
-    height:30px;
-    margin-top: 10px;
-    position: relative;
-    border: transparent;
-    background: transparent;
+#facebookButton {
+  width: 85%;
+  height: 30px;
+  margin-top: 10px;
+  position: relative;
+  border: transparent;
+  background: transparent;
 }
 
-#googleButton{
-    width: 85%;
-    height:30px;
-    margin-top: 10px;
-    position: relative;
-    border: transparent;
-    background: transparent;
+#googleButton {
+  width: 85%;
+  height: 30px;
+  margin-top: 10px;
+  position: relative;
+  border: transparent;
+  background: transparent;
 }
 
-
-#loginRight{
-    text-align: center;
-    font: Regular 27px/39px Source Han Sans TW;
-    background: #F4FFF0 0% 0% no-repeat padding-box;
+#loginRight {
+  text-align: center;
+  font: Regular 27px/39px Source Han Sans TW;
+  background: #f4fff0 0% 0% no-repeat padding-box;
 }
 
-#span1{
-    text-align: center;
-    font-size:22px;
-    font: Regular 22px/32px Source Han Sans TW;
-    letter-spacing: 1.76px;
-    color: #439A23;
-    opacity: 1;
+#span1 {
+  text-align: center;
+  font-size: 22px;
+  font: Regular 22px/32px Source Han Sans TW;
+  letter-spacing: 1.76px;
+  color: #439a23;
+  opacity: 1;
 }
 
-#span2{
-    top: 504px;
-    left: 1191px;
-    font-size: 13px;
-    font: Regular 1px Source Han Sans TW;
-    letter-spacing: 1.04px;
-    color: #838383;
+#span2 {
+  top: 504px;
+  left: 1191px;
+  font-size: 13px;
+  font: Regular 1px Source Han Sans TW;
+  letter-spacing: 1.04px;
+  color: #838383;
 }
 
-#loginButton{
-    width: 173px;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 3px solid #439A23;
-    border-radius: 8px;
-   -webkit-text-fill-color:#439A23;
+#loginButton {
+  width: 173px;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 3px solid #439a23;
+  border-radius: 8px;
+  -webkit-text-fill-color: #439a23;
 }
 
-#bottomLeft{
-    top: 100vh;
-    left: 73px;
-    width: 50%;
-    height: 10%;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    opacity: 1;
-    position: absolute;
-    color:#838383;
-    float: left;
+#bottomLeft {
+  top: 100vh;
+  left: 73px;
+  width: 50%;
+  height: 10%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  position: absolute;
+  color: #838383;
+  float: left;
 }
 
-#bottomRight{
-    top: 100vh;
-    left: 1200px;
-   
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    opacity: 1;
-    position: absolute;
-    color:#838383;
-    float: left;
+#bottomRight {
+  top: 100vh;
+  left: 1200px;
+
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 1;
+  position: absolute;
+  color: #838383;
+  float: left;
 }
 
 .fa {
-    padding: 5px;
-    font-size: 10px;
-    width: 10px;
-    height: 10px;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 10px;
-    border-radius: 100%;
-  }
-  
-  .fa:hover {
-      opacity: 0.7;
-  }
-  
-  .fa-facebook {
-    background: #3B5998;
-    color: white;
-  }
-  
-  .fa-twitter {
-    background: #55ACEE;
-    color: white;
-  }
-  
-  .fa-instagram {
-    background: #125688;
-    color: white;
-  }
+  padding: 5px;
+  font-size: 10px;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 10px;
+  border-radius: 100%;
+}
 
-  .fas {
-    text-decoration: none;
-    margin: 5px 10px;
-    color: #838383;
-  }
-  
-  
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+.fas {
+  text-decoration: none;
+  margin: 5px 10px;
+  color: #838383;
+}

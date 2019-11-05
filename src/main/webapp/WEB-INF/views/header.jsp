@@ -2,16 +2,25 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" /> -->
-
-<head>
-<link rel="stylesheet" href="css/nav.css" />
-
-
-</head>
-
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/index/css/nav.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/index/css/index.css" />
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script> -->
+<script src="${pageContext.request.contextPath}/index/js/nav.js"></script>
+<script src="${pageContext.request.contextPath}/index/js/index.js"></script>
 
 <c:set var='debug' value='true' scope='application' />
 
@@ -20,8 +29,8 @@
 	<nav id="navbar-top" class="navbar navbar-expand-lg  p-0 ">
 		<div class="container-fluid m-0 p-0">
 			<div class="row no-gutters justify-content-center">
-				<a class="navbar-logo col-4  m-0 align-self-center" id="b" href="#">
-					<img
+				<a class="navbar-logo col-4  m-0 align-self-center" id="b"
+					href="${pageContext.request.contextPath}/index.jsp"> <img
 					src="${pageContext.request.contextPath}/index/img/nav/logo-g.svg">
 				</a>
 				<div class="col-4 m-0 text-center title">健康餐點 ＋ 食譜社群平台</div>
@@ -29,21 +38,30 @@
 				<span id="c" class="col-4 m-0 align-self-center text-right member">
 					<c:if test="${ ! empty LoginOK }">
 						<img class="img"
-							src="${pageContext.request.contextPath}/img/logo-g.svg">
+							style="width: 40px; height: 40px; border: 1px solid green; border-radius: 50%;"
+							<c:choose>
+							<c:when test='${! empty FB }'>src='${LoginOK.memberImage}'</c:when>
+							<c:when test='${(empty FB) and (empty LoginOK.memberImage)}'>src='${pageContext.request.contextPath}/index/img/nav/logo-g.svg'</c:when>
+							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${Id}.jpg' </c:otherwise>  
+							</c:choose>>
 					</c:if> <span id="notification"></span> <span id="cart"></span> <c:if
 						test="${empty LoginOK}">
-						<a onclick="window.location.href = './login/login.jsp'" id="c"
-							class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/login/login'"
+							id="c" class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
 					</c:if> <c:if test="${ ! empty LoginOK }">
 
-						<a onclick="window.location.href = './memberPage/memberPage.jsp'"
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/memberPage/memberPage'"
 							id="c" class="col-4 m-0 align-self-center text-right">${LoginOK.name}</a>
 					</c:if> <span>&nbsp; | &nbsp;</span> <c:if test="${empty LoginOK}">
 						<a
-							onclick="window.location.href = './createAccount/createAccount.jsp'"
+							onclick="window.location.href = '${pageContext.request.contextPath}/createAccount/createAccount'"
 							id="c" class="col-4 m-0 align-self-center text-right">註冊會員</a>
 					</c:if> <c:if test="${ ! empty LoginOK }">
-						<!-- 						<a onclick="window.location.href = './login/logout.jsp'"> 登出 </a> -->
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/login/logout'">
+							登出 </a>
 
 					</c:if>
 				</span>
@@ -56,8 +74,9 @@
 		<div class="container-fluid m-0 p-0">
 			<div
 				class="row no-gutters justify-content-center align-middle navbar-btm-row">
-				<a class="navbar-logo col-3 m-0 align-self-center" id="a" href="#">
-					<img id="a"
+				<a class="navbar-logo col-3 m-0 align-self-center" id="a"
+					href="${pageContext.request.contextPath}/index.jsp"> <img
+					id="a"
 					src="${pageContext.request.contextPath}/index/img/nav/logo-w.svg">
 				</a>
 
@@ -88,8 +107,7 @@
 														<div class="card-body">
 															<p class="card-text">堅持使用新鮮食材，少油、低鈉，讓外食族的您也 能吃得健康。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=keep"
-																	class="btn btn-success">現在就訂</a>
+																<a href="#" class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>
@@ -106,8 +124,7 @@
 														<div class="card-body">
 															<p class="card-text">針對增肌族群，提供最豐富、優質的蛋白質，讓您 的一天充滿活力。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=muscle"
-																	class="btn btn-success">現在就訂</a>
+																<a href="#" class="btn btn-success">現在就訂</a>
 															</div>
 														</div>
 													</div>
@@ -128,8 +145,7 @@
 														<div class="card-body">
 															<p class="card-text">減肥不用再餓肚子，精算熱量、營養調配，讓您吃 的健康，瘦的漂亮。</p>
 															<div class="text-right">
-																<a href="work-out-plane.jsp?plane=fit"
-																	class="btn btn-success">現在就訂</a>
+																<a href="#" class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>
@@ -158,7 +174,8 @@
 															<h4 class="m-2">我適合哪個計畫呢？</h4>
 															<p class="cal-text m-2">利用我們的小工具，幫你搭配最適合你的餐點計畫</p>
 															<div class="text-right cal-btn">
-																<a href="#" class="btn btn-light">開始使用小工具</a>
+																<a href="#" class="btn btn-light" data-toggle="modal"
+																	data-target="#exampleModalCenter">開始使用小工具</a>
 															</div>
 														</div>
 													</div>
@@ -224,22 +241,31 @@
 
 				<span id="d" class="col-3 m-0 align-self-center text-right member">
 					<c:if test="${ ! empty LoginOK }">
-						<img class="img" id="img"
-							src="${pageContext.request.contextPath}/img/logo-w.svg">
+						<img class="img"
+							style="width: 40px; height: 40px; border: 1px solid white; border-radius: 50%;"
+							<c:choose>
+							<c:when test='${! empty FB }'>src='${LoginOK.memberImage}'</c:when>
+							<c:when test='${(empty FB) and (empty LoginOK.memberImage)}'>src='${pageContext.request.contextPath}/index/img/nav/logo-w.svg'</c:when>
+							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${Id}.jpg' </c:otherwise>  
+							</c:choose>>
 					</c:if> <span id="notification"></span> <span id="cart"></span> <c:if
 						test="${empty LoginOK}">
-						<a onclick="window.location.href = './login/login.jsp'" id="c"
-							class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/login/login'"
+							id="c" class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
 					</c:if> <c:if test="${ ! empty LoginOK }">
 
-						<a onclick="window.location.href = './memberPage/memberPage.jsp'"
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/memberPage/memberPage'"
 							id="c" class="col-4 m-0 align-self-center text-right">${LoginOK.name}</a>
 					</c:if> <span>&nbsp; | &nbsp;</span> <c:if test="${empty LoginOK}">
 						<a
-							onclick="window.location.href = './createAccount/createAccount.jsp'"
+							onclick="window.location.href = '${pageContext.request.contextPath}/createAccount/createAccount'"
 							id="c" class="col-4 m-0 align-self-center text-right">註冊會員</a>
 					</c:if> <c:if test="${ ! empty LoginOK }">
-						<a onclick="window.location.href = './login/logout.jsp'"> 登出 </a>
+						<a
+							onclick="window.location.href = '${pageContext.request.contextPath}/login/logout'">
+							登出 </a>
 
 					</c:if> <!-- <img src="img/logged-in-all.svg" style="width: 280px;"> -->
 				</span>
@@ -302,6 +328,8 @@
 			</ul>
 
 		</div>
+
+
 	</nav>
 </div>
 

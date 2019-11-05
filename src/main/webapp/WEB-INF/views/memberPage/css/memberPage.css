@@ -1,0 +1,54 @@
+.main {
+	min-height: 70vh;
+	padding: 150px 0;
+	background: #e2e7e8;
+	/* display: flex; */
+	align-items: center;
+}
+
+#bigRow {
+	background: #0c70a1;
+}
+
+.topline {
+	font-size: 40px;
+}
+
+.left {
+	/* border-radius: 10px 0px 0px 10px; */
+	min-height: 70vh;
+}
+
+.right {
+	/* border-radius: 0px 10px 10px 0px; */
+	/* text-align: center; */
+	min-height: 70vh;
+}
+
+.top {
+	height: 40%;
+}
+
+/* .bottom {
+	height: 40%;
+} */
+
+h3 {
+	color: #439a23;
+	margin-top: 30px;
+}
+
+#blah {
+	object-fit: cover;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+	border: 3px dotted rgb(100, 168, 111);
+}
+
+.error {
+	color: red;
+	text-align: left;
+}

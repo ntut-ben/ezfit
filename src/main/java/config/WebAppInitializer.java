@@ -30,7 +30,6 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		OpenSessionInViewFilter openSessionInViewFilter = new OpenSessionInViewFilter();
-
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		return new Filter[] { characterEncodingFilter, openSessionInViewFilter };

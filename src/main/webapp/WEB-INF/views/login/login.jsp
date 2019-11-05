@@ -1,135 +1,161 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="css/login.css" />
+<script src="js/getPassword.js"></script>
 <title>會員登入</title>
-<link rel="stylesheet" href="main.css">
 
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-<script src="new.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400&display=swap"
 	rel="stylesheet" />
-<link rel="stylesheet" href="header_footer.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 <body>
-	<div id="container">
-		<header>
-			<div id="notification-menu">
-				<div id="web-title">健康餐點 ＋ 食譜社群平台</div>
-				<img id="title-logo" src="header_footer_image_icon/logo.png">
+	<script async defer crossorigin="anonymous"
+		src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v4.0&appId=505880339962412&autoLogAppEvents=1"></script>
+	<jsp:include page="../header.jsp" />
+	<!-- Main -->
 
-			</div>
-			<div id="drop-down-menu">
-				<div id="drop-down-menu-box">
-					<div id="healthy-diet-plan-meal-menu-box">
-						<div id="healthy-diet-plan-meal-menu">健康飲食計畫餐</div>
-						<div class="ar"></div>
+	<div class="main text-center text-dark" id="bigMain">
+		<div class="container my-container mx-auto">
+			<div class="row main">
+				<div class="left col-6 mx-auto bg-light">
+					<div
+						class="col-10 mx-auto border-bottom border-success text-success mt-4">
+						<h3>會員登入</h3>
 					</div>
-					<div id="food-ingredients-menu-box">
-						<div id="food-ingredients-menu">食材選購</div>
-						<div class="ar"></div>
+					<div class="col-10 mx-auto text-dark ">
+						<form action="loginServlet.do" method="post" id="theForm">
+							<div class="form-group mt-3">
+								<input type="email" class="form-control" id="memberEmail"
+									name="memberEmail" aria-describedby="emailHelp"
+									placeholder="請輸入Email"
+									value="${requestScope.email}${param.memberEmail}" />
+							</div>
+							<div class="error">${ErrorMsgKey.AccountEmptyError}</div>
+							<div class="form-group">
+								<input type="password" class="form-control" id="memberPassword"
+									name="memberPassword" placeholder="請輸入密碼"
+									value="${requestScope.password}${param.memberPassword}" />
+							</div>
+							<div class="error">${ErrorMsgKey.PasswordEmptyError}</div>
+							<div class="error">${ErrorMsgKey.LoginError}</div>
+							<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input" id="rememberMe"
+									name="rememberMe"
+									<c:if test='${requestScope.rememberMe==true}'>
+                  
+                  checked='checked'
+               </c:if>
+									value="true" /> <label class="form-check-label"
+									for="exampleCheck1">記住帳號密碼</label>
+							</div>
+
+							<!-- 我是機器人 -->
+							<div class="form-group w-50 ml-5">
+								<div class="g-recaptcha" id="g-recaptcha-response"
+									data-sitekey="6LcUJr8UAAAAADJK1RT86ze3nJFjSY68D4jvs5YL"></div>
+							</div>
+							<div class="error">${verifybug.verifybug}</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-success btn-lg btn-block">
+									登入</button>
+							</div>
+						</form>
+
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-link" data-toggle="modal"
+							data-target="#exampleModalCenter">忘記密碼？</button>
+
+						<!-- Modal: 忘記密碼小視窗 -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalCenterTitle">
+											忘記密碼</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<label for="exampleInputEmail1">Email address</label> <input
+											type="email" class="form-control" id="Email1forPwd"
+											name="Email1forPwd" aria-describedby="emailHelp"
+											placeholder="Enter email" /> <small id="emailHelp"
+											class="form-text text-muted">Email須為已註冊帳號</small>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">取消</button>
+										<button type="button" class="btn btn-success" id="getPwdBtn">取得密碼</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col" id="or"></div>
+						<div class="fb-login-button" data-width="" data-size="large"
+							data-button-type="login_with" scope="public_profile,email"
+							onlogin="checkLoginState();" data-use-continue-as="true"
+							data-auto-logout-link="true"></div>
+						<!-- <div class="col" id="googleButton">
+							<button type="button" class="btn btn-lg btn-block">
+								<img src="./img/loginGoogle.png" alt="" />
+							</button>
+						</div> -->
 					</div>
-					<div id="recipe-menu">食譜社群</div>
-					<div id="qa-menu">常見問答</div>
+				</div>
+				<div class="right col-6 text-center">
+					<div class="row justify-content-center align-content-center"
+						id="smallRow">
+						<div class=" col-10 text-success">
+							<h2>尚未註冊會員?</h2>
+						</div>
+						<div class="col-10 text-center mt-4">
+							<h3>歡迎加入我們，請點選下方連結</h3>
+						</div>
+						<div class="col-8 mt-4">
+							<button type="button" class="btn btn-outline-success btn-block"
+								id="registerBtn"
+								onclick="window.location.href = '../createAccount/createAccount.jsp'">
+								加入會員</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</header>
-		<main>
-		<div id="login">
-			<div id="loginPart">
-				<div id="loginText">會員登入</div>
-				<hr id="green">
-				<form action="${pageContext.request.contextPath}/api/login/loginServlet" method="post" id="theForm">
-					<input type="email" class="accountInfo" placeholder="請輸入Email"
-						id="memberEmail" name="memberEmail"
-						value="${requestScope.email}${param.memberEmail}" />
-					<div class="error">${ErrorMsgKey.AccountEmptyError}</div>
-					<input type="password" class="accountInfo" placeholder="請輸入密碼"
-						id="memberPassword" name="memberPassword"
-						value="${requestScope.password}${param.memberPassword}" />
-					<div class="error">${ErrorMsgKey.PasswordEmptyError}</div>
-					<p>
-						<input type="checkbox" name="rememberMe" value="true"
-							<c:if test="${requestScope.rememberMe==true}" checked='checked'>
-               </c:if>> 記住我
-
-					</p>
-					<div class="error">${ErrorMsgKey.LoginError}</div>
-					<input class="submit" type="submit" value="登入" />
-				</form>
-				<div id="forget">忘記密碼？</div>
-
-				<div id="gray">
-					<span style="white-space: pre"></span><span class="line"></span> <span
-						style="white-space: pre"></span><span class="txt">OR</span> <span
-						style="white-space: pre"></span><span class="line"></span>
-				</div>
-				<img src="pic/loginFB.png" alt=""
-					onclick="window.location.href='https://www.facebook.com'"> <img
-					src="pic/loginGoogle.png" alt=""
-					onclick="window.location.href='https://www.google.com'">
-			</div>
-			<div id="linkJoinus">
-				<div id="joinText">尚未註冊會員?</div>
-				<div id="welcome">歡迎加入我們，請點選下方連結</div>
-				<button type="button" id="linkButton"
-					onclick="window.location.href = '../createAccount/createAccount'">加入會員</button>
-			</div>
-			<div style="clear: both"></div>
 		</div>
-		</main>
-
-		<footer>
-			<div id="email-subscription">
-				<input id="email-subscription-input-text" type="text"
-					placeholder="輸入email獲得更多優惠資訊">
-				<button id="subscription-button">訂閱</button>
-			</div>
-			<div id="about-us-box">
-				<img id="footer-logo" src="header_footer_image_icon/logo-white.png">
-				<div id="about-us">關於EZfit Eat</div>
-				<div id="about-us-box-1">
-					<p>公司資訊</p>
-					<p>徵才訊息</p>
-					<p>廣告合作</p>
-				</div>
-				<div id="about-us-box-2">
-					<p>品牌資產</p>
-					<p>服務條款</p>
-					<p>隱私權政策</p>
-				</div>
-				<div id="partner">合作夥伴</div>
-				<img id="taitung-farm-link"
-					src="header_footer_image_icon/supplier_logo_1.png"> <img
-					id="fusheng-vegetables-link"
-					src="header_footer_image_icon/supplier_logo_2.png"> <img
-					id="wotian-farm-link"
-					src="header_footer_image_icon/supplier_logo_3.png">
-				<div id="partner-java012-1">健客</div>
-				<div id="partner-java012-2">室友是友 4U4U</div>
-				<div id="community-box">
-					<img id="email-link" src="header_footer_image_icon/email_icon.png".png">
-					<img id="instagram-link"
-						src="header_footer_image_icon/instagram_icon.png".png"> <img
-						id="twitter-link" src="header_footer_image_icon/twitter_icon.png".png">
-					<img id="facebook-link"
-						src="header_footer_image_icon/facebook_icon.png".png">
-				</div>
-			</div>
-			<div id="credit-card-icon">
-				<img src="header_footer_image_icon/credit_card_icon_1.png"> <img
-					src="header_footer_image_icon/credit_card_icon_2.png"> <img
-					src="header_footer_image_icon/credit_card_icon_3.png"> <img
-					src="header_footer_image_icon/credit_card_icon_4.png">
-			</div>
-			<div id="copyright-notice">Copyright ©2019 EZfit Eat 版權所有 All
-				Rights Reserved</div>
-		</footer>
 	</div>
+	<jsp:include page="../footer.jsp" />
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
 </body>
 </html>

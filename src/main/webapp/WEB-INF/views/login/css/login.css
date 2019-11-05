@@ -1,0 +1,76 @@
+#bigMain {
+	min-height: 80vh;
+	padding: 150px 0;
+	background: url("../img/background.png");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	align-items: center;
+	min-height: 80vh;
+}
+
+.mainTable {
+	background: white;
+	box-shadow: 0px 0px 10px #00000080;
+	border-radius: 8px;
+}
+
+.container {
+	width: 100%;
+}
+
+.submit {
+	background-color: #2eaa00;
+	border-radius: 8px;
+	color: #f4fff0;
+	font-size: 12px;
+	border: 0px solid transparent;
+}
+
+.mainTable tr td {
+	border: 1px sloid blue;
+}
+
+#registerButton {
+	background: #ffffff;
+	border: 3px solid #439a23;
+	border-radius: 8px;
+}
+
+.left {
+	border-radius: 10px 0px 0px 10px;
+	min-height: 70vh;
+}
+
+.right {
+	background: #f4fff0;
+	border-radius: 0px 10px 10px 0px;
+	text-align: center;
+	min-height: 70vh;
+}
+
+#registerBtn {
+	border-radius: 50px;
+}
+
+#or {
+	height: 2vh;
+	margin-top: 20px;
+	background-image: url("../img/OR.png");
+	background-size: contain;
+}
+
+#smallRow {
+	min-height: 70vh;
+}
+
+.container my-container mx-auto {
+	margin-top: 300px;
+	padding: 300px 0;
+}
+
+.error {
+	color: red;
+	font-size: 10px;
+	text-align: left;
+}

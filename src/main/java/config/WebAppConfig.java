@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "shopping.controller", "home.controller", "createAccount.controller", "login.controller" })
+@ComponentScan({ "shopping.controller", "home.controller", "createAccount.controller", "login.controller", "memberPage.controller" })
 public class WebAppConfig implements WebMvcConfigurer {
 
 	@Bean
@@ -34,9 +34,15 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("createAccount/pic/**").addResourceLocations("/WEB-INF/views/createAccount/pic/");
+		registry.addResourceHandler("createAccount/img/**").addResourceLocations("/WEB-INF/views/createAccount/img/");
 		registry.addResourceHandler("createAccount/js/**").addResourceLocations("/WEB-INF/views/createAccount/js/");
 		registry.addResourceHandler("createAccount/css/**").addResourceLocations("/WEB-INF/views/createAccount/css/");
-		registry.addResourceHandler("login/**").addResourceLocations("/WEB-INF/views/login/");
+		registry.addResourceHandler("memberPage/img/**").addResourceLocations("/WEB-INF/views/memberPage/img/");
+		registry.addResourceHandler("memberPage/css/**").addResourceLocations("/WEB-INF/views/memberPage/css/");
+		registry.addResourceHandler("memberPage/js/**").addResourceLocations("/WEB-INF/views/memberPage/js/");
+		registry.addResourceHandler("login/css/**").addResourceLocations("/WEB-INF/views/login/css/");
+		registry.addResourceHandler("login/js/**").addResourceLocations("/WEB-INF/views/login/js/");
+		registry.addResourceHandler("login/img/**").addResourceLocations("/WEB-INF/views/login/img/");
 		registry.addResourceHandler("index/img/**").addResourceLocations("/WEB-INF/views/index/img/");
 		registry.addResourceHandler("index/js/**").addResourceLocations("/WEB-INF/views/index/js/");
 		registry.addResourceHandler("index/css/**").addResourceLocations("/WEB-INF/views/index/css/");

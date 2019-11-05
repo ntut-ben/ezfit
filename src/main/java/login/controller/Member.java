@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import createAccount.model.GlobalService;
 import createAccount.model.MemberBean;
@@ -28,6 +29,8 @@ public class Member {
 	MemberService msi;
 	@Autowired
 	LoginService loginService;
+	@Autowired
+	CodeServiceImpl csi;
 
 	@RequestMapping(value = "/login/login", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
 	public String login() {
@@ -43,6 +46,7 @@ public class Member {
 
 	@RequestMapping(value = "/api/createAccount/memberServlet", method = RequestMethod.POST)
 	public String createAccountAPI(Model model, HttpServletRequest request) {
+
 		// 錯誤訊息
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		// 註冊成功
@@ -55,31 +59,42 @@ public class Member {
 		String name = request.getParameter("memberName");
 		String email = request.getParameter("memberEmail");
 		String password = request.getParameter("memberPassword");
-
+		String passwordCheck = request.getParameter("memberPasswordCheck");
 		String code = request.getParameter("veriCode");
-		CodeServiceImpl csi = new CodeServiceImpl();
-
+		String agreement = request.getParameter("serviceRule");
 		String correctCode = csi.queryCode(email);
 
-		// 檢查驗證碼
-		if (code.equals(correctCode)) {
-			System.out.println("驗證碼正確");
+		// 檢查密碼是否正確
+		if (!password.equals(passwordCheck)) {
+			errorMsg.put("errorPassword", "密碼不相符");
+		}
 
-			// 密碼加密
+		// 檢查帳號是否存在
+		if (msi.emailExists(email)) {
+			errorMsg.put("errorEmail", "email重複申請");
+		}
+
+		// 檢查驗證碼
+		if (!code.equals(correctCode)) {
+			errorMsg.put("errorCode", "驗證碼錯誤");
+		}
+
+		// 檢查是否同意
+		if (agreement == null || !agreement.equals("On")) {
+			errorMsg.put("errorAgreement", "請同意");
+		}
+
+		// 如果 errorMsgMap 不是空的，表示有錯誤
+		if (errorMsg.isEmpty()) {
 			password = GlobalService.getMD5Endocing(GlobalService.encryptString(password));
 			Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 			MemberBean mb = new MemberBean(null, email, password, name, null, null, null, null, null, null, null, ts);
 			msi.saveMember(mb);
 			return "/login/login";
-		} else if (msi.emailExists(email)) {
-			errorMsg.put("errorEmail", "email重複申請");
 		} else {
-			errorMsg.put("errorCode", "驗證碼錯誤");
+			return "/createAccount/createAccount";
 		}
 
-		// 如果 errorMsgMap 不是空的，表示有錯誤
-
-		return "/createAccount/createAccount";
 	}
 
 	@RequestMapping(value = "/api/login/loginServlet", method = RequestMethod.POST)

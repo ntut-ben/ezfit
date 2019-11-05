@@ -67,4 +67,55 @@ public class SendEmail {
 
 	}
 
+	public void sendPassword(String email, String newPassword, String encodedPassword) {
+		// 發送email
+		// Receiver's email ID
+		String receiver = email;
+
+		// Sending email from gmail
+		String host = "smtp.gmail.com";
+
+		// Port of SMTP
+		String port = "587";
+
+		Properties properties = new Properties();
+
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", host);
+		properties.put("mail.smtp.port", port);
+
+		// Create session object passing properties and authenticator instance
+		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(sender, password);
+			}
+		});
+
+		try {
+			// Create MimeMessage object
+			MimeMessage message = new MimeMessage(session);
+
+			// Set the Senders mail to From
+			message.setFrom(new InternetAddress(sender));
+
+			// Set the recipients email address
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
+
+			// Subject of the email
+			message.setSubject("歡迎加入EZFit");
+
+			// Body of the email
+
+			message.setText("Hi " + "\n" + "您的新密碼為: " + newPassword + "\n" + "**加密舊密碼: " + encodedPassword + "\n"
+					+ "為了帳戶安全,登入後請立即至管理帳號頁面更新密碼！");
+			// Send email.
+			Transport.send(message);
+
+		} catch (MessagingException me) {
+			me.printStackTrace();
+		}
+
+	}
+
 }

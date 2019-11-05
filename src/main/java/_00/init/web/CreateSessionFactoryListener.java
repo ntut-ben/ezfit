@@ -11,7 +11,7 @@ import _00.utils.HibernateUtils;
  * CreateSessionFactoryListener
  *
  */
-@WebListener
+//@WebListener
 public class CreateSessionFactoryListener implements ServletContextListener {
 
 	/**

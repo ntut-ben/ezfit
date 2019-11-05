@@ -5,15 +5,20 @@ import javax.persistence.NonUniqueResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import _00.utils.HibernateUtils;
 import createAccount.model.CodeBean;
 
+@Repository
 public class CodeDaoImpl {
+
+	@Autowired
 	SessionFactory factory;
 
-	public CodeDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
+	public CodeDaoImpl(SessionFactory factory) {
+
+		this.factory = factory;
 	}
 
 	public int saveCode(CodeBean cb) {
@@ -32,7 +37,7 @@ public class CodeDaoImpl {
 		try {
 			cb = (CodeBean) session.createQuery(hql).setParameter("email", email).getSingleResult();
 		} catch (NoResultException e) {
-			
+
 		} catch (NonUniqueResultException e) {
 			exist = true;
 		}
