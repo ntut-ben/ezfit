@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -11,14 +12,19 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/createAccount/css/createAccount.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/createAccount/css/createAccount.css" />
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/createAccount/js/createAccount.js"></script>
-<script src="${pageContext.request.contextPath}/createAccount/js/jquery.validate.js"></script>
-<script src="${pageContext.request.contextPath}/createAccount/js/additional-methods.js"></script>
-<script src="${pageContext.request.contextPath}/createAccount/js/getEmail.js"></script>
+<script
+	src="${pageContext.request.contextPath}/createAccount/js/createAccount.js"></script>
+<script
+	src="${pageContext.request.contextPath}/createAccount/js/jquery.validate.js"></script>
+<script
+	src="${pageContext.request.contextPath}/createAccount/js/additional-methods.js"></script>
+<script
+	src="${pageContext.request.contextPath}/createAccount/js/getEmail.js"></script>
 
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
@@ -124,10 +130,10 @@
 						</form>
 
 						<div class="col" id="or"></div>
-						<div class="fb-login-button" data-width="" data-size="large"
+						<div class="fb-login-button my-3" data-width="" data-size="large"
 							data-button-type="login_with" scope="public_profile,email"
 							onlogin="checkLoginState();" data-use-continue-as="true"
-							data-auto-logout-link="false"></div>
+							data-auto-logout-link="false" ></div>
 
 						<div id="status"></div>
 						<!-- <div class="col mb-3" id="googleButton">

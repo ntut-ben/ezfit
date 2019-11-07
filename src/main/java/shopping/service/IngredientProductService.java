@@ -17,4 +17,6 @@ public interface IngredientProductService {
 	public IngredientProduct getIngredientProductById(Integer id);
 
 	public void insertFakeData(List<IngredientProduct> ingredientProducts);
+	
+	public Integer getIngredientProductByName(DataSource ds, String name);
 }

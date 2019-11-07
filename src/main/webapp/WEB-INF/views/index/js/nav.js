@@ -1,54 +1,72 @@
-$(document).ready(function() {    
-    'use strict';
-    $("#a").hide();
-    $("#d").hide();
-    var c, currentScrollTop = 0,
-    navbar = $('#navbar-top');    
-    $(window).scroll(function() {           
+$(document).ready(function() {
+  // ---------------------------------------- 測試用
+//  $("#btn").click(function(e) {
+//    e.preventDefault();
+//
+//    array = ["雞蛋", "雞翅"];
+//
+//    $.ajax({
+//      type: "POST",
+//      contentType: "application/json;charset=utf-8",
+//      url: "http://localhost:8080/ezfit/api/shopCart/addPackage",
+//      data: JSON.stringify(array),
+//      dataType: "json",
+//      success: function(response) {}
+//    });
+//  });
+  // ----------------------------------------
+  ("use strict");
+  $("#a").hide();
+  $("#d").hide();
+  var c,
+    currentScrollTop = 0,
+    navbar = $("#navbar-top");
+  $(window).scroll(function() {
     var a = $(window).scrollTop();
     var b = navbar.height();
     currentScrollTop = a;
-    if(window.innerWidth > 992){
-        if (c < currentScrollTop && a > b + b) {
-            navbar.slideUp(300);            
-            $("#a").fadeIn(200);
-            $("#b").fadeOut(200);
-            $("#c").fadeOut(200);
-            $("#d").fadeIn(200);
-        } else if (c > currentScrollTop && !(a <= b)){
-            navbar.slideDown(300);
-            $("#a").fadeOut(200);
-            $("#b").fadeIn(200);
-            $("#c").fadeIn(200);
-            $("#d").fadeOut(200);
-           
-        }    
-        c = currentScrollTop;
-    }else{
-        navbar.hide();
-        $("#a").show();
-        $("#d").hide();
+    if (window.innerWidth > 992) {
+      if (c < currentScrollTop && a > b + b) {
+        navbar.slideUp(300);
+        $("#a").fadeIn(200);
+        $("#b").fadeOut(200);
+        $("#c").fadeOut(200);
+        $("#d").fadeIn(200);
+      } else if (c > currentScrollTop && !(a <= b)) {
+        navbar.slideDown(300);
+        $("#a").fadeOut(200);
+        $("#b").fadeIn(200);
+        $("#c").fadeIn(200);
+        $("#d").fadeOut(200);
+      }
+      c = currentScrollTop;
+    } else {
+      navbar.hide();
+      $("#a").show();
+      $("#d").hide();
     }
-    });
+  });
 
-    $(document).ready( function() {                
+  $(document).ready(function() {
+    /* $(selector).hover( inFunction, outFunction ) */
 
-        /* $(selector).hover( inFunction, outFunction ) */       
-
-        $('.dropdown').hover( 
-            function() {                        
-                $(this).find('.hoverdrop').css({               
-                    "display": "block",
-                    "margin-top": 0
-                });                        
-            }, 
-            function() {                        
-                $(this).find('.hoverdrop').css({                    
-                    "display": "none",
-                    "margin-top": 0
-                });                        
-            } 
-        );
-
-    });
+    $(".dropdown").hover(
+      function() {
+        $(this)
+          .find(".hoverdrop")
+          .css({
+            display: "block",
+            "margin-top": 0
+          });
+      },
+      function() {
+        $(this)
+          .find(".hoverdrop")
+          .css({
+            display: "none",
+            "margin-top": 0
+          });
+      }
+    );
+  });
 });

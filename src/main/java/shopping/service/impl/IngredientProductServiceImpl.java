@@ -1,9 +1,5 @@
 package shopping.service.impl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -83,6 +79,11 @@ public class IngredientProductServiceImpl implements IngredientProductService {
 	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
 
 		return ingredientDaoImpl.getIngredientProductBySearch(ds, search);
+	}
+
+	@Override
+	public Integer getIngredientProductByName(DataSource ds, String name) {
+		return ingredientDaoImpl.getIngredientProductByName(ds, name);
 	}
 
 }

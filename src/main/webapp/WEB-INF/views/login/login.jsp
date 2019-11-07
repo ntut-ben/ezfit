@@ -112,7 +112,7 @@
 						</div>
 
 						<div class="col" id="or"></div>
-						<div class="fb-login-button" data-width="" data-size="large"
+						<div class="fb-login-button my-3" data-width="" data-size="large"
 							data-button-type="login_with" scope="public_profile,email"
 							onlogin="checkLoginState();" data-use-continue-as="true"
 							data-auto-logout-link="false"></div>

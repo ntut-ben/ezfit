@@ -426,7 +426,9 @@ function parseWeek(date) {
     date = shipDate - new Date().getDate();
     day = date + new Date().getDay();
   }
-
+  while (day > 6) {
+    day -= 7;
+  }
   var week = "";
   switch (day) {
     case 0:

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
 
 body{
-  font-family:Arial, 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif;
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif;
 }
 
 .header-one{
@@ -28,15 +28,23 @@ body{
 }
 
 
-.btn-success {
+.plan-menu .btn-success, .nav-table .btn-success{
   color: #fff;
   background-color: #439A23;
   border: 0px;
   outline: none !important;
 }
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active{
+
+.plan-menu .btn-secondary{
+  color: #fff;
+  font-size: 14px;
+  border: 0px;
+  outline: none !important;
+}
+
+.plan-menu .btn-success:hover,
+.plan-menu .btn-success:focus,
+.plan-menu .btn-success:active{
   color: #fff;
   background-color: rgb(30, 120, 0) !important;
   border: 0px;
@@ -175,7 +183,7 @@ td {
 .card-body {
   padding: 5px;
 }
-.dropdown-menu .btn-success {
+.plan-menu .btn-success, .plan-menu .btn-secondary {
   font-size: 13px;
   border-radius: 5px;
   letter-spacing: 3px;
@@ -193,8 +201,13 @@ td {
   background: linear-gradient(rgb(77, 172, 0),rgb(0, 112, 0));
   border: none;
 }
+
+.coming-soon img{
+  filter: grayscale(1);
+}
+
 .cal .cal-btn{
-  padding: 120px 10px 0 10px;
+  padding: 100px 10px 10px 10px;
 }
 
 .cal .cal-btn a{

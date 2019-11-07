@@ -139,11 +139,11 @@ function generateView() {
     $("#mainContainer").css("height", "145vh");
 
     viewData = `  <div class="text-center">
-<img src="images/step1.svg" alt="" class="w-75" />
+<img src="/ezfit/images/step1.svg" alt="" class="w-75" />
 </div>
 <!-- 小內框 -->
 <div class="container-fulid m-3">
-<form class="w-100" action="api/GroupBuy/create" method="POST">
+<form class="w-100" action="/ezfit/api/GroupBuy/create" method="POST">
   <div class="row p-2 bg-white">
     <div class="col-12 m-2 text-center main-Font-Color bg-white h2">
       建立揪團資料
@@ -153,7 +153,7 @@ function generateView() {
     </div>
     <!-- 群組名稱 -->
     <div class="col-12 m-2 main-Font-Color">
-      <div class="m-1 h6">群組名稱</div>
+      <div class="m-1 h6">群組名稱 <span class="text-danger"> ${errorGroupName}</span></div>
       <div class="m-1">
         <input
           type="text"
@@ -171,7 +171,7 @@ function generateView() {
     </div>
     <!-- 主揪姓名 -->
     <div class="col-12 m-2 main-Font-Color">
-      <div class="m-1 h6">主揪姓名</div>
+      <div class="m-1 h6">主揪姓名 <span class="text-danger"> ${errorName}</span></div>
       <div class="m-1">
         <input
           name="initiatorName"
@@ -183,7 +183,7 @@ function generateView() {
     </div>
     <!-- email -->
     <div class="col-12 m-2 main-Font-Color">
-      <div class="m-1 h6">手機</div>
+      <div class="m-1 h6">手機 <span class="text-danger"> ${errorPhone}</span></div>
       <div class="m-1">
         <input
           name="initiatorPhone"
@@ -195,7 +195,7 @@ function generateView() {
     </div>
     <!-- 收件人地址 -->
     <div class="col-12 m-2 main-Font-Color">
-      <div class="m-1 h6">收件地址</div>
+      <div class="m-1 h6">收件地址 <span class="text-danger"> ${errorAddress}</span></div>
       <div class="m-1">
         <span
           id="twzipcode"
@@ -275,7 +275,7 @@ function generateView() {
         </div>
         <div class="col-12 m-2 text-center main-Font-Color bg-white">
           <button class="btn btn-success text-white w-25">
-            <a class="text-white h5 " href="api/GroupBuy/join/${group}">點餐去</a>
+            <a class="text-white h5 " href="/ezfit/api/GroupBuy/join/${group}">點餐去</a>
           </button>
         </div>
       </div>

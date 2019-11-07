@@ -56,7 +56,7 @@ import shopping.service.ProductService;
 @Controller
 public class Mall {
 	private final Integer mealboxCount = 1;
-	private Integer totalAmount = 0;
+	private Integer totalAmount;
 
 	@Autowired
 	IngredientProductService ingredientProductService;
@@ -306,6 +306,69 @@ public class Mall {
 		}
 	}
 
+	// 食材加入購物車 (食譜一鍵打包)
+	@RequestMapping(value = "api/shopCart/addPackage", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String productPackage(@RequestBody ArrayList<String> productName, HttpServletRequest req) {
+		Map<String, String> status = new HashMap<String, String>();
+		String json = null;
+		HttpSession session = req.getSession(false);
+		MemberBean memberBean = checkMemberBean(session);
+		List<Integer> integers = new ArrayList<Integer>();
+		Integer id = null;
+		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+		DataSource ds = ctx.getBean(DataSource.class);
+
+		for (Iterator iterator = productName.iterator(); iterator.hasNext();) {
+			String name = (String) iterator.next();
+			System.out.println(name);
+			id = ingredientProductService.getIngredientProductByName(ds, name);
+			System.out.println(id);
+			if (id != null) {
+				integers.add(id);
+			}
+		}
+
+		if (integers.size() > 0) {
+			for (Iterator iterator = integers.iterator(); iterator.hasNext();) {
+				id = (Integer) iterator.next();
+				// 取出商品
+				product = productService.getProductById(id);
+				// 檢查存貨
+				Integer checkStock = product.getStock() - 1;
+				cartItem = cartItemService.checkItem(product, memberBean);
+				if (cartItem != null) {
+					Integer updateQty = cartItem.getQty() + (1);
+					Integer updateSubtotal = updateQty * product.getPrice();
+					cartItem.setQty(updateQty);
+					cartItem.setSubTotal(updateSubtotal);
+					cartItemService.saveOrUpdate(cartItem);
+					status.put("status", "ok");
+					json = new ToJson<Map<String, String>>().getJson(status);
+				} else {
+					if (checkStock >= 0) {
+						Integer subTotal = product.getPrice() * 1;
+						cartItem = new CartItem();
+						cartItem.setMemberBean(memberBean);
+						cartItem.setProduct(product);
+						cartItem.setQty(1);
+						cartItem.setSubTotal(subTotal);
+						cartItemService.saveOrUpdate(cartItem);
+						status.put("status", "ok");
+						json = new ToJson<Map<String, String>>().getJson(status);
+					} else {
+						status.put("status", "false");
+						json = new ToJson<Map<String, String>>().getJson(status);
+					}
+				}
+			}
+			return json;
+		} else {
+			status.put("status", "false");
+			json = new ToJson<Map<String, String>>().getJson(status);
+			return json;
+		}
+	}
+
 	// 食材搜尋
 	@RequestMapping(value = "api/search", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String searchProduct(@RequestParam(value = "search") String search) {
@@ -316,7 +379,6 @@ public class Mall {
 		List<IngredientProduct> ingredientProducts = ingredientProductService.getIngredientProductBySearch(ds, search);
 		ToJson<IngredientProduct> toJson = new ToJson<IngredientProduct>();
 		json = toJson.getArrayJson(ingredientProducts);
-
 
 		if (ingredientProducts == null) {
 			return "null";
@@ -589,7 +651,7 @@ public class Mall {
 			@RequestParam("phone") String shippingPhone, @RequestParam("county") String shippingCity,
 			@RequestParam("district") String shippingDistrict, @RequestParam("zipcode") String shippingZipCode,
 			@RequestParam("address") String shippingAddress, HttpServletRequest req, Model model) {
-
+		totalAmount = 0;
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		model.addAttribute("MsgMap", errorMsg);
 
@@ -651,9 +713,8 @@ public class Mall {
 				cartItems = cartItemService.checkAllItems(memberBean);
 				for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
 					OrderItemBean orderItemBean = new OrderItemBean();
-
 					cartItem = (CartItem) iterator.next();
-					if (cartItem.getPlaneItems() != null) {
+					if (cartItem.getPlaneItems() != null && cartItem.getPlaneItems().size() != 0) {
 						List<OrderPlaneItem> orderPlaneItems = new ArrayList<OrderPlaneItem>();
 						List<PlaneItem> planeItems = cartItem.getPlaneItems();
 						for (Iterator iterator2 = planeItems.iterator(); iterator2.hasNext();) {
@@ -811,9 +872,34 @@ public class Mall {
 			@RequestParam("initiatorName") String initiatorName, @RequestParam("initiatorPhone") String initiatorPhone,
 			@RequestParam("county") String country, @RequestParam("district") String district,
 			@RequestParam("zipcode") String zipcode, @RequestParam("address") String address,
-			@RequestParam("deadLine") String deadLine, HttpServletRequest req) {
+			@RequestParam("deadLine") String deadLine, HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession(false);
 		MemberBean memberBean = checkMemberBean(session);
+
+		Map<String, String> errorMsg = new HashMap<String, String>();
+		model.addAttribute("MsgErr", errorMsg);
+		if (initiatorName == null || initiatorName.trim().equals("")) {
+			errorMsg.put("errorName", "請輸入主揪姓名");
+		}
+
+		if (initiatorPhone == null || initiatorPhone.trim().equals("")) {
+			errorMsg.put("errorPhone", "請輸入聯絡電話");
+		} else if (!(initiatorPhone.length() == 10) || !StringUtils.isNumeric(initiatorPhone)) {
+			errorMsg.put("errorPhone", "手機號碼為10位數字");
+		}
+
+		if (address == null || address.trim().equals("")) {
+			errorMsg.put("errorAddress", "請輸入收件地址");
+		}
+
+		if (groupName == null || groupName.trim().equals("")) {
+			errorMsg.put("errorGroupName", "請輸入團購名稱");
+		}
+
+		if (errorMsg.size() != 0) {
+			return "groupBuying";
+		}
+
 		Date deadLineSQL = null;
 		// Parse Date
 		if (deadLine != null) {
@@ -858,6 +944,10 @@ public class Mall {
 		GroupBuyBean groupBuyBeanInit = groupBuyService.queryGroupBuyByAlias(group);
 		System.out.println(groupBuyBeanInit.getInitiatorName());
 		Set<GroupBuyBean> groupBuyBeans = groupBuyBeanInit.getJoiner();
+
+		if (groupBuyBeanInit.getStatus() != 0) {
+			return ("redirect:/shopMaterial");
+		}
 
 		// avoid Initiator
 		if (groupBuyBeanInit.getMemberBean().equals(memberBean)) {

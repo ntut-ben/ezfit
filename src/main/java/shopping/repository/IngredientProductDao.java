@@ -19,4 +19,6 @@ public interface IngredientProductDao {
 	public void insertFakeData(List<IngredientProduct> ingredientProducts);
 
 	public IngredientProduct getIngredientProductById(Integer id);
+
+	public Integer getIngredientProductByName(DataSource ds, String name);
 }

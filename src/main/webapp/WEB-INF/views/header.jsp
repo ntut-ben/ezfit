@@ -35,7 +35,8 @@
 				</a>
 				<div class="col-4 m-0 text-center title">健康餐點 ＋ 食譜社群平台</div>
 
-				<span id="c" class="col-4 m-0 align-self-center text-right member dropdown">
+				<span id="c"
+					class="col-4 m-0 align-self-center text-right member dropdown">
 					<c:if test="${ ! empty LoginOK }">
 						<img class="img"
 							style="width: 40px; height: 40px; border: 1px solid green; border-radius: 50%;"
@@ -44,42 +45,35 @@
 							<c:when test='${(empty FB) and (empty LoginOK.memberImage)}'>src='${pageContext.request.contextPath}/index/img/nav/logo-g.svg'</c:when>
 							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${LoginOK.pkey}.jpg' </c:otherwise>  
 							</c:choose>>
-					</c:if>
-					 <span id="notification"></span> 
-					 <span id="cart">
-
-					 </span> <c:if
+					</c:if> <span id="notification"></span> <span id="cart"> </span> <c:if
 						test="${empty LoginOK}">
 						<a
 							onclick="window.location.href = '${pageContext.request.contextPath}/login/login'"
 							id="c" class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
-					</c:if> 
-					
-					<c:if test="${ ! empty LoginOK }">
-							<span
-							class="col-4 m-0 align-self-center text-right"
-							id="dropdownMenuButton"
-							data-toggle="dropdown"
-							data-hover="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-						  >
-						  ${LoginOK.name}
-						  </span>
-						  <div class="dropdown-menu p-1 hoverdrop" aria-labelledby="dropdownMenuButton" style="right: -40px; left: unset; min-width: unset;">
-								<a class="dropdown-item" href="#">我的食譜</a>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/orders">訂單管理</a>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/groupBuying">發起團購</a>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/cartList">購物車</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="${pageContext.request.contextPath}/login/logout">登出</a>
-							  </div>
-					</c:if> 
-					
-					<c:if test="${empty LoginOK}"><span>&nbsp; | &nbsp;</span> </c:if>
-					
-					<c:if test="${empty LoginOK}">
+					</c:if> <c:if test="${ ! empty LoginOK }">
+						<span class="col-4 m-0 align-self-center text-right"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+							${LoginOK.name} </span>
+						<div class="dropdown-menu p-1 hoverdrop"
+							aria-labelledby="dropdownMenuButton"
+							style="right: -40px; left: unset; min-width: unset;">
+							<a class="dropdown-item" href="#">我的食譜</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/orders">訂單管理</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/groupBuying">發起團購</a> <a
+								class="dropdown-item"
+								href="${pageContext.request.contextPath}/cartList">購物車</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/login/logout">登出</a>
+						</div>
+					</c:if> <c:if test="${empty LoginOK}">
+						<span>&nbsp; | &nbsp;</span>
+					</c:if> <c:if test="${empty LoginOK}">
 						<a
 							onclick="window.location.href = '${pageContext.request.contextPath}/createAccount/createAccount'"
 							id="c" class="col-4 m-0 align-self-center text-right">註冊會員</a>
@@ -177,18 +171,21 @@
 													</div>
 												</div>
 												<div class="col-4">
-													<div class="card">
+													<div class="card coming-soon">
 
-														<img
-															src="${pageContext.request.contextPath}/index/img/nav/lily.jpg"
-															class="card-img-top" alt="...">
+														<img src="${pageContext.request.contextPath}/img/nav/lily.jpg" class="card-img-top" alt="...">
 														<div class="card-img-overlay">
 															<h5 class="card-title text-center">晚餐隨選</h5>
 														</div>
 														<div class="card-body">
-															<p class="card-text">可自由選擇，讓瞭解自己需求的人能夠選擇想 要的晚餐。</p>
+															<p class="card-text">
+																可自由選擇，讓瞭解自己需求的人能夠選擇想要的晚餐。<span
+																	style="color: red; font-size: 12px; letter-spacing: 0;">Coming
+																	soon...</span>
+															</p>
 															<div class="text-right">
-																<a href="#" class="btn btn-success">現在就訂</a>
+																<a href="" class="btn btn-secondary disabled"
+																	aria-disabled="true">即將推出</a>
 															</div>
 														</div>
 													</div>
@@ -239,14 +236,18 @@
 													<li><a
 														href="${pageContext.request.contextPath}/shopMaterial?category=rice">米麵雜糧</a></li>
 													<br> <br>
-													<li><a href="${pageContext.request.contextPath}/shopMaterial"> <img
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial">
+															<img
 															src="${pageContext.request.contextPath}/index/img/nav/goshop.svg"
-															style="width: 120px;"></a></li>
-												
+															style="width: 120px;">
+													</a></li>
+
 												</div>
 												<div class="col-3 p-0">
 													<li><a href="#">醃漬/加工品</a></li>
-													<li><a href="${pageContext.request.contextPath}/shopMaterial?category=egg">蛋/蛋製品</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=egg">蛋/蛋製品</a></li>
 													<li><a href="#">奶類/奶製品</a></li>
 													<li><a href="#">豆腐/豆製品</a></li>
 													<li><a href="#">麵粉/烘焙用粉</a></li>
@@ -273,7 +274,8 @@
 					</table>
 				</div>
 
-				<span id="d" class="col-3 m-0 align-self-center text-right member dropdown">
+				<span id="d"
+					class="col-3 m-0 align-self-center text-right member dropdown">
 					<c:if test="${ ! empty LoginOK }">
 						<img class="img"
 							style="width: 40px; height: 40px; border: 1px solid white; border-radius: 50%;"
@@ -287,38 +289,35 @@
 						<a
 							onclick="window.location.href = '${pageContext.request.contextPath}/login/login'"
 							id="c" class="col-4 m-0 align-self-center text-right"> 會員登入 </a>
-					</c:if>
-					 <c:if test="${ ! empty LoginOK }">
-							<span
-							class="col-4 m-0 align-self-center text-right"
-							id="dropdownMenuButton"
-							data-toggle="dropdown"
-							data-hover="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-						  >
-						  ${LoginOK.name}
-						  </span>
-						  <div class="dropdown-menu p-1 hoverdrop text-danger" aria-labelledby="dropdownMenuButton" style="right: -40px; left: unset; min-width: unset;">
-								<a class="dropdown-item text-black-50" href="#">我的食譜</a>
-								<a class="dropdown-item text-black-50" href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
-								<a class="dropdown-item text-black-50" href="${pageContext.request.contextPath}/orders">訂單管理</a>
-								<a class="dropdown-item text-black-50" href="${pageContext.request.contextPath}/groupBuying">發起團購</a>
-								<a class="dropdown-item text-black-50" href="${pageContext.request.contextPath}/cartList">購物車</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item text-black-50" href="${pageContext.request.contextPath}/login/logout">登出</a>
-							  </div>
-					
-					</c:if>
-					
-					
-					<c:if test="${empty LoginOK}"><span>&nbsp; | &nbsp;</span> </c:if>
-					<c:if test="${empty LoginOK}">
+					</c:if> <c:if test="${ ! empty LoginOK }">
+						<span class="col-4 m-0 align-self-center text-right"
+							id="dropdownMenuButton" data-toggle="dropdown"
+							data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+							${LoginOK.name} </span>
+						<div class="dropdown-menu p-1 hoverdrop text-danger"
+							aria-labelledby="dropdownMenuButton"
+							style="right: -40px; left: unset; min-width: unset;">
+							<a class="dropdown-item text-black-50" href="#">我的食譜</a> <a
+								class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
+							<a class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/orders">訂單管理</a> <a
+								class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/groupBuying">發起團購</a> <a
+								class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/cartList">購物車</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/login/logout">登出</a>
+						</div>
+
+					</c:if> <c:if test="${empty LoginOK}">
+						<span>&nbsp; | &nbsp;</span>
+					</c:if> <c:if test="${empty LoginOK}">
 						<a
 							onclick="window.location.href = '${pageContext.request.contextPath}/createAccount/createAccount'"
 							id="c" class="col-4 m-0 align-self-center text-right">註冊會員</a>
-					</c:if> 
-				 <!-- <img src="img/logged-in-all.svg" style="width: 280px;"> -->
+					</c:if> <!-- <img src="img/logged-in-all.svg" style="width: 280px;"> -->
 				</span>
 			</div>
 		</div>

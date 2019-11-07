@@ -25,7 +25,8 @@ import createAccount.model.MemberBean;
 		@WebInitParam(name = "mustLogin3", value = "/memberPage/memberPage"),
 		@WebInitParam(name = "mustLogin4", value = "/api/shopCart/*"),
 		@WebInitParam(name = "mustLogin5", value = "/groupBuying"),
-		@WebInitParam(name = "mustLogin6", value = "/api/GroupBuy/*") })
+		@WebInitParam(name = "mustLogin6", value = "/api/GroupBuy/*"),
+		@WebInitParam(name = "mustLogin7", value = "/orders") })
 public class LoginCheckingFilter implements Filter {
 	List<String> url = new ArrayList<String>();
 	String servletPath;

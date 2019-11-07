@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,8 +72,6 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 		Session session = factory.getCurrentSession();
 		IngredientProduct ingredientProduct = new IngredientProduct();
 		try {
-//			String hql = "FROM IngredientProduct IP WHERE id = :id";
-//			Query query = session.createQuery(hql).setParameter("id", id);
 			ingredientProduct = session.get(IngredientProduct.class, id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,33 +79,15 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 		return ingredientProduct;
 	}
 
-//	@Override
-//	public List<IngredientProduct> getIngredientProductBySearch(String search) {
-//		List<IngredientProduct> results = null;
-//		Session session = factory.getCurrentSession();
-//		try {
-//			String sql = "select a.id,a.name,a.price,a.fileName,b.unit from product as a  join IngredientProduct "
-//					+ "as b on (a.id=b.id) where match (a.name , a.introduction) against "
-//					+ "(?) and FK_ProductCategory between 4 and 10;";
-//
-//			results = session.createSQLQuery(sql).setParameter(1, search).getResultList();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return results;
-//	}
-
 	@Override
 	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
 		List<IngredientProduct> ingredientProducts = null;
 		Connection connection = null;
 		PreparedStatement stmt = null;
-//		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			connection = ds.getConnection();
-			String sql = "select a.id,a.name,a.price,a.fileName,b.unit from product as a join IngredientProduct  as b on (a.id=b.id) where match (a.name) against (?) and FK_ProductCategory between 4 and 10;";
+			String sql = "SELECT a.id,a.name,a.price,a.fileName,b.unit , MATCH (a.name) AGAINST (?) AS RELEVANCE  FROM product AS a JOIN IngredientProduct  AS b ON (a.id=b.id) WHERE  FK_ProductCategory BETWEEN 4 AND 10 HAVING RELEVANCE > 0.5;";
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, search);
 			rs = stmt.executeQuery();
@@ -139,6 +118,7 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 		return ingredientProducts;
 	}
 
+// 包裝rs (商城搜尋)
 	private List<IngredientProduct> getMaterial(ResultSet rs) {
 		List<IngredientProduct> ingredientProducts = new ArrayList<IngredientProduct>();
 		try {
@@ -156,5 +136,44 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 			e.printStackTrace();
 		}
 		return ingredientProducts;
+	}
+
+	@Override
+	public Integer getIngredientProductByName(DataSource ds, String name) {
+
+		Integer id = null;
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			connection = ds.getConnection();
+			String sql = "SELECT a.id,a.name,a.price,a.fileName,b.unit , MATCH (a.name) AGAINST (?) AS RELEVANCE  FROM product AS a JOIN IngredientProduct  AS b ON (a.id=b.id) WHERE  FK_ProductCategory BETWEEN 4 AND 10 HAVING RELEVANCE > 0.8 ORDER BY RELEVANCE DESC LIMIT 1;";
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, name);
+			rs = stmt.executeQuery();
+			if (rs != null) {
+				rs.absolute(1); // Navigate to first row
+				id = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return id;
 	}
 }
