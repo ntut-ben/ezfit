@@ -30,7 +30,6 @@ $(document).ready(function() {
     ]
   });
 
-  
   $(".twzipcode option:first-child").css("display", "none");
   $("#subscriberTwzipcode select:nth-child(1)").attr("name", "subscribercity");
   $("#subscriberTwzipcode select:nth-child(2)").attr(
@@ -134,13 +133,6 @@ function getData() {
         $("#btn-submit").click(function(e) {
           cartCard = $("#cartListRow").find(".cartCard");
           cartCard = Array.from(cartCard);
-          console.log(123);
-          if (cartCard.length == 0) {
-            console.log(321);
-            e.preventDefault();
-            alert("購物車內沒有商品");
-            return;
-          }
           Array.from(addressSelect).forEach(element => {
             $(element).removeAttr("disabled");
           });

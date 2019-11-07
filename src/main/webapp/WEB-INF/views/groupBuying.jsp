@@ -17,6 +17,7 @@ pageEncoding="UTF-8"%>
     />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/groupBuying_main.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>Group Buying</title>
   </head>
   <body>
@@ -63,7 +64,6 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>

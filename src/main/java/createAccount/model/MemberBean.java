@@ -20,6 +20,7 @@ public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	Integer pkey;
 	String email;
 	String password;
@@ -33,7 +34,9 @@ public class MemberBean implements Serializable {
 	String tel;
 	@Expose
 	String memberImage;
+	@Expose
 	String introduction;
+	@Expose
 	String coverImg;
 	Timestamp registerTime;
 
