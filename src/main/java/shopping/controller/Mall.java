@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +54,6 @@ import shopping.service.PlaneProductService;
 import shopping.service.ProductService;
 
 @Controller
-
 public class Mall {
 	private final Integer mealboxCount = 1;
 	private Integer totalAmount = 0;
@@ -315,7 +316,7 @@ public class Mall {
 		List<IngredientProduct> ingredientProducts = ingredientProductService.getIngredientProductBySearch(ds, search);
 		ToJson<IngredientProduct> toJson = new ToJson<IngredientProduct>();
 		json = toJson.getArrayJson(ingredientProducts);
-		System.out.println(json);
+
 
 		if (ingredientProducts == null) {
 			return "null";
@@ -570,6 +571,12 @@ public class Mall {
 		return null;
 	}
 
+	// 用來redirect
+	@RequestMapping(value = "api/shopCart/bill", method = RequestMethod.GET)
+	public String billCartItem() {
+		return "redirect:/cartList";
+	}
+
 	// 購物車結帳商品(個人)
 	@RequestMapping(value = "api/shopCart/bill", method = RequestMethod.POST)
 	public String billCartItem(@RequestParam("subscriberName") String subscriberName,
@@ -581,63 +588,103 @@ public class Mall {
 			@RequestParam("subscriberAddress") String subscriberAddress, @RequestParam("name") String shippingName,
 			@RequestParam("phone") String shippingPhone, @RequestParam("county") String shippingCity,
 			@RequestParam("district") String shippingDistrict, @RequestParam("zipcode") String shippingZipCode,
-			@RequestParam("address") String shippingAddress, HttpServletRequest req) {
-		HttpSession session = req.getSession(false);
-		MemberBean memberBean = checkMemberBean(session);
-		orderBean = new OrderBean();
-		orderItemBeans = new ArrayList<OrderItemBean>();
-		orderBean.setShippingAddress(shippingAddress);
-		orderBean.setShippingCity(shippingCity);
-		orderBean.setShippingDistrict(shippingDistrict);
-		orderBean.setShippingName(shippingName);
-		orderBean.setShippingPhone(shippingPhone);
-		orderBean.setSubscriberAddress(subscriberAddress);
-		orderBean.setSubscriberCity(subscriberCity);
-		orderBean.setSubscriberDistrict(subscriberDistrict);
-		orderBean.setSubscriberEmail(subscriberEmail);
-		orderBean.setSubscriberName(subscriberName);
-		orderBean.setSubscriberPhone(subscriberPhone);
-		orderBean.setSubscriberZipCode(subscriberZipCode);
-		orderBean.setShippingZipCode(shippingZipCode);
+			@RequestParam("address") String shippingAddress, HttpServletRequest req, Model model) {
 
-		if (memberBean != null) {
-			cartItems = cartItemService.checkAllItems(memberBean);
-			for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
-				OrderItemBean orderItemBean = new OrderItemBean();
+		Map<String, String> errorMsg = new HashMap<String, String>();
+		model.addAttribute("MsgMap", errorMsg);
 
-				cartItem = (CartItem) iterator.next();
-				if (cartItem.getPlaneItems() != null) {
-					List<OrderPlaneItem> orderPlaneItems = new ArrayList<OrderPlaneItem>();
-					List<PlaneItem> planeItems = cartItem.getPlaneItems();
-					for (Iterator iterator2 = planeItems.iterator(); iterator2.hasNext();) {
-						PlaneItem planeItem = (PlaneItem) iterator2.next();
-						OrderPlaneItem orderPlaneItem = new OrderPlaneItem();
-						orderPlaneItem.setCuisineProduct(planeItem.getCuisineProduct());
-						orderPlaneItems.add(orderPlaneItem);
-					}
-					orderItemBean.setShipDate(cartItem.getShipDate());
-					orderItemBean.setPlaneItems(orderPlaneItems);
-					totalAmount += 90;
-				}
-
-				orderItemBean.setQty(cartItem.getQty());
-				orderItemBean.setSubTotal(cartItem.getSubTotal());
-				orderItemBean.setProduct(cartItem.getProduct());
-				orderItemBeans.add(orderItemBean);
-				totalAmount += cartItem.getSubTotal();
-				cartItemService.remove(cartItem.getProduct().getId(), memberBean);
-			}
-			orderBean.setTotalAmount(totalAmount);
-			Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
-			orderBean.setOrderItemBeans(orderItemBeans);
-			orderBean.setCreateTime(ts);
-			orderBean.setMemberBean(memberBean);
-			orderService.save(orderBean);
-//			int count = cartItemServiceImpl.delete(mb);
-
-			return "redirect:/orderDetail";
+		if (subscriberName.trim() == "") {
+			errorMsg.put("errorSubName", "請輸入購買人姓名");
 		}
 
+		if (subscriberPhone.trim() == "") {
+			errorMsg.put("errorSubPhone", "請輸入購買人手機號碼");
+		} else if (!(subscriberPhone.length() == 10) || !StringUtils.isNumeric(subscriberPhone)) {
+			errorMsg.put("errorSubPhone", "手機號碼為10位數字");
+		}
+
+		if (subscriberEmail.trim() == "") {
+			errorMsg.put("errorSubEmail", "請輸入購買人信箱");
+		}
+
+		if (subscriberAddress.trim() == "") {
+			errorMsg.put("errorSubAddress", "請輸入購買人地址");
+		}
+
+		if (shippingName.trim() == "") {
+			errorMsg.put("errorShipName", "請輸入收件人姓名");
+		}
+
+		if (shippingPhone.trim() == "") {
+			errorMsg.put("errorShipPhone", "請輸入收件人電話");
+		} else if (!(shippingPhone.length() == 10) || !StringUtils.isNumeric(shippingPhone)) {
+			errorMsg.put("errorShipPhone", "手機號碼為10位數字");
+		}
+
+		if (shippingAddress.trim() == "") {
+			errorMsg.put("errorShipAddress", "請輸入收件人地址");
+		}
+
+		if (errorMsg.size() > 0) {
+			return "/cartList";
+		} else {
+
+			HttpSession session = req.getSession(false);
+			MemberBean memberBean = checkMemberBean(session);
+			orderBean = new OrderBean();
+			orderItemBeans = new ArrayList<OrderItemBean>();
+			orderBean.setShippingAddress(shippingAddress);
+			orderBean.setShippingCity(shippingCity);
+			orderBean.setShippingDistrict(shippingDistrict);
+			orderBean.setShippingName(shippingName);
+			orderBean.setShippingPhone(shippingPhone);
+			orderBean.setSubscriberAddress(subscriberAddress);
+			orderBean.setSubscriberCity(subscriberCity);
+			orderBean.setSubscriberDistrict(subscriberDistrict);
+			orderBean.setSubscriberEmail(subscriberEmail);
+			orderBean.setSubscriberName(subscriberName);
+			orderBean.setSubscriberPhone(subscriberPhone);
+			orderBean.setSubscriberZipCode(subscriberZipCode);
+			orderBean.setShippingZipCode(shippingZipCode);
+			orderBean.setGroupBuyBean(null);
+			if (memberBean != null) {
+				cartItems = cartItemService.checkAllItems(memberBean);
+				for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
+					OrderItemBean orderItemBean = new OrderItemBean();
+
+					cartItem = (CartItem) iterator.next();
+					if (cartItem.getPlaneItems() != null) {
+						List<OrderPlaneItem> orderPlaneItems = new ArrayList<OrderPlaneItem>();
+						List<PlaneItem> planeItems = cartItem.getPlaneItems();
+						for (Iterator iterator2 = planeItems.iterator(); iterator2.hasNext();) {
+							PlaneItem planeItem = (PlaneItem) iterator2.next();
+							OrderPlaneItem orderPlaneItem = new OrderPlaneItem();
+							orderPlaneItem.setCuisineProduct(planeItem.getCuisineProduct());
+							orderPlaneItems.add(orderPlaneItem);
+						}
+						orderItemBean.setShipDate(cartItem.getShipDate());
+						orderItemBean.setPlaneItems(orderPlaneItems);
+						totalAmount += 90;
+					}
+
+					orderItemBean.setQty(cartItem.getQty());
+					orderItemBean.setSubTotal(cartItem.getSubTotal());
+					orderItemBean.setProduct(cartItem.getProduct());
+					orderItemBeans.add(orderItemBean);
+					totalAmount += cartItem.getSubTotal();
+					cartItemService.remove(cartItem.getProduct().getId(), memberBean);
+				}
+				orderBean.setTotalAmount(totalAmount);
+				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+				orderBean.setOrderItemBeans(orderItemBeans);
+				orderBean.setCreateTime(ts);
+				orderBean.setMemberBean(memberBean);
+				orderService.save(orderBean);
+//			int count = cartItemServiceImpl.delete(mb);
+
+				return "redirect:/orderDetail";
+			}
+		}
 		return null;
 	}
 

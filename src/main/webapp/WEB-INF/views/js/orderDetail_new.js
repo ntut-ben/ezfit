@@ -129,11 +129,12 @@ function getData() {
     `;
 
       $("#cartListRow").append(cartData);
-
-      if (orderId != undefined || orderId != null || orderId != false) {
+      x = document.referrer;
+      console.log(x);
+      if (orderId != undefined && orderId != null && orderId != false) {
         $("#orderId").html(`訂單編號: #${data.id}`);
         $("#orderTime").html(`時間: ${data.createTime}`);
-      } else {
+      } else if (x.includes("/ezfit/cartList")) {
         $("#orderInfo").html(
           `<h3>${data.subscriberName}，訂購成功!您的訂單編號為#${data.id}</h3>`
         );

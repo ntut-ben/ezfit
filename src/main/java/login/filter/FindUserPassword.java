@@ -8,12 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import createAccount.model.GlobalService;
+import createAccount.model.EncrypAES;
 
 //@WebFilter("/login/login.jsp")
 public class FindUserPassword implements Filter {
@@ -46,7 +45,7 @@ public class FindUserPassword implements Filter {
 						String tmp = cookies[i].getValue();
 						// 將密碼解密
 						if (tmp != null) {
-							password = GlobalService.decryptString(GlobalService.KEY, tmp);
+							password = EncrypAES.decryptString(EncrypAES.KEY, tmp);
 						}
 					} else if (cookieName.equals("rm")) {
 						// 找到rm這個Cookie(rm: rememberMe)

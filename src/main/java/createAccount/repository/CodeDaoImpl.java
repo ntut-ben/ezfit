@@ -11,16 +11,16 @@ import org.springframework.stereotype.Repository;
 import createAccount.model.CodeBean;
 
 @Repository
-public class CodeDaoImpl {
+public class CodeDaoImpl implements CodeDao {
 
-	@Autowired
 	SessionFactory factory;
 
+	@Autowired
 	public CodeDaoImpl(SessionFactory factory) {
-
 		this.factory = factory;
 	}
 
+	@Override
 	public int saveCode(CodeBean cb) {
 		int n = 0;
 		Session session = factory.getCurrentSession();
@@ -29,6 +29,7 @@ public class CodeDaoImpl {
 		return n;
 	}
 
+	@Override
 	public boolean emailExists(String email) {
 		boolean exist = false;
 		CodeBean cb = null;
@@ -47,6 +48,7 @@ public class CodeDaoImpl {
 		return exist;
 	}
 
+	@Override
 	public String queryCode(String email) {
 		String code = null;
 		String hql = "select code FROM CodeBean WHERE email = :email";

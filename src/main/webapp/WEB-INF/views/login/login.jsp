@@ -14,8 +14,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
-<link rel="stylesheet" href="css/login.css" />
-<script src="js/getPassword.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/login/css/login.css" />
+<script src="${pageContext.request.contextPath}/login/js/getPassword.js"></script>
 <title>會員登入</title>
 
 <link
@@ -39,7 +39,7 @@
 						<h3>會員登入</h3>
 					</div>
 					<div class="col-10 mx-auto text-dark ">
-						<form action="loginServlet.do" method="post" id="theForm">
+						<form action="${pageContext.request.contextPath}/api/login/loginServlet" method="post" id="theForm">
 							<div class="form-group mt-3">
 								<input type="email" class="form-control" id="memberEmail"
 									name="memberEmail" aria-describedby="emailHelp"
@@ -115,7 +115,7 @@
 						<div class="fb-login-button" data-width="" data-size="large"
 							data-button-type="login_with" scope="public_profile,email"
 							onlogin="checkLoginState();" data-use-continue-as="true"
-							data-auto-logout-link="true"></div>
+							data-auto-logout-link="false"></div>
 						<!-- <div class="col" id="googleButton">
 							<button type="button" class="btn btn-lg btn-block">
 								<img src="./img/loginGoogle.png" alt="" />
@@ -135,7 +135,7 @@
 						<div class="col-8 mt-4">
 							<button type="button" class="btn btn-outline-success btn-block"
 								id="registerBtn"
-								onclick="window.location.href = '../createAccount/createAccount.jsp'">
+								onclick="window.location.href = '${pageContext.request.contextPath}/createAccount/createAccount'">
 								加入會員</button>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
 body{
-  font-family:'Open Sans' , Arial, 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif;
+  font-family:Arial, 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif;
 }
 
 .header-one{
@@ -190,7 +190,7 @@ td {
 .cal .card{
   width: 275px;
   min-height: 268px;
-  background-color: #2eaa00;
+  background: linear-gradient(rgb(77, 172, 0),rgb(0, 112, 0));
   border: none;
 }
 .cal .cal-btn{
@@ -214,8 +214,8 @@ td {
 }
 
 .grocery a:link,
-a:visited,
-a:active {  
+.grocery a:visited,
+.grocery a:active {  
   color: #353535;
   font-weight: 300;
   letter-spacing: 2px;
@@ -276,8 +276,6 @@ footer {
   position: relative;
   z-index: 1;
 }
-
-
 
 .logo img{
   width: 250px;
@@ -346,21 +344,6 @@ footer {
   padding: 0%;
 }
 
-.img{
-	width:40px;
-	height:40px;
-	border-radius:40px;
-	border:1px solid green;
-}
-
-#img{
-	border:1px solid white;
-}
-
-body{
-  font-family: Arial , 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif !important;
-}
-
 
 @media screen and (max-width: 990px){
   .header-one{
@@ -372,6 +355,7 @@ body{
   .footer-margin{
     margin-top: 40px;
   }
+
   .search-text .input-search {
     width: 300px;
   }

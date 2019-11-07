@@ -1,6 +1,7 @@
 package shopping.repository.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -102,17 +103,16 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 	public List<IngredientProduct> getIngredientProductBySearch(DataSource ds, String search) {
 		List<IngredientProduct> ingredientProducts = null;
 		Connection connection = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
+//		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			connection = ds.getConnection();
-			stmt = connection.createStatement();
-			rs = stmt.executeQuery(getQuerySqlFor(search));
-			if (rs.next()) {
-				ingredientProducts = getMaterial(rs);
-			} else {
-				ingredientProducts = null;
-			}
+			String sql = "select a.id,a.name,a.price,a.fileName,b.unit from product as a join IngredientProduct  as b on (a.id=b.id) where match (a.name) against (?) and FK_ProductCategory between 4 and 10;";
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, search);
+			rs = stmt.executeQuery();
+			ingredientProducts = getMaterial(rs);
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -143,14 +143,12 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 		List<IngredientProduct> ingredientProducts = new ArrayList<IngredientProduct>();
 		try {
 			while (rs.next()) {
-
 				IngredientProduct ingredientProduct = new IngredientProduct();
 				ingredientProduct.setId(rs.getInt("id"));
 				ingredientProduct.setName(rs.getString("name"));
 				ingredientProduct.setUnit(rs.getString("unit"));
 				ingredientProduct.setFileName(rs.getString("fileName"));
 				ingredientProduct.setPrice(rs.getInt("price"));
-
 				ingredientProducts.add(ingredientProduct);
 			}
 		} catch (SQLException e) {
@@ -158,12 +156,5 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 			e.printStackTrace();
 		}
 		return ingredientProducts;
-	}
-
-	private String getQuerySqlFor(String search) {
-		// TODO Auto-generated method stub
-		return "select a.id,a.name,a.price,a.fileName,b.unit from product as a  join IngredientProduct "
-				+ "as b on (a.id=b.id) where match (a.name) against ('" + search
-				+ "') and FK_ProductCategory between 4 and 10;";
 	}
 }

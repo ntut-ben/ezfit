@@ -1,6 +1,7 @@
 package login.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -19,9 +20,12 @@ import javax.servlet.http.HttpSession;
 
 import createAccount.model.MemberBean;
 
-//@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "mustLogin1", value = "/_03_listBooks/*"),
-//		@WebInitParam(name = "mustLogin2", value = "/_20_productMaintain/*"),
-//		@WebInitParam(name = "mustLogin3", value = "/cartList.html") })
+@WebFilter(urlPatterns = { "/*" }, initParams = { @WebInitParam(name = "mustLogin1", value = "/cartList"),
+		@WebInitParam(name = "mustLogin2", value = "/api/shopCart/add"),
+		@WebInitParam(name = "mustLogin3", value = "/memberPage/memberPage"),
+		@WebInitParam(name = "mustLogin4", value = "/api/shopCart/*"),
+		@WebInitParam(name = "mustLogin5", value = "/groupBuying"),
+		@WebInitParam(name = "mustLogin6", value = "/api/GroupBuy/*") })
 public class LoginCheckingFilter implements Filter {
 	List<String> url = new ArrayList<String>();
 	String servletPath;
@@ -47,6 +51,7 @@ public class LoginCheckingFilter implements Filter {
 			requestURI = req.getRequestURI();
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 			if (mustLogin()) {
+				Boolean isAjax = false;
 				if (checkLogin(req)) {
 					// 需要登入，但已經登入
 					chain.doFilter(request, response);
@@ -62,8 +67,26 @@ public class LoginCheckingFilter implements Filter {
 						// 原本要執行的程式。
 						session.setAttribute("requestURI", requestURI);
 					}
-					resp.sendRedirect(contextPath + "/login/login.jsp");
-					return;
+					isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
+					if (!isAjax) {
+						resp.sendRedirect(contextPath + "/login/login");
+						return;
+					} else {
+
+						String redirectURL = resp.encodeRedirectURL(req.getContextPath() + "/login/login");
+
+						StringBuilder sb = new StringBuilder();
+						session.setAttribute("requestURI", req.getHeader("referer"));
+						System.out.println(req.getHeader("referer"));
+						sb.append("redirect");
+						resp.setHeader("redirect", redirectURL);
+						resp.setCharacterEncoding("UTF-8");
+						resp.setContentType("text/html");
+						PrintWriter pw = response.getWriter();
+						pw.println(sb.toString());
+						pw.flush();
+					}
+
 				}
 			} else { // 不需要登入，直接去執行他要執行的程式
 				chain.doFilter(request, response);

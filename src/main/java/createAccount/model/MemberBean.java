@@ -1,23 +1,17 @@
 package createAccount.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
+
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.google.gson.annotations.Expose;
-
-import shopping.model.GroupBuyBean;
-import shopping.model.OrderBean;
 
 @Entity
 @Table(name = "`Member`") // Table要移掉``
@@ -37,18 +31,14 @@ public class MemberBean implements Serializable {
 	Date birthday;
 	String address;
 	String tel;
-
-	@OneToMany(mappedBy = "memberBean")
-	List<OrderBean> orderBeans = new ArrayList<OrderBean>();
-
-	@OneToMany(mappedBy = "memberBean")
-	List<GroupBuyBean> groupBuyBeans = new ArrayList<GroupBuyBean>();
-
-	Blob memberImage;
+	@Expose
+	String memberImage;
+	String introduction;
+	String coverImg;
 	Timestamp registerTime;
 
 	public MemberBean(Integer pkey, String email, String password, String name, String gender, Double height,
-			Double weight, Date birthday, String address, String tel, Blob memberImage, Timestamp registerTime) {
+			Double weight, Date birthday, String address, String tel, String memberImage, Timestamp registerTime) {
 		super();
 		this.pkey = pkey;
 		this.email = email;
@@ -61,6 +51,14 @@ public class MemberBean implements Serializable {
 		this.address = address;
 		this.tel = tel;
 		this.memberImage = memberImage;
+		this.registerTime = registerTime;
+	}
+
+	public MemberBean(Integer pkey, String email, String password, Timestamp registerTime) {
+		super();
+		this.pkey = pkey;
+		this.email = email;
+		this.password = password;
 		this.registerTime = registerTime;
 	}
 
@@ -157,11 +155,11 @@ public class MemberBean implements Serializable {
 		this.tel = tel;
 	}
 
-	public Blob getMemberImage() {
+	public String getMemberImage() {
 		return memberImage;
 	}
 
-	public void setMemberImage(Blob memberImage) {
+	public void setMemberImage(String memberImage) {
 		this.memberImage = memberImage;
 	}
 
@@ -173,20 +171,20 @@ public class MemberBean implements Serializable {
 		this.registerTime = registerTime;
 	}
 
-	public List<OrderBean> getOrderBeans() {
-		return orderBeans;
+	public String getIntroduction() {
+		return introduction;
 	}
 
-	public void setOrderBeans(List<OrderBean> orderBeans) {
-		this.orderBeans = orderBeans;
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 
-	public List<GroupBuyBean> getGroupBuyBeans() {
-		return groupBuyBeans;
+	public String getCoverImg() {
+		return coverImg;
 	}
 
-	public void setGroupBuyBeans(List<GroupBuyBean> groupBuyBeans) {
-		this.groupBuyBeans = groupBuyBeans;
+	public void setCoverImg(String coverImg) {
+		this.coverImg = coverImg;
 	}
 
 }

@@ -1,16 +1,17 @@
 function doFirst() {
 	$('#veriCodeButton').click(function(e) {
+		
 		$.ajax({
 			type : "post",
-			url : "emailServlet.do",
+			url : "http://localhost:8080/ezfit/api/createAccount/emailServlet",
 			data : {
 				memberName : $('#memberName').val(),
 				memberEmail : $('#memberEmail').val()
 			},
 			dataType : "text",
 			success : function(response) {
-				alert('已發送驗證碼到: ' + $('#memberEmail').val());
-				document.getElementById('checkCode').innerHTML = response;
+				alert(response);
+//				document.getElementById('checkCode').innerHTML = response;
 			},
 		});
 

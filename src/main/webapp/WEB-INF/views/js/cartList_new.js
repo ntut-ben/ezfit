@@ -29,6 +29,8 @@ $(document).ready(function() {
       "澎湖縣"
     ]
   });
+
+  
   $(".twzipcode option:first-child").css("display", "none");
   $("#subscriberTwzipcode select:nth-child(1)").attr("name", "subscribercity");
   $("#subscriberTwzipcode select:nth-child(2)").attr(
@@ -40,6 +42,17 @@ $(document).ready(function() {
     .attr("name", "subscriberzipCode");
 
   getData();
+
+  $("#btn-submit").click(function(e) {
+    cartCard = $("#cartListRow").find(".cartCard");
+    cartCard = Array.from(cartCard);
+    console.log(cartCard.length);
+    if (cartCard.length == 0) {
+      e.preventDefault();
+      alert("購物車內沒有商品");
+      return;
+    }
+  });
 });
 
 function inheritInfo() {
@@ -74,10 +87,10 @@ function getData() {
 
   if (group != false && group != null) {
     apiCall = `http://localhost:8080/ezfit/api/CheckShopCart/${group}`;
-    $("#cartForm").attr("action", "api/shopCart/groupBill");
+    $("#cartForm").attr("action", "/ezfit/api/shopCart/groupBill");
   } else {
     apiCall = `http://localhost:8080/ezfit/api/CheckShopCart`;
-    $("#cartForm").attr("action", `api/shopCart/bill`);
+    $("#cartForm").attr("action", `/ezfit/api/shopCart/bill`);
   }
   $("#cartListRow")
     .children(".cartCard")
@@ -117,14 +130,26 @@ function getData() {
         $(addressSelect[1]).val(data.groupBuy.shippingDistrict);
         $("#address").val(data.groupBuy.shippingAddress);
         $("#address").attr("readonly", "true");
-        // 送出時，資料要解封
+
         $("#btn-submit").click(function(e) {
+          cartCard = $("#cartListRow").find(".cartCard");
+          cartCard = Array.from(cartCard);
+          console.log(123);
+          if (cartCard.length == 0) {
+            console.log(321);
+            e.preventDefault();
+            alert("購物車內沒有商品");
+            return;
+          }
           Array.from(addressSelect).forEach(element => {
             $(element).removeAttr("disabled");
           });
         });
+
         data = data.cartItems;
       }
+
+      // 送出時，資料要解封
 
       total = 0;
       cartData = "";
@@ -139,7 +164,9 @@ function getData() {
                <div class="row">
                  <div class="col-2">
                    <img
-                     src="productImage/${fileName[0]}"
+                     src="http://localhost:8080/ezfit/productImage/${
+                       fileName[0]
+                     }"
                      alt=""
                      style="width: 100%;"
                    />
@@ -167,7 +194,7 @@ function getData() {
                      style="max-width: 40%;"
                    />
                    <button class="text-danger mx-1 deleteBtn" type="button" style="border: 0; background: inherit;"  data-action="delete"  data-id="${
-                    data[i].id
+                     data[i].id
                    }"=>刪除</button>
                  </div>
                  <div class="col-4">NT$ ${data[i].product.price}</div>

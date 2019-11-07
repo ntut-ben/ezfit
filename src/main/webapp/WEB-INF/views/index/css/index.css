@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
 body {
-  font-family: 'Open Sans', Arial, 'Noto Sans TC', 'Microsoft JhengHei',
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei',
     '微軟正黑體', sans-serif;
 }
 
@@ -234,6 +234,12 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
+  .rte-green-text {
+    background-color: #439a23ce;
+    font-size: 30px;
+    padding: 20px 0 20px 0;
+  }
+
   .rte-white-text {
     text-align: center !important;
     padding: 20px 20px 20px 20px !important;
@@ -263,6 +269,12 @@ body {
 }
 
 @media screen and (max-width: 900px) {
+  .rte-green-text {
+    background-color: #439a23ce;
+    font-size: 25px;
+    padding: 20px 0 20px 0;
+  }
+
   .card-deck {
     display: none;
   }
@@ -299,8 +311,9 @@ body {
     letter-spacing: 5px;
   }
   .rte-green-text {
-    font-size: 30px;
-    padding: 50px 0 50px 0;
+
+    font-size: 25px;
+    padding: 20px 0 20px 0;
   }
 
   .delivery {

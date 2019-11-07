@@ -160,7 +160,7 @@ function getData() {
         e.preventDefault();
         e.stopPropagation();
         id = $(this).data("id");
-      
+
         getSingleMealBox(id);
       });
 

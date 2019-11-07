@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" /> -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/index/css/nav.css" />
 <link rel="stylesheet"
@@ -30,7 +30,7 @@
 		<div class="container-fluid m-0 p-0">
 			<div class="row no-gutters justify-content-center">
 				<a class="navbar-logo col-4  m-0 align-self-center" id="b"
-					href="${pageContext.request.contextPath}/index.jsp"> <img
+					href="${pageContext.request.contextPath}/index"> <img
 					src="${pageContext.request.contextPath}/index/img/nav/logo-g.svg">
 				</a>
 				<div class="col-4 m-0 text-center title">健康餐點 ＋ 食譜社群平台</div>
@@ -42,7 +42,7 @@
 							<c:choose>
 							<c:when test='${! empty FB }'>src='${LoginOK.memberImage}'</c:when>
 							<c:when test='${(empty FB) and (empty LoginOK.memberImage)}'>src='${pageContext.request.contextPath}/index/img/nav/logo-g.svg'</c:when>
-							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${Id}.jpg' </c:otherwise>  
+							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${LoginOK.pkey}.jpg' </c:otherwise>  
 							</c:choose>>
 					</c:if> <span id="notification"></span> <span id="cart"></span> <c:if
 						test="${empty LoginOK}">
@@ -75,8 +75,7 @@
 			<div
 				class="row no-gutters justify-content-center align-middle navbar-btm-row">
 				<a class="navbar-logo col-3 m-0 align-self-center" id="a"
-					href="${pageContext.request.contextPath}/index.jsp"> <img
-					id="a"
+					href="${pageContext.request.contextPath}/index"> <img id="a"
 					src="${pageContext.request.contextPath}/index/img/nav/logo-w.svg">
 				</a>
 
@@ -107,7 +106,9 @@
 														<div class="card-body">
 															<p class="card-text">堅持使用新鮮食材，少油、低鈉，讓外食族的您也 能吃得健康。</p>
 															<div class="text-right">
-																<a href="#" class="btn btn-success">現在就訂</a>
+																<a
+																	href="${pageContext.request.contextPath}/work-out-plane?plane=keep"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>
@@ -124,7 +125,9 @@
 														<div class="card-body">
 															<p class="card-text">針對增肌族群，提供最豐富、優質的蛋白質，讓您 的一天充滿活力。</p>
 															<div class="text-right">
-																<a href="#" class="btn btn-success">現在就訂</a>
+																<a
+																	href="${pageContext.request.contextPath}/work-out-plane?plane=muscle"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 														</div>
 													</div>
@@ -145,7 +148,9 @@
 														<div class="card-body">
 															<p class="card-text">減肥不用再餓肚子，精算熱量、營養調配，讓您吃 的健康，瘦的漂亮。</p>
 															<div class="text-right">
-																<a href="#" class="btn btn-success">現在就訂</a>
+																<a
+																	href="${pageContext.request.contextPath}/work-out-plane?plane=fit"
+																	class="btn btn-success">現在就訂</a>
 															</div>
 
 														</div>
@@ -201,19 +206,28 @@
 											<div class="row p-0">
 												<div class="col-3 p-0 ">
 
-													<li><a href="#">蔬菜</a></li>
-													<li><a href="#">水果</a></li>
-													<li><a href="#">牛羊豬肉</a></li>
-													<li><a href="#">雞鴨鵝肉</a></li>
-													<li><a href="#">魚蝦海鮮</a></li>
-													<li><a href="#">米麵雜糧</a></li> <br> <br>
-													<li><a href="#"><img
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=vegetable">蔬菜</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=fruit">水果</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=brute">牛羊豬肉</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=poultry">雞鴨鵝肉</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=seafood">魚蝦海鮮</a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/shopMaterial?category=rice">米麵雜糧</a></li>
+													<br> <br>
+													<li><a href="${pageContext.request.contextPath}/shopMaterial"> <img
 															src="${pageContext.request.contextPath}/index/img/nav/goshop.svg"
 															style="width: 120px;"></a></li>
+													<li><a
+														href="${pageContext.request.contextPath}/groupBuying">一起團購</a></li>
 												</div>
 												<div class="col-3 p-0">
 													<li><a href="#">醃漬/加工品</a></li>
-													<li><a href="#">蛋/蛋製品</a></li>
+													<li><a href="${pageContext.request.contextPath}/shopMaterial?category=egg">蛋/蛋製品</a></li>
 													<li><a href="#">奶類/奶製品</a></li>
 													<li><a href="#">豆腐/豆製品</a></li>
 													<li><a href="#">麵粉/烘焙用粉</a></li>
@@ -222,6 +236,7 @@
 													<img
 														src="${pageContext.request.contextPath}/index/img/nav/asparagus.jpg"
 														style="width: 235px;" alt="">
+
 												</div>
 											</div>
 										</div>
@@ -246,7 +261,7 @@
 							<c:choose>
 							<c:when test='${! empty FB }'>src='${LoginOK.memberImage}'</c:when>
 							<c:when test='${(empty FB) and (empty LoginOK.memberImage)}'>src='${pageContext.request.contextPath}/index/img/nav/logo-w.svg'</c:when>
-							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${Id}.jpg' </c:otherwise>  
+							<c:otherwise> src='${pageContext.request.contextPath}/MemberImage/${LoginOK.pkey}.jpg' </c:otherwise>  
 							</c:choose>>
 					</c:if> <span id="notification"></span> <span id="cart"></span> <c:if
 						test="${empty LoginOK}">
@@ -296,10 +311,13 @@
 					aria-expanded="false"> 健康營養計畫餐 </a>
 					<div class="dropdown-menu dropdown-menu-rwd"
 						aria-labelledby="navbarDropdown1">
-						<a class="dropdown-item" href="#">健康營養計畫</a> <a
-							class="dropdown-item" href="#">強身健體計畫</a> <a
-							class="dropdown-item" href="#">輕盈窈窕計畫</a> <a
-							class="dropdown-item" href="#">晚餐隨選</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/work-out-plane?plane=keep">健康營養計畫</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/work-out-plane?plane=muscle">強身健體計畫</a>
+						<a class="dropdown-item"
+							href="${pageContext.request.contextPath}/work-out-plane?plane=fit">輕盈窈窕計畫</a>
+						<a class="dropdown-item" href="#">晚餐隨選</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="#">我適合哪個計畫呢？<br>利用我們的小工具，幫你搭配最適合你的餐點計畫
 						</a>

@@ -659,8 +659,15 @@ function cartAjax(data, targetUrl) {
     url: targetUrl,
     cache: false,
     data: data,
-    dataType: "json",
-    success: function(data) {
+    // dataType: "json",
+    success: function(data, textStatus, request) {
+      redirect = request.getResponseHeader("redirect");
+
+      if (redirect && redirect.trim() != "") {
+        window.location.href = redirect;
+        return;
+      }
+
       if (data.status == "false") {
         $(".toast-header").empty();
         $(".toast-body").empty();
@@ -691,8 +698,6 @@ function cartAjax(data, targetUrl) {
       });
       $(".toast").toast("show");
     },
-    complete: function(xhr) {
-      // getData();
-    }
+    complete: function(xhr) {}
   });
 }

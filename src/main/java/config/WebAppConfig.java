@@ -33,6 +33,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("MemberImage/**").addResourceLocations("/MemberImage/");
 		registry.addResourceHandler("createAccount/pic/**").addResourceLocations("/WEB-INF/views/createAccount/pic/");
 		registry.addResourceHandler("createAccount/img/**").addResourceLocations("/WEB-INF/views/createAccount/img/");
 		registry.addResourceHandler("createAccount/js/**").addResourceLocations("/WEB-INF/views/createAccount/js/");

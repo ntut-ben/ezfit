@@ -34,6 +34,7 @@ public class SendEmail {
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.port", port);
+		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
 		// Create session object passing properties and authenticator instance
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -84,7 +85,8 @@ public class SendEmail {
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.port", port);
-
+		properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		
 		// Create session object passing properties and authenticator instance
 		Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {

@@ -12,15 +12,19 @@
 	crossorigin="anonymous"></script>
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./js/memberPage.js"></script>
-<script src="./js/jquery.twzipcode.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/memberPage/js/memberPage.js"></script>
+<!-- <script
+	src="${pageContext.request.contextPath}/memberPage/js/jquery.twzipcode.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-<link rel="stylesheet" href="./css/memberPage.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/memberPage/css/memberPage.css" />
 
 <title>管理帳號</title>
 </head>
-</head>
+
 <body>
 	<jsp:include page="../header.jsp" />
 	<div class="main">
@@ -34,8 +38,9 @@
 				<div class="col-6 mt-3 left border-right border-success">
 					<h3>基本資料</h3>
 					<div>
-						<form action="updateInfo.do" method="post" name="reg_testdate"
-							style="margin-top: 25px;">
+						<form
+							action="${pageContext.request.contextPath}/api/memberPage/updateInfo"
+							method="post" name="reg_testdate" style="margin-top: 25px;">
 							<div class="form-group row mb-2">
 								<label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
 								<div class="col">
@@ -110,9 +115,7 @@
 								<label for="inputName" class="col-sm-2 col-form-label">地址</label>
 								<div class="col-8">
 									<div id="twzipcode" class="form-group">
-										<script>
-											$("#twzipcode").twzipcode();
-										</script>
+								
 									</div>
 									<input type="text" class="form-control" name="memberAddr"
 										value="${LoginOK.address}" />
@@ -131,7 +134,9 @@
 					<div class="col-12 mt-3 top">
 						<h3>密碼修改</h3>
 						<div>
-							<form action="updatePwd.do" method="post" class="form-inline">
+							<form
+								action="${pageContext.request.contextPath}/api/memberPage/updatePwd"
+								method="post" class="form-inline">
 								<div class="col">
 									<input type="hidden" readonly class="form-control-plaintext"
 										name="staticEmail" value="${LoginOK.email}" />
@@ -176,13 +181,15 @@
 						</div>
 					</div>
 					<!-- 右下 -->
-					<div class="col-12 bottom" style="margin-top:45px;">
+					<div class="col-12 bottom" style="margin-top: 45px;">
 						<h3>頭像更換</h3>
 						<form method="POST" enctype="multipart/form-data"
-							action="updatePic.do">
+							action="${pageContext.request.contextPath}/api/memberPage/updatePic">
 							<div class="row mt-4">
 								<div class="col-3 ml-3">
-									<img id="blah" src="./img/logo-short.png" alt="your image" />
+									<img id="blah"
+										src="${pageContext.request.contextPath}/img/logo-g.svg"
+										alt="your image" />
 								</div>
 								<div class="col-6 ml-5 align-self-center">
 									<Input Type="file" size="40" class="fieldWidth"

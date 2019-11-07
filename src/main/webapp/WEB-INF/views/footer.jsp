@@ -3,8 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" /> -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/index/css/nav.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/index/css/index.css" />
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"

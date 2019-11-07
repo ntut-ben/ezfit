@@ -7,13 +7,23 @@ prefix="c"%>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/fontawesome-free-5.11.2-web/css/all.css" />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/fontawesome-free-5.11.2-web/css/all.css"
+    />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/cartList_main.css" />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/main.css"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/cartList_main.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>cartList</title>
   </head>
   <body>
@@ -178,7 +188,9 @@ prefix="c"%>
                       name="subscriberName"
                       id="subscriberName"
                       class="mx-5"
+                      value="${param.subscriberName}"
                     />
+                    <span class="text-danger">${MsgMap.errorSubName}</span>
                   </div>
                 </span>
                 <!-- 手機號碼 -->
@@ -192,7 +204,9 @@ prefix="c"%>
                       name="subscriberPhone"
                       id="subscriberPhone"
                       class="mx-5"
+                      value="${param.subscriberPhone}"
                     />
+                    <span class="text-danger">${MsgMap.errorSubPhone}</span>
                   </div>
                 </span>
                 <!-- email -->
@@ -206,7 +220,9 @@ prefix="c"%>
                       name="subscriberEmail"
                       id="subscriberEmail"
                       class="mx-5"
+                      value="${param.subscriberEmail}"
                     />
+                    <span class="text-danger">${MsgMap.errorSubEmail}</span>
                   </div>
                 </span>
                 <!-- 選擇地區 -->
@@ -234,7 +250,9 @@ prefix="c"%>
                       name="subscriberAddress"
                       id="subscriberAddress"
                       class="mx-5 w-50"
+                      value="${param.subscriberAddress}"
                     />
+                    <span class="text-danger">${MsgMap.errorSubAddress}</span>
                   </div>
                 </span>
               </div>
@@ -258,7 +276,14 @@ prefix="c"%>
                     <label for="name">姓名 </label>
                   </div>
                   <div>
-                    <input type="text" name="name" id="name" class="mx-5" />
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      class="mx-5"
+                      value="${param.name}"
+                    />
+                    <span class="text-danger">${MsgMap.errorShipName}</span>
                   </div>
                   <button
                     id="clickBtn"
@@ -274,7 +299,14 @@ prefix="c"%>
                     <label for="phone">手機 </label>
                   </div>
                   <div>
-                    <input type="tel" name="phone" id="phone" class="mx-5" />
+                    <input
+                      type="tel"
+                      name="phone"
+                      id="phone"
+                      class="mx-5"
+                      value="${param.phone}"
+                    />
+                    <span class="text-danger">${MsgMap.errorShipPhone}</span>
                   </div>
                 </span>
                 <!-- 選擇地區 -->
@@ -299,7 +331,9 @@ prefix="c"%>
                       name="address"
                       id="address"
                       class="mx-5 w-50"
+                      value="${param.address}"
                     />
+                    <span class="text-danger">${MsgMap.errorShipAddress}</span>
                   </div>
                 </span>
                 <div class="text-center my-4">
@@ -327,10 +361,10 @@ prefix="c"%>
 
     <!--     Footer-->
     <jsp:include page="footer.jsp"></jsp:include>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
-    <script src="js/cartList_new.js"></script>
+    <script src="${pageContext.request.contextPath}/js/cartList_new.js"></script>
   </body>
 </html>

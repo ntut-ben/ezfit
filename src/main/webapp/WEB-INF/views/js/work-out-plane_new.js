@@ -768,7 +768,7 @@ function cart(cartBtn) {
     },
     complete: function(xhr) {
       $(".btn-addCart").attr("disabled", false);
-      location.href = "http://localhost:8080/ezfit/cartList.html";
+      location.href = "http://localhost:8080/ezfit/cartList";
     }
   });
 }
