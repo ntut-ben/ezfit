@@ -320,9 +320,7 @@ public class Mall {
 
 		for (Iterator iterator = productName.iterator(); iterator.hasNext();) {
 			String name = (String) iterator.next();
-			System.out.println(name);
 			id = ingredientProductService.getIngredientProductByName(ds, name);
-			System.out.println(id);
 			if (id != null) {
 				integers.add(id);
 			}
@@ -372,7 +370,6 @@ public class Mall {
 	// 食材搜尋
 	@RequestMapping(value = "api/search", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String searchProduct(@RequestParam(value = "search") String search) {
-		System.out.println(search);
 		String json = null;
 		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 		DataSource ds = ctx.getBean("dataSource", DataSource.class);
@@ -653,7 +650,8 @@ public class Mall {
 			@RequestParam("address") String shippingAddress, HttpServletRequest req, Model model) {
 		totalAmount = 0;
 		Map<String, String> errorMsg = new HashMap<String, String>();
-		model.addAttribute("MsgMap", errorMsg);
+		HttpSession session = req.getSession(false);
+		session.setAttribute("MsgMap", errorMsg);
 
 		if (subscriberName.trim() == "") {
 			errorMsg.put("errorSubName", "請輸入購買人姓名");
@@ -688,10 +686,9 @@ public class Mall {
 		}
 
 		if (errorMsg.size() > 0) {
-			return "/cartList";
+			return "redirect:/cartList";
 		} else {
 
-			HttpSession session = req.getSession(false);
 			MemberBean memberBean = checkMemberBean(session);
 			orderBean = new OrderBean();
 			orderItemBeans = new ArrayList<OrderItemBean>();
@@ -761,49 +758,91 @@ public class Mall {
 			@RequestParam("phone") String shippingPhone, @RequestParam("county") String shippingCity,
 			@RequestParam("district") String shippingDistrict, @RequestParam("zipcode") String shippingZipCode,
 			@RequestParam("address") String shippingAddress, @RequestParam("group") String group,
-			HttpServletRequest req) {
-		orderBean = new OrderBean();
-		orderItemBeans = new ArrayList<OrderItemBean>();
+			HttpServletRequest req, Model model) {
+		totalAmount = 0;
+		Map<String, String> errorMsg = new HashMap<String, String>();
 		HttpSession session = req.getSession(false);
-		MemberBean memberBean = checkMemberBean(session);
-		GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
-		orderBean.setShippingAddress(shippingAddress);
-		orderBean.setShippingCity(shippingCity);
-		orderBean.setShippingDistrict(shippingDistrict);
-		orderBean.setShippingName(shippingName);
-		orderBean.setShippingPhone(shippingPhone);
-		orderBean.setSubscriberAddress(subscriberAddress);
-		orderBean.setSubscriberCity(subscriberCity);
-		orderBean.setSubscriberDistrict(subscriberDistrict);
-		orderBean.setSubscriberEmail(subscriberEmail);
-		orderBean.setSubscriberName(subscriberName);
-		orderBean.setSubscriberPhone(subscriberPhone);
-		orderBean.setSubscriberZipCode(subscriberZipCode);
-		orderBean.setShippingZipCode(shippingZipCode);
+		session.setAttribute("MsgMap", errorMsg);
 
-		if (memberBean != null && groupBuyBean != null) {
-			cartItems = cartItemService.checkAllItems(groupBuyBean, memberBean);
-			for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
-				OrderItemBean orderItemBean = new OrderItemBean();
+		if (subscriberName.trim() == "") {
+			errorMsg.put("errorSubName", "請輸入購買人姓名");
+		}
 
-				cartItem = (CartItem) iterator.next();
+		if (subscriberPhone.trim() == "") {
+			errorMsg.put("errorSubPhone", "請輸入購買人手機號碼");
+		} else if (!(subscriberPhone.length() == 10) || !StringUtils.isNumeric(subscriberPhone)) {
+			errorMsg.put("errorSubPhone", "手機號碼為10位數字");
+		}
 
-				orderItemBean.setQty(cartItem.getQty());
-				orderItemBean.setSubTotal(cartItem.getSubTotal());
-				orderItemBean.setProduct(cartItem.getProduct());
-				orderItemBeans.add(orderItemBean);
-				totalAmount += cartItem.getSubTotal();
-				cartItemService.delete(cartItem.getProduct().getId(), memberBean, groupBuyBean);
+		if (subscriberEmail.trim() == "") {
+			errorMsg.put("errorSubEmail", "請輸入購買人信箱");
+		}
+
+		if (subscriberAddress.trim() == "") {
+			errorMsg.put("errorSubAddress", "請輸入購買人地址");
+		}
+
+		if (shippingName.trim() == "") {
+			errorMsg.put("errorShipName", "請輸入收件人姓名");
+		}
+
+		if (shippingPhone.trim() == "") {
+			errorMsg.put("errorShipPhone", "請輸入收件人電話");
+		} else if (!(shippingPhone.length() == 10) || !StringUtils.isNumeric(shippingPhone)) {
+			errorMsg.put("errorShipPhone", "手機號碼為10位數字");
+		}
+
+		if (shippingAddress.trim() == "") {
+			errorMsg.put("errorShipAddress", "請輸入收件人地址");
+		}
+
+		if (errorMsg.size() > 0) {
+			return "redirect:/cartList?group=" + group;
+		} else {
+
+			orderBean = new OrderBean();
+			orderItemBeans = new ArrayList<OrderItemBean>();
+			MemberBean memberBean = checkMemberBean(session);
+			GroupBuyBean groupBuyBean = groupBuyService.queryGroupBuyByAlias(group);
+
+			orderBean.setShippingAddress(shippingAddress);
+			orderBean.setShippingCity(shippingCity);
+			orderBean.setShippingDistrict(shippingDistrict);
+			orderBean.setShippingName(shippingName);
+			orderBean.setShippingPhone(shippingPhone);
+			orderBean.setSubscriberAddress(subscriberAddress);
+			orderBean.setSubscriberCity(subscriberCity);
+			orderBean.setSubscriberDistrict(subscriberDistrict);
+			orderBean.setSubscriberEmail(subscriberEmail);
+			orderBean.setSubscriberName(subscriberName);
+			orderBean.setSubscriberPhone(subscriberPhone);
+			orderBean.setSubscriberZipCode(subscriberZipCode);
+			orderBean.setShippingZipCode(shippingZipCode);
+
+			if (memberBean != null && groupBuyBean != null) {
+				cartItems = cartItemService.checkAllItems(groupBuyBean, memberBean);
+				for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
+					OrderItemBean orderItemBean = new OrderItemBean();
+
+					cartItem = (CartItem) iterator.next();
+
+					orderItemBean.setQty(cartItem.getQty());
+					orderItemBean.setSubTotal(cartItem.getSubTotal());
+					orderItemBean.setProduct(cartItem.getProduct());
+					orderItemBeans.add(orderItemBean);
+					totalAmount += cartItem.getSubTotal();
+					cartItemService.delete(cartItem.getProduct().getId(), memberBean, groupBuyBean);
+				}
+				orderBean.setTotalAmount(totalAmount);
+				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+				orderBean.setOrderItemBeans(orderItemBeans);
+				orderBean.setCreateTime(ts);
+				orderBean.setMemberBean(memberBean);
+				orderBean.setGroupBuyBean(groupBuyBean);
+				orderService.save(orderBean);
+
+				return ("redirect:/orderDetail.html?group=" + group);
 			}
-			orderBean.setTotalAmount(totalAmount);
-			Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
-			orderBean.setOrderItemBeans(orderItemBeans);
-			orderBean.setCreateTime(ts);
-			orderBean.setMemberBean(memberBean);
-			orderBean.setGroupBuyBean(groupBuyBean);
-			orderService.save(orderBean);
-
-			return ("redirect:/orderDetail.html?group=" + group);
 		}
 		return null;
 	}
@@ -845,7 +884,6 @@ public class Mall {
 
 		ToJson<OrderBean> toJson = new ToJson<OrderBean>();
 		String json = null;
-		System.out.println(groupId);
 		HttpSession session = req.getSession(false);
 		MemberBean memberBean = checkMemberBean(session);
 		groupBuyBean = groupBuyService.queryGroupBuyById(groupId);
@@ -940,9 +978,7 @@ public class Mall {
 		MemberBean memberBean = checkMemberBean(session);
 		GroupBuyBean groupBuyBean = new GroupBuyBean();
 		// 依照group alias 取出 團購bean
-		System.out.println(group);
 		GroupBuyBean groupBuyBeanInit = groupBuyService.queryGroupBuyByAlias(group);
-		System.out.println(groupBuyBeanInit.getInitiatorName());
 		Set<GroupBuyBean> groupBuyBeans = groupBuyBeanInit.getJoiner();
 
 		if (groupBuyBeanInit.getStatus() != 0) {
@@ -1032,7 +1068,6 @@ public class Mall {
 		} else {
 			ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
 			String json = toJson.getArrayJson(groupBeans);
-			System.out.println(groupBeans.size());
 			return json;
 		}
 	}

@@ -174,7 +174,7 @@
 								<div>
 									<input type="text" name="subscriberName" id="subscriberName"
 										class="mx-5" value="${param.subscriberName}" />
-									<span class="text-danger">${MsgMap.errorSubName}</span>
+									<span class="text-danger">${sessionScope.MsgMap.errorSubName}</span>
 								</div>
 							</span>
 							<!-- 手機號碼 -->
@@ -185,7 +185,7 @@
 								<div>
 									<input type="tel" name="subscriberPhone" id="subscriberPhone"
 										class="mx-5" value="${param.subscriberPhone}" />
-									<span class="text-danger">${MsgMap.errorSubPhone}</span>
+									<span class="text-danger">${sessionScope.MsgMap.errorSubPhone}</span>
 								</div>
 							</span>
 							<!-- email -->
@@ -196,7 +196,7 @@
 								<div>
 									<input type="email" name="subscriberEmail" id="subscriberEmail"
 										class="mx-5" value="${param.subscriberEmail}" />
-									<span class="text-danger">${MsgMap.errorSubEmail}</span>
+									<span class="text-danger">${sessionScope.MsgMap.errorSubEmail}</span>
 								</div>
 							</span>
 							<!-- 選擇地區 -->
@@ -218,7 +218,7 @@
 									<input type="text" name="subscriberAddress"
 										id="subscriberAddress" class="mx-5 w-50"
 										value="${param.subscriberAddress}" /> <span
-										class="text-danger">${MsgMap.errorSubAddress}</span>
+										class="text-danger">${sessionScope.MsgMap.errorSubAddress}</span>
 								</div>
 							</span>
 						</div>
