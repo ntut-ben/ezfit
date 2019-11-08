@@ -35,10 +35,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import _00.utils.ToJson;
 import createAccount.SendEmail;
 import createAccount.VeriCode;
 import createAccount.model.CodeBean;
@@ -303,6 +308,38 @@ public class Member {
 		return "/login/login";
 	}
 
+//	手機登入
+	@RequestMapping(value = "/api/mobile/login/loginServlet", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String loginAPI(@RequestParam("memberEmail") String email,
+			@RequestParam("memberPassword") String password, HttpServletRequest request, HttpServletResponse response) {
+
+		// 定義存訊息的Map物件
+		Map<String, String> status = new HashMap<String, String>();
+
+		// 將密碼加密兩次，以便與存放在表格內的密碼比對
+		password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+		MemberBean mb = null;
+		try {
+			// 呼叫 loginService物件的 checkIDPassword()，傳入userid與password兩個參數
+			mb = lsi.checkIDPassword(email, password);
+			System.out.println(mb);
+			if (mb != null) {
+				// OK, 登入成功, 將mb物件放入Session範圍內，識別字串為"LoginOK"
+				status.put("status", "LoginOk");
+//				MemberBean mb1 = (MemberBean) session.getAttribute("LoginOK");
+			} else {
+				// NG, 登入失敗, userid與密碼的組合錯誤，放相關的錯誤訊息到 errorMsgMap 之內
+				status.put("status", "LoginFail");
+			}
+		} catch (RuntimeException ex) {
+			status.put("status", "LoginFail");
+		}
+		ToJson<Map<String, String>> toJson = new ToJson<Map<String, String>>();
+		String json = toJson.getJson(status);
+		System.out.println(json);
+		return json;
+	}
+
 //	忘記密碼(寄新密碼)
 	@RequestMapping(value = "/api/login/passwordServlet", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String renewPasswordAPI(Model model, HttpServletRequest request, HttpServletResponse response)
@@ -428,15 +465,15 @@ public class Member {
 
 		name = request.getParameter("memberName");
 		gender = request.getParameter("memberSex");
-		
+
 		if (request.getParameter("memberHeight") != null && request.getParameter("memberHeight").trim() != "") {
 			height = Double.parseDouble(request.getParameter("memberHeight"));
 		}
-		
+
 		if (request.getParameter("memberWeight") != null && request.getParameter("memberWeight").trim() != "") {
 			weight = Double.parseDouble(request.getParameter("memberWeight"));
 		}
-		
+
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
 //				birthday = request.getParameter("memberBir");
 		java.util.Date parsed;

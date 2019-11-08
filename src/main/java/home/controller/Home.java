@@ -10,4 +10,9 @@ public class Home {
 	public String index() {
 		return "index";
 	}
+	
+	@RequestMapping(value = "/faqs")
+	public String faqs() {
+		return "faqs";
+	}
 }

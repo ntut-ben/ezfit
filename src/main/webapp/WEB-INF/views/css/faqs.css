@@ -1,0 +1,165 @@
+.faqs-main {
+  padding: 115px 0 0 0;
+}
+
+.faqs-body-and-bg {
+  padding: 90px 0 0 0;
+  background-image: url(../img/faqs/FuuLcYDzbqt3AHEH9kgDCdKfpsy1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 700px;
+}
+
+.faqs-title {
+  font-size: 30px;
+  font-weight: 400;
+  color: #439a23;
+  padding-left: 160px;
+}
+
+.faqs-contents {
+  width: 55%;
+  margin-left: 162px;
+}
+
+.faqs-body-and-bg .faqs-contents button {
+  color: #3b3b3b;
+  text-decoration: none;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.faqs-body-and-bg .faqs-contents button:hover {
+  color: #439a23;
+}
+
+.faqs-texts {
+  color: #696969;
+  font-weight: 300;
+}
+
+#return-to-top {
+  padding: 5px;
+  position: fixed;
+  bottom: 20px;
+  right: 70px;
+  border: 5px solid rgba(67, 154, 35, 0.5);
+  background: rgba(255, 255, 255, 0.6);
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
+    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+  z-index: 99999;
+}
+#return-to-top img {
+  opacity: 0.5;
+  width: 30px;
+}
+
+#return-to-top:hover img {
+  opacity: 1;
+  width: 30px;
+}
+
+#return-to-top:hover {
+  border: 5px solid rgb(4, 126, 0);
+  background: rgba(255, 255, 255);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05),
+    0 15px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+.keyreply-brand {
+  display: none;
+}
+
+.contact-us-main {
+  padding: 140px 0px 0px 0px;
+}
+
+.contact-us {
+  /* border: 1px solid rgb(0, 17, 255); */
+  background-color: #e2e7e8;
+  padding-left: 150px;
+  padding-right: 150px;
+}
+
+.contact-us-card {
+  /* border: 1px solid red; */
+  padding: 30px;
+}
+
+.contact-us-main .contact-us .contact-card-bg {
+  background-color: #fff;
+  border-top: 5px solid #439a23;
+  box-shadow: 0 0px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  margin-top: -80px;
+}
+
+.live-chat-time h5 {
+  font-size: 25px;
+  color: #3b3b3b;
+}
+
+.live-chat-time p {
+  color: #696969;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+
+
+.send-email-text,
+.send-email-form {
+  padding: 30px;
+}
+
+.send-email-text p {
+  color: #696969;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.send-email-form div {
+  margin-bottom: 20px;
+}
+
+.send-email-form input {
+  padding: 10px;
+  width: 100%;
+}
+
+::placeholder {
+  font-weight: 300;
+}
+
+.send-email-form textarea {
+  padding: 10px;
+  border: 1px solid rgb(200, 200, 200);
+  resize: none;
+  width: 100%;
+}
+
+.send-email-form button {
+  width: 100%;
+  border-radius: 0;
+}
+.service-mail, .service-mail:hover{
+    color: #439a23;
+    font-size: 18px;
+}
+script{
+    /* display: block !important; */
+}

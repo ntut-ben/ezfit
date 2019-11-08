@@ -1,10 +1,13 @@
 package config;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -13,7 +16,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "shopping.controller", "home.controller", "createAccount.controller", "login.controller", "memberPage.controller" })
+@ComponentScan({ "shopping.controller", "home.controller", "createAccount.controller", "login.controller",
+		"memberPage.controller", "Recipe.controller" })
 public class WebAppConfig implements WebMvcConfigurer {
 
 	@Bean
@@ -52,6 +56,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/views/img/");
+		registry.addResourceHandler("/data/**").addResourceLocations("/data/").setCacheControl(CacheControl.maxAge(0L,TimeUnit.SECONDS));
 	}
 
 }

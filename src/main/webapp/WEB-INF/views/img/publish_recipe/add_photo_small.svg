@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="261" height="196" viewBox="0 0 261 196">
+  <g id="Group_387" data-name="Group 387" transform="translate(-111 -734)">
+    <rect id="Rectangle_815" data-name="Rectangle 815" width="261" height="196" transform="translate(111 734)" fill="#e2e7e8"/>
+    <g id="Group_386" data-name="Group 386" transform="translate(224.441 809.279)">
+      <path id="ic_add_a_photo_24px" d="M3.941,4.941V1H6.569V4.941H10.51V7.569H6.569V11.51H3.941V7.569H0V4.941Zm3.941,7.882V8.882h3.941V4.941h9.2l2.4,2.627h4.165A2.635,2.635,0,0,1,30.216,10.2V25.961a2.635,2.635,0,0,1-2.627,2.627H6.569a2.635,2.635,0,0,1-2.627-2.627V12.824Zm9.2,11.824a6.569,6.569,0,1,0-6.569-6.569A6.571,6.571,0,0,0,17.079,24.647Zm-4.2-6.569a4.2,4.2,0,1,0,4.2-4.2,4.2,4.2,0,0,0-4.2,4.2Z" transform="translate(0.559 -1)" fill="#b2b2b2"/>
+      <text id="新增圖片" transform="translate(17.559 51.422)" fill="#838383" font-size="15" font-family="SourceHanSansTW-Regular, Source Han Sans TW" letter-spacing="0.1em"><tspan x="-32.25" y="0">新增圖片</tspan></text>
+    </g>
+  </g>
+</svg>

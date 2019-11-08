@@ -1,41 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
 
-body{
-  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei' , '微軟正黑體' , sans-serif;
+body {
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體',
+    sans-serif;
 }
 
-.header-one{
+*:focus{
+  text-decoration: none;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header-one {
   position: fixed;
   width: 100%;
   z-index: 2;
-  
 }
 
-.header-two{
+.header-two {
   position: fixed;
   width: 100%;
   z-index: 2;
   display: none;
 }
 
-#navbar-top .row{
+#navbar-top .row {
   width: 100%;
-  margin:0 20px;
+  margin: 0 20px;
 }
-.navbar-logo{
+.navbar-logo {
   width: 120px;
- 
 }
 
-
-.plan-menu .btn-success, .nav-table .btn-success{
+.plan-menu .btn-success,
+.nav-table .btn-success {
   color: #fff;
-  background-color: #439A23;
+  background-color: #439a23;
   border: 0px;
   outline: none !important;
 }
 
-.plan-menu .btn-secondary{
+.plan-menu .btn-secondary {
   color: #fff;
   font-size: 14px;
   border: 0px;
@@ -44,7 +49,7 @@ body{
 
 .plan-menu .btn-success:hover,
 .plan-menu .btn-success:focus,
-.plan-menu .btn-success:active{
+.plan-menu .btn-success:active {
   color: #fff;
   background-color: rgb(30, 120, 0) !important;
   border: 0px;
@@ -54,7 +59,7 @@ body{
 .navbar .btn,
 .dropdown {
   border-radius: 0;
-  height: 100%;  
+  height: 100%;
   font-weight: 300;
   outline: 0 !important;
 }
@@ -66,12 +71,12 @@ body{
 }
 
 #navbar-btm {
-  background-color: #439A23;
+  background-color: #439a23;
 }
 
-.navbar-btm-row{
-  width: 100%; 
-  margin:7px 20px;   
+.navbar-btm-row {
+  width: 100%;
+  margin: 7px 20px;
 }
 
 .plan-menu {
@@ -80,44 +85,42 @@ body{
 .plan-menu .card {
   width: 275px;
 }
-.header-one .dropdown-menu {  
+.header-one .dropdown-menu {
   transform: translateX(-25%);
   padding: 15px;
   border: none;
   border-radius: 0px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-
 }
-.dropdown-menu-rwd{
+.dropdown-menu-rwd {
   background-color: rgba(255, 255, 255);
   border: none !important;
   outline: none !important;
 }
 
-.dropdown-menu-rwd a{
+.dropdown-menu-rwd a {
   color: rgb(16, 59, 0) !important;
   font-weight: 300;
-
 }
 
-.dropdown-menu-rwd a:hover{
+.dropdown-menu-rwd a:hover {
   background-color: rgba(67, 154, 35, 0.8);
   color: rgb(255, 255, 255) !important;
 }
 
-.navbar-toggler{
+.navbar-toggler {
   outline: none !important;
 }
 
-.dropdown-toggle{
+.dropdown-toggle {
   outline: none !important;
 }
 
-.header-two .nav-link{
+.header-two .nav-link {
   color: #fff !important;
 }
 
-.title {  
+.title {
   font-weight: 400;
   font-size: 18px;
   color: #464646;
@@ -156,16 +159,12 @@ tr,
 td {
   /* border: 1px solid red; */
   height: 100%;
-  margin: 0 auto;  
+  margin: 0 auto;
 }
 
-
-#nav-small{
+#nav-small {
   background-color: #439a23 !important;
 }
-
-
-
 
 .card-title {
   color: #fff;
@@ -183,7 +182,8 @@ td {
 .card-body {
   padding: 5px;
 }
-.plan-menu .btn-success, .plan-menu .btn-secondary {
+.plan-menu .btn-success,
+.plan-menu .btn-secondary {
   font-size: 13px;
   border-radius: 5px;
   letter-spacing: 3px;
@@ -195,22 +195,22 @@ td {
   letter-spacing: 2px;
   font-size: 23px;
 }
-.cal .card{
+.cal .card {
   width: 275px;
   min-height: 268px;
-  background: linear-gradient(rgb(77, 172, 0),rgb(0, 112, 0));
+  background: linear-gradient(rgb(77, 172, 0), rgb(0, 112, 0));
   border: none;
 }
 
-.coming-soon img{
+.coming-soon img {
   filter: grayscale(1);
 }
 
-.cal .cal-btn{
+.cal .cal-btn {
   padding: 100px 10px 10px 10px;
 }
 
-.cal .cal-btn a{
+.cal .cal-btn a {
   border-radius: 5px;
   color: #2eaa00;
 }
@@ -228,7 +228,7 @@ td {
 
 .grocery a:link,
 .grocery a:visited,
-.grocery a:active {  
+.grocery a:active {
   color: #353535;
   font-weight: 300;
   letter-spacing: 2px;
@@ -290,7 +290,7 @@ footer {
   z-index: 1;
 }
 
-.logo img{
+.logo img {
   width: 250px;
 }
 
@@ -335,7 +335,6 @@ footer {
   /* padding: 10px; */
   margin: 0 auto;
   /* border: 1px solid red; */
- 
 }
 .social img {
   width: 30px;
@@ -357,20 +356,18 @@ footer {
   padding: 0%;
 }
 
-
-@media screen and (max-width: 990px){
-  .header-one{
+@media screen and (max-width: 990px) {
+  .header-one {
     display: none !important;
   }
-  .header-two{
+  .header-two {
     display: block !important;
   }
-  .footer-margin{
+  .footer-margin {
     margin-top: 40px;
   }
 
   .search-text .input-search {
     width: 300px;
   }
-
 }

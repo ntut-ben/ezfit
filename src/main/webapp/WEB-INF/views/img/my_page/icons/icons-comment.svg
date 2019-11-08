@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="icons_comment-dark" data-name="icons/comment-dark" clip-path="url(#clip-path)">
+    <rect id="bg" width="20" height="20" fill="none"/>
+    <path id="message-square" d="M16.217,11.811a1.469,1.469,0,0,1-1.469,1.469H5.937L3,16.217V4.469A1.469,1.469,0,0,1,4.469,3h10.28a1.469,1.469,0,0,1,1.469,1.469Z" transform="translate(0.717 0.717)" fill="none" stroke="#439a23" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  </g>
+</svg>

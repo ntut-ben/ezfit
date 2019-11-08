@@ -58,7 +58,8 @@
 						<div class="dropdown-menu p-1 hoverdrop"
 							aria-labelledby="dropdownMenuButton"
 							style="right: -40px; left: unset; min-width: unset;">
-							<a class="dropdown-item" href="#">我的食譜</a> <a
+							<a class="dropdown-item"
+								href="${pageContext.request.contextPath}/my_page">我的食譜</a> <a
 								class="dropdown-item"
 								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
 							<a class="dropdown-item"
@@ -173,7 +174,9 @@
 												<div class="col-4">
 													<div class="card coming-soon">
 
-														<img src="${pageContext.request.contextPath}/img/nav/lily.jpg" class="card-img-top" alt="...">
+														<img
+															src="${pageContext.request.contextPath}/img/nav/lily.jpg"
+															class="card-img-top" alt="...">
 														<div class="card-img-overlay">
 															<h5 class="card-title text-center">晚餐隨選</h5>
 														</div>
@@ -265,10 +268,14 @@
 								</div>
 							</td>
 							<td>
-								<button type="button" class="btn btn-success">食譜社群</button>
+								<button
+									onclick="location.href='${pageContext.request.contextPath}/recipe_main'"
+									type="button" class="btn btn-success">食譜社群</button>
 							</td>
 							<td>
-								<button type="button" class="btn btn-success">常見問答</button>
+								<button
+									onclick="location.href='${pageContext.request.contextPath}/faqs'"
+									type="button" class="btn btn-success">常見問答</button>
 							</td>
 						</tr>
 					</table>
@@ -297,7 +304,8 @@
 						<div class="dropdown-menu p-1 hoverdrop text-danger"
 							aria-labelledby="dropdownMenuButton"
 							style="right: -40px; left: unset; min-width: unset;">
-							<a class="dropdown-item text-black-50" href="#">我的食譜</a> <a
+							<a class="dropdown-item text-black-50"
+								href="${pageContext.request.contextPath}/my_page">我的食譜</a> <a
 								class="dropdown-item text-black-50"
 								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
 							<a class="dropdown-item text-black-50"

@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+
+
+body {
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei',
+    '微軟正黑體', sans-serif;
+  background-color: #e2e7e8;
+  
+}
+
+.recipe {
+  position: relative;
+  z-index: 0;
+}
+
+.recipe-search {
+  padding: 150px 0 20px 0;
+}
+
+.recipe-search-input {
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid #83ac75;
+  border-right: none;
+  width: 70% !important;
+}
+input[type='search']:focus {
+  -webkit-box-shadow: none;
+}
+.form-control:focus {
+  border-color: #83ac75;
+  outline: none !important;
+}
+
+.recipe-search-btn,
+.recipe-search-btn:hover {
+  border: 1px solid #83ac75;
+  border-radius: 0px 5px 5px 0px;
+  background-color: #83ac75;
+}
+
+.write-heart-btn .btn {
+  background-color: #83ac75;
+  margin-left: 20px;
+}
+
+.write-heart-btn img {
+  widows: 18px;
+  margin-bottom: 4px;
+  margin-right: 5px;
+}
+
+.recipe-page-body {
+  background-color: #e7ebed;
+  box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.recipe-page-title-bg {
+  background-color: #fff;
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  min-height: 100px;
+}
+.recipe-page-title {
+  font-size: 23px;
+  letter-spacing: 2px;
+  color: #3b3b3b;
+  border-bottom: 3px solid #439a23;
+}
+
+.likes-comments-icons {
+  float: left;
+  padding-top: 10px;
+}
+
+.likes-comments-icons span {
+  font-size: 12px;
+  color: #439a23;
+  margin-left: 5px;
+  letter-spacing: 0px;
+}
+
+.likes-comments-icons a:hover {
+  text-decoration: none;
+}
+
+.share-btns {
+  padding-top: 10px;
+  float: right;
+}
+
+.about-this-recipe {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.member-details {
+  display: flex;
+  justify-content: space-evenly;
+  /* border: 1px solid red; */
+}
+
+.recipe-cover {
+  background-color: #fff;
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  margin-top: 10px !important;
+}
+
+.recipe-cover-img {
+  object-fit: cover;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0 !important;
+}
+
+.profile-img {
+  object-fit: cover;
+  width: 70px;
+  height: 70px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.member-name {
+  /* border: 1px solid red; */
+  padding: 10px 0 5px 20px;
+}
+
+.member-name a:hover{
+  text-decoration: none;
+}
+
+.member-name p {
+  font-size: 17px;
+  color: #3b3b3b;
+}
+
+.member-name span {
+  font-size: 14px;
+}
+
+.follow-btn {
+  font-size: 14px;
+  width: 70px;
+  padding: 1px;
+}
+
+.recipe-brief {
+  align-items: flex-start;
+  padding: 10px;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #3b3b3b;
+}
+.like-recipe img{
+  width: 23px;
+}
+
+.recipe-details-main {
+  background-color: #fff;
+  border: 1px solid rgb(200, 200, 200);
+  padding: 10px;
+  margin-top: 15px !important;
+}
+
+.recipe-details-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #439a23;
+}
+
+.title-ingredients {
+  color: #439a23;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.servings,
+.cooking-time {
+  font-size: 14px;
+  color: #3b3b3b;
+}
+
+.servings img,
+.cooking-time img {
+  margin-right: 10px;
+  margin-left: 20px;
+  padding-bottom: 3px;
+}
+.ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 10px 10px;
+}
+
+.ingredient {
+  width: calc(50% - 15px);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: #808080;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ingredient-name {
+  max-width: calc(50% - 10px);
+}
+.ingredient-unit {
+  max-width: calc(50% - 10px);
+}
+
+.pack-ingredients button {
+  letter-spacing: 2px;
+  width: 150px;
+}
+
+.ingredients-groups .ingredients .ingredient a,
+.ingredients-groups .ingredients .ingredient a:hover {
+  color: #3b3b3b;
+}
+
+.title-seasoning {
+  color: #3b3b3b;
+  font-size: 16px;
+  border-bottom: 1px solid #3b3b3b;
+}
+
+.seasoning-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 10px 10px;
+}
+
+.seasoning {
+  width: calc(50% - 15px);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  color: #808080;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.seasoning-name{
+  max-width: calc(50% - 10px);
+  color: #3b3b3b;
+}
+
+.seasoning-unit{
+  max-width: calc(50% - 10px);
+}
+
+.instruction-step{
+  background-color: #fff;
+  /* border: 1px solid rgb(200, 200, 200); */
+  padding: 10px;
+  margin-top: 2px;
+  display: flex;
+}
+
+.step-img img{
+  object-fit: cover;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;  
+}
+.step{
+  padding-left: 15px;
+}
+
+.step-number{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.step-instruction{
+  margin-top: 15px;
+  color: #4d4d4d;
+}
+
+.ads img{
+  width: 200px;
+  margin-bottom: 50px;
+}
+
+.comments-main{
+  background-color: #fff;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+.title-comments{
+  font-size: 20px;
+  color: #3b3b3b;
+  letter-spacing: 2px;
+  border-bottom: 1px solid #3b3b3b;
+}
+
+.title-comments span{
+  letter-spacing: 0;
+}
+
+.leave-comment-main{
+  display: flex;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.your-profile-img img{
+  object-fit: cover;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.leave-comment{
+ width: 100%;
+
+ 
+}
+
+.leave-comment a, .leave-comment a:hover{
+  color: #919191;
+}
+
+.leave-comment textarea{
+ resize: none;
+ width: 100%;
+ height: 150px;
+ border: 1px solid rgb(200, 200, 200);
+ color: #4d4d4d;
+ padding: 10px;
+}
+*:focus{
+  outline: none;
+}
+
+.comment-text-count, .comment-text-count span{
+  font-size: 13px;
+  color: #919191;
+  letter-spacing: 0;
+}
+
+.terms-conditions{
+  font-size: 12px;
+  color: #919191;
+}
+
+.submit-comment{
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-comment button{
+  width: 80px;
+  font-size: 13px;
+  height: 32px;
+  
+}
+
+.members-comments{
+  display: flex;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+.comment-box, .comment-box a{
+  color: #4d4d4d;
+  font-size: 15px;
+}
+
+.member-profile-img img{
+  object-fit: cover;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+}
+
+.comment-time{
+  color: #808080;
+  font-size: 12px;
+}

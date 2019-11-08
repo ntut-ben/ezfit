@@ -41,9 +41,13 @@
 		<mapping class="shopping.model.PlaneItem" />
 		<mapping class="shopping.model.OrderPlaneItem" />
 		<mapping class="shopping.model.GroupBuyBean" />
-
-
-
+		<mapping class="Recipe.model.BoardBean" />
+		<mapping class="Recipe.model.FollowedRecipeBean" />
+		<mapping class="Recipe.model.GoodBean" />
+		<mapping class="Recipe.model.KeyWordBean" />
+		<mapping class="Recipe.model.MateralBean" />
+		<mapping class="Recipe.model.MethodBean" />
+		<mapping class="Recipe.model.RecipeBean" />
 
 	</session-factory>
 </hibernate-configuration>
