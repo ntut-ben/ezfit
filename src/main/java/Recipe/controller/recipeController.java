@@ -2,6 +2,7 @@ package Recipe.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -22,6 +24,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +51,8 @@ import createAccount.service.MemberService;
 
 @Controller
 public class recipeController {
+
+//	新修改的部分為：加入會員(11/07) Ctrl + F 加入會員
 
 	@Autowired
 	BoardService bs;
@@ -100,17 +105,18 @@ public class recipeController {
 		ToJson<BoardBean> json = new ToJson<>();
 		String jsonString = "";
 		jsonString = json.getArrayJson(boardList);
-
+		System.out.println(jsonString);
 		return jsonString;
 	}
 
-//	寫留言，但尚未加入判斷是否為會員
+//	寫留言，但尚未加入判斷是否為會員              加入會員
 	@RequestMapping(value = "/board/addNewChat", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public @ResponseBody String addChatServlet(@RequestParam("recipeId") String recipeId,
-			@RequestParam("detail") String detail) {
-
-		member = new MemberBean();
-		member.setPkey(1);
+			@RequestParam("detail") String detail, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
+//		member = new MemberBean();
+//		member.setPkey(1);
 
 		List<BoardBean> boardList = new ArrayList<>();
 		if (detail == null)
@@ -123,11 +129,14 @@ public class recipeController {
 		return jsonString;
 	}
 
-//	確認是否有追蹤，ownerId要從session拿emberBean，尚未完成此步驟
+//	確認是否有追蹤，ownerId要從session拿emberBean     加入會員
 	@RequestMapping(value = "/checkedFollowed", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-	public @ResponseBody String checkFollowed(@RequestParam("recipeId") String recipeId) {
+	public @ResponseBody String checkFollowed(@RequestParam("recipeId") String recipeId, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
 		String checked;
-		String followerId = "1";
+//		String followerId = "1";
+		String followerId = String.valueOf(member.getPkey());
 		checked = frs.checkFollowed(followerId, recipeId);
 
 		ToJson<String> json = new ToJson<>();
@@ -150,13 +159,15 @@ public class recipeController {
 		}
 	}
 
-//	編輯個人簡介，Member要從session取，暫時先寫死
+//	編輯個人簡介，Member要從session取，       加入會員
 	@RequestMapping(value = "/editMemberIntro", produces = "text/html;charset=utf-8", method = RequestMethod.POST)
-	public void editMemberIntroServlet(@RequestParam("introduction") String introduction, HttpServletResponse response)
-			throws IOException {
-		String myId = "2";
-		member = new MemberBean();
-		member = rs.getMemberByMemberId(myId);
+	public void editMemberIntroServlet(@RequestParam("introduction") String introduction, HttpServletResponse response,
+			HttpServletRequest request) throws IOException {
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
+//		String myId = "2";
+//		member = new MemberBean();
+//		member = rs.getMemberByMemberId(myId);
 		member.setIntroduction(introduction);
 		ms.updateMemInfo(member);
 		response.getWriter().write("done");
@@ -167,12 +178,14 @@ public class recipeController {
 //	*				極度有可能會死	         *
 //	*                                    *
 //	**************************************
-//	編輯個人簡介的背景圖，Member要從session取，暫時先寫死
+//	編輯個人簡介的背景圖，Member要從session取，      加入會員
 	@RequestMapping(value = "/changeMemberPic", method = RequestMethod.POST)
 	public void editMemberPic(HttpServletRequest request) {
-		String memberId = "2";
-		member = new MemberBean();
-		member = rs.getMemberByMemberId(memberId);
+//		String memberId = "2";
+//		member = new MemberBean();
+//		member = rs.getMemberByMemberId(memberId);
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
 
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
@@ -201,8 +214,7 @@ public class recipeController {
 					if (item.getSize() > 0) {
 //								uploadlist.put(item.getFieldName(), item);
 						System.out.println("上傳檔案:" + item.getFieldName() + "/" + item.getName());
-						setUploadDir(
-								"C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/memberPic");
+						setUploadDir("C:/ezfitData/memberPic");
 						String newfile = doUpload(item, "coverImg" + member.getPkey());
 						member.setCoverImg(newfile);
 						ms.updateMemInfo(member);
@@ -215,16 +227,21 @@ public class recipeController {
 
 	}
 
-//	編輯食譜用，在撈取食譜資訊，尚未寫會員身分驗證
+//	編輯食譜用，在撈取食譜資訊    加入會員
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/recipe/editRecipe", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-	public @ResponseBody String editRecipeServlet(@RequestParam("recipeId") String recipeId) {
+	public @ResponseBody String editRecipeServlet(@RequestParam("recipeId") String recipeId,
+			HttpServletRequest request) {
+
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
 
 		List<MateralBean> materalList = new ArrayList<>();
 		List<MethodBean> methodList = new ArrayList<>();
 
-		// rb = new RecipeBean();
 		rb = rs.getRecipeByRecipeId(recipeId);
+		String json = "";
+
 		methodList = methodService.showMethod(recipeId);
 		materalList = materalService.selectMateralByRecipe(recipeId);
 		// ============資料封裝================
@@ -237,7 +254,7 @@ public class recipeController {
 		list.add(materalList);
 
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		String json = gson.toJson(list);
+		json = gson.toJson(list);
 		return json;
 	}
 
@@ -303,14 +320,17 @@ public class recipeController {
 
 	// 會員的個人食譜頁面，需要依照Session取得的memberId與傳來的memberId比對是自己的食譜還是別人的食譜
 	// 會依傳入年分來回傳食譜
-	// 尚未完成取Session來比對的步驟
+	// 尚未完成取Session來比對的步驟 加入會員
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/myRecpie.do", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
 	public @ResponseBody String myRecipeServlet(@RequestParam("ownerId") String ownerId,
-			@RequestParam("year") String year) {
+			@RequestParam("year") String year, HttpServletRequest request) {
 
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
 //		系統尚未整合，先自己寫死
-		String myId = "2";
+//		String myId = "2";
+		String myId = String.valueOf(member.getPkey());
 
 		@SuppressWarnings("rawtypes")
 		List list = new ArrayList<>();
@@ -355,10 +375,12 @@ public class recipeController {
 //	尚未寫身分驗證，要從Session取出使用者PK，來判斷是誰要追隨食譜
 	@RequestMapping(value = "/aboutSave", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public @ResponseBody void saveOrUnsavedServlet(@RequestParam("followId") String fbPk,
-			@RequestParam("recipeId") String recipeId, HttpServletResponse response) {
-
+			@RequestParam("recipeId") String recipeId, HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
 //		目前先把member寫死
-		String followerId = "1";
+//		String followerId = "1";
+		String followerId = String.valueOf(member.getPkey());
 		FollowedRecipeBean fb = new FollowedRecipeBean();
 
 		if (fbPk.equals("notFound")) {
@@ -424,7 +446,7 @@ public class recipeController {
 	}
 
 //	取出使用者的所有發佈的食譜，目的在知道使用者食譜數
-//	該方法需要從Session取出MemberBean，目前先寫死
+//	該方法需要從Session取出MemberBean，目前先寫死     加入會員(該方法好像不用拿session)
 	@RequestMapping(value = "/getTotal", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public @ResponseBody String totalRecipeServlet(@RequestParam("memberId") String owmerId) {
 
@@ -441,12 +463,15 @@ public class recipeController {
 //	*				極度有可能會死	         *
 //	*                                    *
 //	**************************************
-//	上傳食譜，Member要從session取，暫時先寫死
+//	上傳食譜，Member要從session取，暫時先寫死      加入會員
 	@RequestMapping(value = "/recipe/writeRecipe", method = RequestMethod.POST)
 	public String writeRecipeServlet(HttpServletRequest request) {
 		// 尚未合併，故先自己把member寫死
-		MemberBean member = new MemberBean();
-		member.setPkey(1);
+//		MemberBean member = new MemberBean();
+//		member.setPkey(1);
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
+
 //====================================================
 		RecipeBean recipe = new RecipeBean();
 //		MethodBean method;
@@ -601,14 +626,12 @@ public class recipeController {
 						System.out.println("上傳檔案:" + item.getFieldName() + "/" + item.getName());
 //                    ========以下為自已加的==========
 						if (item.getFieldName().substring(0, 6).equals("recipe")) {
-							setUploadDir(
-									"C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/recipePic");
+							setUploadDir("C:/ezfitData/recipePic");
 							String newfile = doUpload(item, "recipe" + recipe.getRecipeId());
 							recipe.setFileName(newfile);
 						} else if (item.getFieldName().substring(0, 6).equals("method")) {
 							methodService.insertOrUpdateMethod(method);
-							setUploadDir(
-									"C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/methodPic");
+							setUploadDir("C:/ezfitData/methodPic");
 							String fileName = doUpload(item, ("method" + method.getId()));
 							System.out.println(fileName);
 							method.setFileName(fileName);
@@ -644,35 +667,39 @@ public class recipeController {
 
 	}
 
-//	從session裡面拿Member
+//	從session裡面拿Member               加入會員
 	@ResponseBody
-	@RequestMapping(value = "/getMember", method = RequestMethod.POST)
+	@RequestMapping(value = "/getMember", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public String getMyMemberServlet(HttpServletRequest request) {
-//		HttpSession session = request.getSession(false);
-//		MemberBean memberBean = checkMemberBean(session);
-		String myId = "2";
-		member = new MemberBean();
-		member = rs.getMemberByMemberId(myId);
+		HttpSession session = request.getSession(false);
+		member = (MemberBean) session.getAttribute("LoginOK");
+//		String myId = "2";
+//		String myId = String.valueOf(member.getPkey());
+//		member = new MemberBean();
+//		member = rs.getMemberByMemberId(myId);
 		String json = "";
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		json = gson.toJson(member);
 		return json;
 	}
 
-//	String account, pwd;
-//	public MemberBean checkMemberBean(HttpSession session) {
-//		MemberBean mb = null;
-//		// Session 取出Member Bean物件
-//		mb = (MemberBean) session.getAttribute("LoginOK");
-//		account = mb.getEmail();
-//		pwd = mb.getPassword();
-//		// 確認該Member Object帳密都正確
-//		if ((account != null && pwd != null)) {
-//			mb = loginService.checkIDPassword(account, pwd);
-//		}
-//		return mb;
-//	}
-//	
+	@RequestMapping(value = "/image/{category}/{imageName}/{lastName}")
+	@ResponseBody
+	public byte[] getImage(@PathVariable(value = "category") String category,
+			@PathVariable(value = "imageName") String imageName, @PathVariable(value = "lastName") String lastName)
+			throws IOException {
+
+		File serverFile = null;
+		if (category.equals("member")) {
+			serverFile = new File("C:/ezfitData/memberPic/" + imageName);
+		} else if (category.equals("recipe")) {
+			serverFile = new File("C:/ezfitData/recipePic/" + imageName);
+		} else if (category.equals("method")) {
+			serverFile = new File("C:/ezfitData/methodPic/" + imageName);
+		}
+
+		return Files.readAllBytes(serverFile.toPath());
+	}
 
 	// ==============主程式所使用之方法===========================
 	// 設定檔案上傳後存放的地方
@@ -682,6 +709,23 @@ public class recipeController {
 
 	// 開始上傳
 	public String doUpload(FileItem item, String fileName) {
+
+		File file1 = new File("C:/ezfitData/memberPic");
+		File file2 = new File("C:/ezfitData/recipePic");
+		File file3 = new File("C:/ezfitData/methodPic");
+
+		if (!file1.exists()) {
+			file1.mkdir();
+		}
+
+		if (!file2.exists()) {
+			file2.mkdir();
+		}
+
+		if (!file3.exists()) {
+			file3.mkdir();
+		}
+
 		String str = "";
 		long sizeInBytes = item.getSize();
 		// 碓認上傳資料是否有誤
@@ -718,12 +762,12 @@ public class recipeController {
 
 	public void reName(String targetFile, String oldFileName, String newFileName) {
 		// File (or directory) with old name
-		File file = new File(
-				"C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/" + targetFile + "/" + oldFileName);
+//		File file = new File("C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/" + targetFile + "/" + oldFileName);
+		File file = new File("C:/ezfitData/" + targetFile + "/" + oldFileName);
 
 		// File (or directory) with new name
-		File file2 = new File(
-				"C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/" + targetFile + "/" + newFileName);
+//		File file2 = new File("C:/_JSP/workspaceJDBC/ezfit/src/main/webapp/data/" + targetFile + "/" + newFileName);
+		File file2 = new File("C:/ezfitData/" + targetFile + "/" + newFileName);
 		@SuppressWarnings("unused")
 		boolean success = true;
 		try {

@@ -70,7 +70,8 @@ $(document).ready(function start() {
                 document.getElementById('link2016').href = `http://localhost:8080/ezfit/my_page?ownerId=${ownerId}&page=1&year=2016`
                 if(list[0].coverImg!= undefined){
                     console.log('profileImg = '+list[0].coverImg);
-                    document.getElementById('profileCover').src = `/ezfit/data/memberPic/${list[0].coverImg}`;
+                    let str = (list[0].coverImg).split('.');
+                    document.getElementById('profileCover').src = `/ezfit/image/member/${list[0].coverImg}/${str[str.length-1]}`;
                 }
 
 
@@ -138,7 +139,7 @@ $(document).ready(function start() {
                             <span>`+ target[page - 1][i].chat + `</span>
                         </div>
                         <div class="likes">
-                            <img src="img/my_page/icons/icon-like.svg" alt=""> <span>`+ target[page - 1][i].good + `</span>
+                            <img src="img/my_page/icons/icon-like.svg" alt=""> <span>`+ target[page - 1][i].save + `</span>
                         </div>
                         <button class="canEdit" onclick="editBtn(`+ target[page - 1][i].recipeId + `)">編輯</button>
                         <button class="canEdit" onclick="delBtn(`+ target[page - 1][i].recipeId + `)">刪除</button>
@@ -152,7 +153,8 @@ $(document).ready(function start() {
                 // 修改食譜圖片
                 let recipePic = document.getElementById('recipePic' + i);
                 if (target[page - 1][i].fileName !== undefined && target[page - 1][i].fileName.length > 0) {
-                    recipePic.src = "/ezfit/data/recipePic/" + target[page - 1][i].fileName;
+                    let str = (target[page - 1][i].fileName).split('.');
+                    recipePic.src = "/ezfit/image/recipe/" + target[page - 1][i].fileName + '/'+str[str.length-1];
                 } else {
                     recipePic.src = "img/publish_recipe/add_photo_small.svg";
                 }
@@ -303,7 +305,7 @@ function delBtn(data) {
     if (confirm(msg) === true) {
         $.ajax({
             method: "POST",
-            url: ' http://localhost:8080//ezfit//recipe//delete',
+            url: ' http://localhost:8080/ezfit/recipe/delete',
             data: {
                 published: 'delete',
                 pk: delRecipe
@@ -311,7 +313,7 @@ function delBtn(data) {
             success: function (data) {
                 if (data === 'done')
                     console.log('done');
-                window.location.href = 'http://localhost:8080/ezfit/my_page?ownerId=' + ownerId;
+                window.location.href = 'http://localhost:8080/ezfit/my_page?ownerId=' + ownerId+'&page=1&&year=2019';
             }
         });
     }

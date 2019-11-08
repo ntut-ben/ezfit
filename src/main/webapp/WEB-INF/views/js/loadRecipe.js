@@ -13,7 +13,7 @@ $(document).ready(function () {
     if(recipeId != null){
         $.ajax({
             method: "GET",
-            url: 'http://localhost:8080//ezfit//recipe//editRecipe',
+            url: 'http://localhost:8080/ezfit/recipe/editRecipe',
             data: {
                 recipeId: recipeId
             },
@@ -51,7 +51,8 @@ $(document).ready(function () {
                 if(dataList[0].fileName== null || dataList[0].fileName==''){
                     coverImg.setAttribute('src', "img/publish_recipe/add_photo_small.svg");
                 }else{
-                    coverImg.setAttribute('src', '/ezfit/data/recipePic/' + dataList[0].fileName);
+                	let str = (dataList[0].fileName).split('.');
+                    coverImg.setAttribute('src', '/ezfit/image/recipe/' + dataList[0].fileName+'/'+str[str.length-1]);
                 }
     
                 // spendTime & servings
@@ -176,7 +177,8 @@ $(document).ready(function () {
                         if ((arr[i].fileName !== null && (arr[i].fileName !== undefined))) {
                             console.log('111'+arr[i].fileName);
                             // alert('qqq');   
-                            stepImg.setAttribute('src', '/ezfit/data/methodPic/' + arr[i].fileName)
+                            let str = (arr[i].fileName).split('.');
+                            stepImg.setAttribute('src', '/ezfit/image/method/' + arr[i].fileName+'/'+str[str.length-1]);
                         }
                         else if (arr[i].picSrc == null || arr[i].picSrc == '') {
                             stepImg.setAttribute('src', "img/publish_recipe/add_photo_small.svg");

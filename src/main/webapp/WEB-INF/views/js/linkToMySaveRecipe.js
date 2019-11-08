@@ -8,12 +8,18 @@ $(document).ready(function () {
             data: {
             },
             success: function (data) {
-                let member = JSON.parse(data);
-                console.log(member);
-                console.log('about save...pk=' + member.pkey);
-                ownerId = member.pkey;
-
-                window.location.href = `http://localhost:8080/ezfit/my_page?ownerId=${ownerId}&page=1&year=2019`;
+//                let member = JSON.parse(data);
+                let member = data;
+                if(member.pkey!== 'undefine'){
+                	console.log(member);
+                    console.log('about save...pk=' + member.pkey);
+                    ownerId = member.pkey;
+                    console.log(ownerId);
+                    window.location.href = `http://localhost:8080/ezfit/my_page?ownerId=${ownerId}&page=1&year=2019`;
+                }else{
+                	window.location.href =`http://localhost:8080/ezfit/login/login`;
+                }
+                
 
             }
         });

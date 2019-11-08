@@ -105,7 +105,7 @@ $(document).ready(function () {
                             chat.innerHTML = list[0].chat;
                             let recipePic = document.getElementById('recipePic');
                             
-                            recipePic.setAttribute('src', '/ezfit/data/recipePic/' + list[0].fileName);
+                            recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
                             let introduction = document.getElementById('introduction');
                             introduction.innerHTML = list[0].introduction;
                             let servings = document.getElementById('servings');
@@ -159,7 +159,7 @@ $(document).ready(function () {
                             chat.innerHTML = list[0].chat;
                             let recipePic = document.getElementById('recipePic');
                             if ((list[0].fileName !== null && (list[0].fileName !== undefined))) {
-                                recipePic.setAttribute('src', '/ezfit/data/recipePic/' + list[0].fileName);
+                                recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
                             } else {
                                 recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
                             }
@@ -216,7 +216,8 @@ $(document).ready(function () {
             console.log('recipePic.fileName = ' + list[0].fileName);
             if ((list[0].fileName !== "" && (list[0].fileName !== undefined))) {
                 console.log('testtest'+list[0].fileName);
-                recipePic.setAttribute('src', '/ezfit/data/recipePic/' + list[0].fileName);
+                let str = (list[0].fileName).split('.');
+                recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName+'/'+str[str.length-1]);
             } else {
                 console.log('NONONONONO'+list[0].fileName);
 
@@ -275,7 +276,8 @@ $(document).ready(function () {
                 stepImg.setAttribute('class', "step-img");
                 let methodPic = document.createElement('img');
                 if ((methodList[i].fileName !== null && (methodList[i].fileName !== undefined))) {
-                    methodPic.setAttribute('src', '/ezfit/data/methodPic/' + methodList[i].fileName);
+                	let str = (methodList[i].fileName).split('.');
+                    methodPic.setAttribute('src', '/ezfit/image/method/' + methodList[i].fileName+'/'+str[str.length-1]);
                 } else {
                     methodPic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
                 }
@@ -423,7 +425,8 @@ $(document).ready(function () {
 
                                 console.log('recipePic.fileName = ' + list[0].fileName);
                                 if ((list[0].fileName !== null && (list[0].fileName !== undefined))) {
-                                    recipePic.setAttribute('src', '/ezfit/data/memberPic/' + list[0].fileName);
+                                	let str = (list[0].fileName).split('.');
+                                    recipePic.setAttribute('src', '/ezfit/image/member/' + list[0].fileName+'/'+str[str.length-1]);
                                 } else {
                                     recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
                                 }

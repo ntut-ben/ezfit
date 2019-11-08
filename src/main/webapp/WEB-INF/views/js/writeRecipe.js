@@ -88,7 +88,7 @@ function deleted() {
   if (confirm(msg) === true) {
     $.ajax({
       method: "POST",
-      url: ' http://localhost:8080//ezfit//recipe//delete',
+      url: ' http://localhost:8080/ezfit/recipe/delete',
       data: {
         published: 'delete',
         pk: delRecipe
@@ -151,8 +151,9 @@ function createEle() {
     const stepImg = document.createElement('img');
     stepImg.setAttribute('id', 'stepImg' + i);
     if ((arr[i].fileName !== null && (arr[i].fileName !== undefined))) {
-      // alert('qqq');   
-      stepImg.setAttribute('src', '/ezfit/data/methodPic/' + arr[i].fileName)
+      // alert('qqq');  
+      let str =  (arr[i].fileName).split('.');
+      stepImg.setAttribute('src', '/ezfit/image/method/' + arr[i].fileName+'/'+str[str.length-1]);
     }
     else if (arr[i].picSrc == null || arr[i].picSrc == '') {
       stepImg.setAttribute('src', "img/publish_recipe/add_photo_small.svg");

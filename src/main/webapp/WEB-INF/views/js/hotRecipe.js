@@ -57,11 +57,12 @@ $(document).ready(function () {
             let totalRecipePic = document.getElementsByClassName('recipePic');
             // console.log(totalRecipePic.length);
             for (let i = 0; i < totalRecipePic.length; ++i) {
-                if (!recipe[i].fileName == undefined || !recipe[i].fileName =="") {
-                    console.log('ttttttt='+recipe[i].fileName);
-                    totalRecipePic[i].src = "/ezfit/data/recipePic/" + recipe[i].fileName;
-                }else{
-                    totalRecipePic[i].src ="img/publish_recipe/add_photo_small.svg"
+                if (!recipe[i].fileName == undefined || !recipe[i].fileName == "") {
+                    // console.log('ttttttt='+recipe[i].fileName);
+                    let str = (recipe[i].fileName).split('.');
+                    totalRecipePic[i].src = "/ezfit/image/recipe/" + recipe[i].fileName + '/' + str[str.lrngth - 1];
+                } else {
+                    totalRecipePic[i].src = "img/publish_recipe/add_photo_small.svg"
                 }
             }
 
@@ -149,7 +150,7 @@ $(document).ready(function () {
     //  熱門關鍵字
     $.ajax({
         method: "POST",
-        url: ' http://localhost:8080//ezfit/keyword//submit.do',
+        url: ' http://localhost:8080/ezfit/keyword/submit.do',
         data: {
             name: 'hothothot'
         },
@@ -212,10 +213,12 @@ $(document).ready(function () {
                 $('#weekRecipeParent').append(weekRecipe);
 
                 // 設定食譜圖片
-                if (list[i].fileName !== undefined && list[i].fileName.length>0) {
+                if (list[i].fileName !== undefined && list[i].fileName.length > 0) {
                     // console.log(i+'fileName = '+list[i].fileName.length);
                     let weekPic = document.getElementById('weekPic' + i);
-                    weekPic.src = "/ezfit/data/recipePic/" + list[i].fileName;
+                    let str = (list[i].fileName).split('.');
+                    weekPic.src = "/ezfit/image/recipe/" + list[i].fileName + '/' + str[str.length - 1];
+                    console.log('檔案名' + str[str.length - 1]);
                 } else {
                     let weekPic = document.getElementById('weekPic' + i);
                     weekPic.src = "img/publish_recipe/add_photo_small.svg";
