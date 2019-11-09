@@ -2,66 +2,126 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head lang="en">
-<meta charset="UTF-8">
-<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>webSocket-测试用户</title>
-<script type="text/javascript">
-	$(function() {
-		var websocket;
-		if ('WebSocket' in window) {
-			console.log("此浏览器支持websocket");
-			websocket = new WebSocket("ws://localhost:8080/git_ezfit/chat/12345");
-		} else if ('MozWebSocket' in window) {
-			alert("此浏览器只支持MozWebSocket");
-		} else {
-			alert("此浏览器只支持SockJS");
-		}
-		websocket.onopen = function(evnt) {
-			$("#tou").html("链接服务器成功!")
-		};
-		websocket.onmessage = function(evnt) {
-			$("#msg").html($("#msg").html() + "<br/>" + evnt.data);
-		};
-		websocket.onerror = function(evnt) {
-		};
-		websocket.onclose = function(evnt) {
-			$("#tou").html("与服务器断开了链接!")
-		}
+<head>
+<title>Spring Boot簡單聊天室</title>
+<meta charset="utf-8" />
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="css/websocket.css" rel="stylesheet">
 
-		$('#send').click(function() {
-			send();
-		});
 
-		function send() {
-			if (websocket != null) {
-				var message = document.getElementById('message').value;
-				websocket.send(message);
-			} else {
-				alert('未与服务器链接.');
-			}
-		}
-	});
-</script>
+<style>
+.message-list {
+	position: relative;
+	overflow-y: scroll;
+	height: 400px;
+}
+
+.contact-list {
+	position: relative;
+	overflow-y: scroll;
+	height: 450px;
+}
+
+.alert-msg {
+	
+}
+</style>
 </head>
-
 <body>
-	<div class="page-header" id="tou">webSocket多终端聊天测试</div>
-	<div class="well" id="msg"></div>
-	<div class="col-lg">
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="发送信息..."
-				id="message"> <span class="input-group-btn">
-				<button class="btn btn-default" type="button" id="send">发送</button>
-			</span>
+	<div class="alert d-none fixed-top float-right" role="alert"
+		id="_alertdiv">
+		<span class="alert-msg"> </span>
+		<button type="button" class="close" onclick="closeAlert(this)">
+			<span>&times;</span>
+		</button>
+	</div>
+	<div class="container h-100">
+		<div class="row">
+			<div class="col-sm">
+				<div class="card">
+					<div class="card-header">The Meeting Room Communication</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-1">
+								<label>CRID:</label>
+							</div>
+							<div class="col-3">
+								<label th:text="${crid}" id="crid"></label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-1">
+								<label>My ID:</label>
+							</div>
+							<div class="col-3">
+								<div class="input-group mb-3">
+									<input type="text" class="form-control" placeholder="Your ID"
+										aria-label="Your ID" aria-describedby="btnConnect" id="uid">
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button"
+											id="btnConnect">Connect</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm"></div>
+		</div>
+		<div class="row h-100">
+			<div class="col-3 h-100">
+				<div class="card h-100">
+					<div class="card-header">
+						Contact List
+						<!---->
+					</div>
+					<div class="card-body contact-list scrollbar-dusty-grass">
+						<ul class="list-group" id="contactlist">
+
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-9 h-100">
+				<div class="card">
+					<div class="card-header">Messages</div>
+					<div class="card-body message-list scrollbar-ripe-malinka">
+						<div id="messagelistScroll">
+							<ul class="list-group" id="messagelist">
+
+							</ul>
+						</div>
+					</div>
+					<div class="card-foot">
+						<div class="row">
+							<div class="col-1"></div>
+							<div class="col-10">
+								<div class="input-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="Your message" aria-label="Your message"
+										aria-describedby="btnSend" id="messageBox">
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button"
+											id="btnSend">Send</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="js/websocket.js"></script>
 </body>
-
 </html>
