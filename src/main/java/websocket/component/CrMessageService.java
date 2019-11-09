@@ -99,6 +99,7 @@ public class CrMessageService {
 		crContact.setStatus("success");
 		crContact.setCrid(crid);
 		Set<String> ids = crIdSet.get(crid);
+		System.out.println(ids);
 		crContact.setUids(ids.toArray(new String[ids.size()]));
 		return crContact;
 	}

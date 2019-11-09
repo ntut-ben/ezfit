@@ -1,6 +1,7 @@
 package websocket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -46,8 +47,7 @@ public class ChatRoomWebSocketController {
 		crMessage.setSender("sysinfo");
 		crMessage.setMessage(uid + " join talk!");
 		crMessage = crMessageService.sendCrMessage(crMessage);
-		messagingTemplate.convertAndSend("/topic/crmessage", crMessage);
-
+		messagingTemplate.convertAndSend("/topic/room", crMessage);
 		return crMessageService.getAllContactByCrid(mrid);
 	}
 
@@ -66,14 +66,15 @@ public class ChatRoomWebSocketController {
 		crMessage.setSender("sysdanger");
 		crMessage.setMessage(uid + " exit talk!");
 		crMessage = crMessageService.sendCrMessage(crMessage);
-		messagingTemplate.convertAndSend("/topic/crmessage", crMessage);
+		messagingTemplate.convertAndSend("/topic/room", crMessage);
 
 		return crMessageService.getAllContactByCrid(mrid);
 	}
 
-	@MessageMapping("/sendCrMessage")
-	@SendTo("/topic/crmessage")
-	public CrMessage[] sendMrMessage(CrMessage crMessage) throws CrAlertException {
+	@MessageMapping("/room/{roomId}")
+//	@SendTo("/topic/room/{roomId}")
+	public CrMessage[] sendMrMessage(CrMessage crMessage, @DestinationVariable("roomId") String roomId)
+			throws CrAlertException {
 		return new CrMessage[] { crMessageService.sendCrMessage(crMessage) };
 	}
 
