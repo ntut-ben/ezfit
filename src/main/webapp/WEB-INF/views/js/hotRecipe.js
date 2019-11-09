@@ -95,7 +95,7 @@ $(document).ready(function () {
                 // console.log('recipe2='+hotRecipe2.recipeName);
                 // <p>作者
                 // recipe2.childNodes[3].innerHTML = 'by ' + hotRecipe2.member.name;
-                $('#recipe2owner').html(hotRecipe2.member.name);
+                $('#recipe2owner').html('by '+hotRecipe2.member.name);
 
                 // <p>簡介
                 // recipe2.childNodes[5].innerHTML = hotRecipe2.introduction;
