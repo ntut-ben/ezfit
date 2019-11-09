@@ -11,8 +11,10 @@
 <title>Document</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/nav.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recipe_main.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/nav.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/recipe_main.css" />
 
 </head>
 
@@ -20,7 +22,7 @@
 
 	<!-- Navigation Bar ========================================================================== -->
 
-		<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<!-- ========================================================================= -->
 
@@ -119,7 +121,7 @@
 					<div class="row pop-recipes p-0 m-0">
 
 						<div class="col-6 p-0 pr-2">
-							<div class="card m-0">
+							<div class="card m-0" id='rp1'>
 								<a href="" id="linkToRecipe1" class="link"><img
 									src="https://picsum.photos/410/255"
 									class="card-img-top pop-recipes-img recipePic" alt="..."></a>
@@ -143,7 +145,7 @@
 						</div>
 						<div class="col-6 ">
 							<div class="row p-0">
-								<div class="col-12 p-0 pop-recipes-right-bg mb-3">
+								<div class="col-12 p-0 pop-recipes-right-bg mb-3" id='rp2'>
 									<div class="pop-recipes-right img-cover">
 										<a href="#" class="link"><img
 											src="http://placekitten.com/150/150" alt="" class="recipePic"></a>
@@ -151,9 +153,9 @@
 									<div class="pop-recipes-right-text">
 										<a href="#" class="link">
 											<div id="topTwoRecipe">
-												<h5></h5>
-												<p></p>
-												<p></p>
+												<h5 id='recipe2name'></h5>
+												<p id='recipe2owner'></p>
+												<p id='recipe2Intro'></p>
 											</div>
 										</a>
 										<div class="likes-comments" id="likesComments2">
@@ -165,7 +167,7 @@
 									</div>
 								</div>
 
-								<div class="col-12 p-0 pop-recipes-right-bg mb-3">
+								<div class="col-12 p-0 pop-recipes-right-bg mb-3" id='rp3'>
 									<div class="pop-recipes-right img-cover">
 										<a href="#" class="link"><img
 											src="https://picsum.photos/151/151" class="recipePic" alt=""></a>
@@ -187,7 +189,7 @@
 									</div>
 								</div>
 
-								<div class="col-12 p-0 pop-recipes-right-bg">
+								<div class="col-12 p-0 pop-recipes-right-bg mb-3" id='rp4'>
 									<div class="pop-recipes-right img-cover">
 										<a class="link"> <img src="https://picsum.photos/152/152"
 											class="recipePic" alt="">

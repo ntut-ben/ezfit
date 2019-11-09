@@ -77,6 +77,7 @@ public class RecipeService_Impl implements RecipeService {
 		for (RecipeBean rb : list) {
 			rb.setGood(recipeDao.searchGood(rb));
 			rb.setSave(recipeDao.searchSave(rb));
+			rb.setChat(recipeDao.searchChat(rb));
 		}
 		return list;
 	}
@@ -98,6 +99,7 @@ public class RecipeService_Impl implements RecipeService {
 		for (RecipeBean rb : list) {
 			rb.setGood(recipeDao.searchGood(rb));
 			rb.setSave(recipeDao.searchSave(rb));
+			rb.setChat(recipeDao.searchChat(rb));
 			recipeSet.add(rb);
 		}
 
@@ -113,6 +115,12 @@ public class RecipeService_Impl implements RecipeService {
 		List<RecipeBean> list = new ArrayList<>();
 		try {
 			list = recipeDao.searchHotRecipe();
+			for (RecipeBean rb : list) {
+				rb.setGood(recipeDao.searchGood(rb));
+				rb.setSave(recipeDao.searchSave(rb));
+				rb.setChat(recipeDao.searchChat(rb));
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,6 +193,7 @@ public class RecipeService_Impl implements RecipeService {
 		for (RecipeBean rb : list) {
 			rb.setGood(recipeDao.searchGood(rb));
 			rb.setSave(recipeDao.searchSave(rb));
+			rb.setChat(recipeDao.searchChat(rb));
 		}
 		return list;
 	}

@@ -116,8 +116,8 @@ public class RecipeDao_Impl implements RecipeDao {
 	public List<RecipeBean> searchHotRecipe() {
 		Session session = factory.getCurrentSession();
 		List<RecipeBean> list = new ArrayList<>();
-		String hql = "FROM RecipeBean RB ORDER BY RB.save DESC";
-		list = session.createQuery(hql).setMaxResults(4).getResultList();
+		String hql = "FROM RecipeBean RB WHERE RB.published = :bool ORDER BY RB.save DESC";
+		list = session.createQuery(hql).setParameter("bool", true).setMaxResults(4).getResultList();
 		return list;
 	}
 

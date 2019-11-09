@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //  熱門食譜
+    // 熱門食譜
     $.ajax({
         method: "GET",
         url: 'http://localhost:8080/ezfit/recipe/hotRecipe.do',
@@ -9,13 +9,14 @@ $(document).ready(function () {
             // let recipe = JSON.parse(data);
             let recipe = data;
             // alert(recipe[0].recipeName);
-
+            console.log(recipe);
             for (let i = 0; i < 4; ++i) {
-                // var hotRecipe(i+1) = recipe[i];   動態命名變數
+                // var hotRecipe(i+1) = recipe[i]; 動態命名變數
                 eval('var hotRecipe' + (i + 1) + '=recipe[' + i + '];');
             }
             // 用動態新增會跑掉，所以不換了
             // ========top1Recipe========
+            if(hotRecipe1 !== undefined){
             let recipe1 = document.getElementById('topOneRecipe');
             // <h5>食譜名
             recipe1.childNodes[1].innerHTML = hotRecipe1.recipeName;
@@ -25,40 +26,57 @@ $(document).ready(function () {
             // <p>簡介
             recipe1.childNodes[7].innerHTML = hotRecipe1.introduction;
 
-            // <span> 收藏  記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
+            // <span> 收藏 記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
 
             let likesComments1 = document.getElementById('likesComments1');
 
             likesComments1.childNodes[1].childNodes[2].innerHTML = hotRecipe1.save;
 
             likesComments1.childNodes[3].childNodes[2].innerHTML = hotRecipe1.chat;
-
+            }else{
+                document.getElementById('rp1').style.display = 'none';
+            }
             // 設定A標籤連結去食譜
             let totalLink = document.getElementsByClassName('link');
             // console.log(totalLink.length);
             for (let i = 0; i < 4; ++i) {
-                // totalLink[i].href = '/WEB-INF/views/recipe_page.jsp?recipeId=' + recipe[0].recipeId;
-                totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[0].recipeId;
+                if (recipe[0] !== undefined) {
+                    totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[0].recipeId;
+                }
             }
             for (let i = 4; i < 8; ++i) {
-                // totalLink[i].href = '/WEB-INF/views/recipe_page.jsp?recipeId=' + recipe[1].recipeId;
-                totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[1].recipeId;
+                if (recipe[1] !== undefined) {
+                    // totalLink[i].href =
+                    // '/WEB-INF/views/recipe_page.jsp?recipeId=' +
+                    // recipe[1].recipeId;
+                    totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[1].recipeId;
+                }
             }
             for (let i = 8; i < 12; ++i) {
-                // totalLink[i].href = '/WEB-INF/views/recipe_page.jsp?recipeId=' + recipe[2].recipeId;
-                totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[2].recipeId;
+                if (recipe[2] !== undefined) {
+                    // totalLink[i].href =
+                    // '/WEB-INF/views/recipe_page.jsp?recipeId=' +
+                    // recipe[2].recipeId;
+                    totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[2].recipeId;
+                }
             }
+            console.log('recipe[3]=' + recipe[3]);
+
             for (let i = 12; i < 16; ++i) {
-                // totalLink[i].href = '/WEB-INF/views/recipe_page.jsp?recipeId=' + recipe[3].recipeId;
-                totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[3].recipeId;
+                if (recipe[3] !== undefined) {
+                    // totalLink[i].href =
+                    // '/WEB-INF/views/recipe_page.jsp?recipeId=' +
+                    // recipe[3].recipeId;
+                    totalLink[i].href = 'http://localhost:8080/ezfit/recipe_page?recipeId=' + recipe[3].recipeId;
+                }
             }
 
             // 抓食譜圖片
             let totalRecipePic = document.getElementsByClassName('recipePic');
             // console.log(totalRecipePic.length);
             for (let i = 0; i < totalRecipePic.length; ++i) {
-                if (!recipe[i].fileName == undefined || !recipe[i].fileName == "") {
-                    // console.log('ttttttt='+recipe[i].fileName);
+                if (recipe[i] !== undefined) {
+                    // console.log('ttttttt=' + recipe[i].fileName);
                     let str = (recipe[i].fileName).split('.');
                     totalRecipePic[i].src = "/ezfit/image/recipe/" + recipe[i].fileName + '/' + str[str.lrngth - 1];
                 } else {
@@ -67,74 +85,85 @@ $(document).ready(function () {
             }
 
 
-
+            console.log('recipe2=' + hotRecipe2);
             // ========top2Recipe========
-            let recipe2 = document.getElementById('topTwoRecipe');
-            // <h5>食譜名
-            recipe2.childNodes[1].innerHTML = hotRecipe2.recipeName;
+            if (hotRecipe2 !== undefined) {
+                let recipe2 = document.getElementById('topTwoRecipe');
+                // <h5>食譜名
+                $('#recipe2name').html(hotRecipe2.recipeName);
+                // document.getElementById('recipe2name').innerHTML = hotRecipe2.recipeName;
+                // console.log('recipe2='+hotRecipe2.recipeName);
+                // <p>作者
+                // recipe2.childNodes[3].innerHTML = 'by ' + hotRecipe2.member.name;
+                $('#recipe2owner').html(hotRecipe2.member.name);
 
-            // <p>作者
-            recipe2.childNodes[3].innerHTML = 'by ' + hotRecipe2.member.name;
+                // <p>簡介
+                // recipe2.childNodes[5].innerHTML = hotRecipe2.introduction;
+                $('#recipe2Intro').html(hotRecipe2.introduction);
+                console.log('intro2=' + hotRecipe2.introduction);
+                // <span> 收藏 記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
 
-            // <p>簡介
-            recipe2.childNodes[5].innerHTML = hotRecipe2.introduction;
-            // alert(recipe2.childNodes[5].nodeName);
-            // <span> 收藏  記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
+                let likesComments2 = document.getElementById('likesComments2');
 
-            let likesComments2 = document.getElementById('likesComments2');
+                likesComments2.childNodes[1].childNodes[2].innerHTML =
+                    hotRecipe2.save;
 
-            likesComments2.childNodes[1].childNodes[2].innerHTML = hotRecipe2.save;
-
-            likesComments2.childNodes[3].childNodes[2].innerHTML = hotRecipe2.chat;
-
-            // alert(likesComments2.childNodes[3].nodeName);
-
-
+                likesComments2.childNodes[3].childNodes[2].innerHTML =
+                    hotRecipe2.chat;
+                }else{
+                    document.getElementById('rp2').style.display='none';
+                }
+                
+                // console.log('rp3=' + hotRecipe2.save);
             // ========top3Recipe========
+            if (hotRecipe3 !== undefined) {
+                let recipe3 = document.getElementById('topThreeRecipe');
+                // <h5>食譜名
+                recipe3.childNodes[1].innerHTML = hotRecipe3.recipeName;
 
-            let recipe3 = document.getElementById('topThreeRecipe');
-            // <h5>食譜名
-            recipe3.childNodes[1].innerHTML = hotRecipe3.recipeName;
+                // <p>作者
+                recipe3.childNodes[3].innerHTML = 'by ' + hotRecipe3.member.name;
 
-            // <p>作者
-            recipe3.childNodes[3].innerHTML = 'by ' + hotRecipe3.member.name;
+                // <p>簡介
+                recipe3.childNodes[5].innerHTML = hotRecipe3.introduction;
+                // alert(recipe2.childNodes[5].nodeName);
+                // <span> 收藏 記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
 
-            // <p>簡介
-            recipe3.childNodes[5].innerHTML = hotRecipe3.introduction;
-            // alert(recipe2.childNodes[5].nodeName);
-            // <span> 收藏  記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
-
-            let likesComments3 = document.getElementById('likesComments3');
-
-
-            likesComments3.childNodes[1].childNodes[2].innerHTML = hotRecipe3.save;
+                let likesComments3 = document.getElementById('likesComments3');
 
 
-            likesComments3.childNodes[3].childNodes[2].innerHTML = hotRecipe3.chat;
+                likesComments3.childNodes[1].childNodes[2].innerHTML = hotRecipe3.save;
 
+
+                likesComments3.childNodes[3].childNodes[2].innerHTML = hotRecipe3.chat;
+            }else{
+                document.getElementById('rp3').style.display='none';
+            }
 
             // ========top4Recipe========
+            if (hotRecipe4 !== undefined) {
+                let recipe4 = document.getElementById('top4Recipe');
+                // <h5>食譜名
+                recipe4.childNodes[1].innerHTML = hotRecipe4.recipeName;
 
-            let recipe4 = document.getElementById('top4Recipe');
-            // <h5>食譜名
-            recipe4.childNodes[1].innerHTML = hotRecipe4.recipeName;
+                // <p>作者
+                recipe4.childNodes[3].innerHTML = 'by ' + hotRecipe4.member.name;
 
-            // <p>作者
-            recipe4.childNodes[3].innerHTML = 'by ' + hotRecipe4.member.name;
+                // <p>簡介
+                recipe4.childNodes[5].innerHTML = hotRecipe4.introduction;
+                // alert(recipe2.childNodes[5].nodeName);
+                // <span> 收藏 記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
 
-            // <p>簡介
-            recipe4.childNodes[5].innerHTML = hotRecipe4.introduction;
-            // alert(recipe2.childNodes[5].nodeName);
-            // <span> 收藏  記得把<a> <img>中間的空白刪掉，不然DOM蒐尋器會找錯
-
-            let likesComments4 = document.getElementById('likesComments4');
-
-
-            likesComments4.childNodes[1].childNodes[2].innerHTML = hotRecipe4.save;
+                let likesComments4 = document.getElementById('likesComments4');
 
 
-            likesComments4.childNodes[3].childNodes[2].innerHTML = hotRecipe4.chat;
+                likesComments4.childNodes[1].childNodes[2].innerHTML = hotRecipe4.save;
 
+
+                likesComments4.childNodes[3].childNodes[2].innerHTML = hotRecipe4.chat;
+            }else{
+                document.getElementById('rp4').style.display='none';
+            }
 
 
 
@@ -147,7 +176,7 @@ $(document).ready(function () {
         }
     });
 
-    //  熱門關鍵字
+    // 熱門關鍵字
     $.ajax({
         method: "POST",
         url: ' http://localhost:8080/ezfit/keyword/submit.do',
@@ -162,13 +191,13 @@ $(document).ready(function () {
             // alert(listSize);
 
             for (let i = 0; i < listSize; ++i) {
-                // var hotRecipe(i+1) = recipe[i];   動態命名變數
+                // var hotRecipe(i+1) = recipe[i]; 動態命名變數
                 eval('var hotSearch' + (i + 1) + '=hotSearchList[' + i + '].keyWord;');
                 // console.log(eval('hotSearch' + (i + 1)));
                 let a = document.createElement("a");
                 a.setAttribute("class", "badge badge-success");
                 // URI還沒設
-                // a.setAttribute("href",  eval(URI+'hotSearch' + (i + 1)));
+                // a.setAttribute("href", eval(URI+'hotSearch' + (i + 1)));
 
                 a.innerHTML = eval('hotSearch' + (i + 1));
                 let parent = document.getElementById('hotSearch');
@@ -198,8 +227,9 @@ $(document).ready(function () {
             let list = data;
             // console.log(list);
 
-            //動態新增
-            // let  weekRecipeParent = document.getElementById('weekRecipeParent');
+            // 動態新增
+            // let weekRecipeParent =
+            // document.getElementById('weekRecipeParent');
             for (let i = 0; i < list.length; ++i) {
                 let weekRecipe = `<div class="col-3 m-0 p-2 new-recipe-item">
                 <div class="new-recipes-img">
@@ -218,7 +248,7 @@ $(document).ready(function () {
                     let weekPic = document.getElementById('weekPic' + i);
                     let str = (list[i].fileName).split('.');
                     weekPic.src = "/ezfit/image/recipe/" + list[i].fileName + '/' + str[str.length - 1];
-                    console.log('檔案名' + str[str.length - 1]);
+                    // console.log('檔案名' + str[str.length - 1]);
                 } else {
                     let weekPic = document.getElementById('weekPic' + i);
                     weekPic.src = "img/publish_recipe/add_photo_small.svg";
@@ -238,4 +268,4 @@ $(document).ready(function () {
 
 function writeRecipe() {
     window.location.href = 'http://localhost:8080/ezfit/publish_recipe';
-};
+}
