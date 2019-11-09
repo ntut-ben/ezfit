@@ -1,13 +1,8 @@
 package config;
 
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -26,13 +21,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 		internalResourceViewResolver.setPrefix("/WEB-INF/views/");
 		internalResourceViewResolver.setSuffix(".jsp");
 		return internalResourceViewResolver;
-	}
-
-	@Bean
-	public MessageSource messageSource() {
-		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasename("messages");
-		return resourceBundleMessageSource;
 	}
 
 	@Override
@@ -56,7 +44,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/views/img/");
-		registry.addResourceHandler("/data/**").addResourceLocations("/data/").setCacheControl(CacheControl.maxAge(0L,TimeUnit.SECONDS));
+		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 	}
 
 }
