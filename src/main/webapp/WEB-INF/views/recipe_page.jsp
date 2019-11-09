@@ -78,7 +78,7 @@
 					<div class="col-6 m-0 p-0 pl-3 about-this-recipe">
 						<div class="member-details">
 							<a href="#" id='memberLink1'><img
-								src="http://placekitten.com/90/90" class="profile-img" alt=""></a>
+								src="http://placekitten.com/90/90" class="profile-img" alt="" id='memberHeadPic'></a>
 							<div class="member-name">
 								<a href="#" id='memberLink2'><p class="m-0" id='ownerName'>作者名稱</p></a>
 								<p class="m-0">
@@ -230,7 +230,7 @@
 					</div>
 					<div class="leave-comment-main mt-3 pb-3">
 						<div class="your-profile-img">
-							<img src="http://placekitten.com/90/90">
+							<img src="http://placekitten.com/90/90" id='head'>
 						</div>
 						<div class="leave-comment pl-4 ">
 							<textarea name="comment" id="comment" cols="30" rows="10"

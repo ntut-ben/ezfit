@@ -97,6 +97,27 @@ public class recipeController {
 		return "recipe_page";
 	}
 
+	@RequestMapping(value = "/image/{category}/{imageName}/{lastName}")
+	@ResponseBody
+	public byte[] getImage(@PathVariable(value = "category") String category,
+			@PathVariable(value = "imageName") String imageName, @PathVariable(value = "lastName") String lastName)
+			throws IOException {
+
+		File serverFile = null;
+		if (category.equals("member")) {
+			serverFile = new File("C:/ezfitData/memberPic/" + imageName);
+		} else if (category.equals("recipe")) {
+			serverFile = new File("C:/ezfitData/recipePic/" + imageName);
+		} else if (category.equals("method")) {
+			serverFile = new File("C:/ezfitData/methodPic/" + imageName);
+		} else if(category.equals("memberHead")) {
+			serverFile = new File("C:/ezfitData/memberHeadPic/" + imageName);
+		}
+
+		return Files.readAllBytes(serverFile.toPath());
+	}
+	
+	
 //	上傳留言板留言
 	@RequestMapping(value = "/board/addNewChat", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
 	public @ResponseBody String addChatServlet(@RequestParam("recipeId") String recipeId) {
@@ -683,23 +704,7 @@ public class recipeController {
 		return json;
 	}
 
-	@RequestMapping(value = "/image/{category}/{imageName}/{lastName}")
-	@ResponseBody
-	public byte[] getImage(@PathVariable(value = "category") String category,
-			@PathVariable(value = "imageName") String imageName, @PathVariable(value = "lastName") String lastName)
-			throws IOException {
-
-		File serverFile = null;
-		if (category.equals("member")) {
-			serverFile = new File("C:/ezfitData/memberPic/" + imageName);
-		} else if (category.equals("recipe")) {
-			serverFile = new File("C:/ezfitData/recipePic/" + imageName);
-		} else if (category.equals("method")) {
-			serverFile = new File("C:/ezfitData/methodPic/" + imageName);
-		}
-
-		return Files.readAllBytes(serverFile.toPath());
-	}
+	
 
 	// ==============主程式所使用之方法===========================
 	// 設定檔案上傳後存放的地方
