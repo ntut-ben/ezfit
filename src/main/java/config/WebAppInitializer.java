@@ -11,7 +11,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class<?>[] { RootAppConfig.class };
+		return new Class<?>[] { RootAppConfig.class, WebSocketConfig.class };
 	}
 
 	@Override

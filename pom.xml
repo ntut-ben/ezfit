@@ -14,6 +14,10 @@
 		<hibernate.version>5.4.6.Final</hibernate.version>
 	</properties>
 
+
+
+
+
 	<dependencies>
 
 		<!-- 動態網頁 -->
@@ -53,6 +57,16 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- Hibernate Framewrok -->
@@ -113,8 +127,18 @@
 			<artifactId>json</artifactId>
 			<version>20190722</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.29</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>3.8.1</version>
+		</dependency>
 	</dependencies>
-
-
-
 </project>
