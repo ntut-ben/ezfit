@@ -546,8 +546,18 @@ public class Member {
 				if (!f.exists()) {
 					f.mkdir();
 				}
+//				(瀚文新增)複製一個到server外的資料夾，抓取方法在recipeController
+				File f2 = new File("C:/ezfitData/memberHeadPic");
+//				File f = new File("D://image");
+//				File f = new File("C:\\_JSP\\workspaceJDBC\\ezfit\\src\\main\\webapp\\WEB-INF\\views\\MemberImage");
+				if (!f2.exists()) {
+					f2.mkdir();
+				}
 				String imgsrc = f + "\\" + filename;
 				System.out.println(imgsrc);
+//				(瀚文新增)
+				String imgsrc2 = f2 + "\\" + filename;
+				System.out.println(imgsrc2);
 				// 複製檔案
 				InputStream is = item.getInputStream();
 				FileOutputStream fos = new FileOutputStream(imgsrc);
@@ -557,6 +567,16 @@ public class Member {
 					fos.write(b, 0, length);
 				}
 
+				// (瀚文新增)複製檔案
+//				InputStream is2 = item.getInputStream();
+				is = item.getInputStream();
+				FileOutputStream fos2 = new FileOutputStream(imgsrc2);
+//				byte b[] = new byte[1024 * 1024];
+				length = 0;
+				while (-1 != (length = is.read(b))) {
+					fos2.write(b, 0, length);
+				}
+				
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 
 				mb.setMemberImage(filename);

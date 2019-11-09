@@ -1,3 +1,6 @@
+var materal = [];
+
+
 $(document).ready(function () {
 
     data = [{ id: '會員名稱', detail: '留言內容。作者可直接回覆留言 or not ？', time: '2天前 （或是直接顯示日期＋時間？）' },];
@@ -104,14 +107,14 @@ $(document).ready(function () {
                             let chat = document.getElementById('chat');
                             chat.innerHTML = list[0].chat;
                             let recipePic = document.getElementById('recipePic');
-                            
-                            recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
-                            let introduction = document.getElementById('introduction');
-                            introduction.innerHTML = list[0].introduction;
-                            let servings = document.getElementById('servings');
-                            servings.innerHTML = '<img src="img/recipe_page/icon-servings.svg" alt="" >份量：' + list[0].servings + '人份';
-                            let spendTime = document.getElementById('spendTime');
-                            spendTime.innerHTML = '<img src="img/recipe_page/icon-cookingtime.svg" alt="" id="spendTime">時間：' + list[0].spendTime + '分鐘';
+
+                            // recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
+                            // let introduction = document.getElementById('introduction');
+                            // introduction.innerHTML = list[0].introduction;
+                            // let servings = document.getElementById('servings');
+                            // servings.innerHTML = '<img src="img/recipe_page/icon-servings.svg" alt="" >份量：' + list[0].servings + '人份';
+                            // let spendTime = document.getElementById('spendTime');
+                            // spendTime.innerHTML = '<img src="img/recipe_page/icon-cookingtime.svg" alt="" id="spendTime">時間：' + list[0].spendTime + '分鐘';
                         }
                     });
                 } else {
@@ -151,24 +154,24 @@ $(document).ready(function () {
                             list = data;
                             // console.log(list);
                             // 佈置食譜相關資訊
-                            let recipeName = document.getElementById('recipeName');
-                            recipeName.innerHTML = list[0].recipeName;
+                            // let recipeName = document.getElementById('recipeName');
+                            // recipeName.innerHTML = list[0].recipeName;
                             let save = document.getElementById('save');
                             save.innerHTML = list[0].save;
                             let chat = document.getElementById('chat');
                             chat.innerHTML = list[0].chat;
-                            let recipePic = document.getElementById('recipePic');
-                            if ((list[0].fileName !== null && (list[0].fileName !== undefined))) {
-                                recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
-                            } else {
-                                recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
-                            }
-                            let introduction = document.getElementById('introduction');
-                            introduction.innerHTML = list[0].introduction;
-                            let servings = document.getElementById('servings');
-                            servings.innerHTML = '<img src="img/recipe_page/icon-servings.svg" alt="" >份量：' + list[0].servings + '人份';
-                            let spendTime = document.getElementById('spendTime');
-                            spendTime.innerHTML = '<img src="img/recipe_page/icon-cookingtime.svg" alt="" id="spendTime">時間：' + list[0].spendTime + '分鐘';
+                            // let recipePic = document.getElementById('recipePic');
+                            // if ((list[0].fileName !== null && (list[0].fileName !== undefined))) {
+                            //     recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName);
+                            // } else {
+                            //     recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
+                            // }
+                            // let introduction = document.getElementById('introduction');
+                            // introduction.innerHTML = list[0].introduction;
+                            // let servings = document.getElementById('servings');
+                            // servings.innerHTML = '<img src="img/recipe_page/icon-servings.svg" alt="" >份量：' + list[0].servings + '人份';
+                            // let spendTime = document.getElementById('spendTime');
+                            // spendTime.innerHTML = '<img src="img/recipe_page/icon-cookingtime.svg" alt="" id="spendTime">時間：' + list[0].spendTime + '分鐘';
 
 
 
@@ -204,7 +207,17 @@ $(document).ready(function () {
         success: function (data) {
             // list = JSON.parse(data);
             list = data;
-            // console.log(list);
+            console.log(list);
+
+            // 偷布置留言區的使用者頭像
+            let head2 = document.getElementById('head');
+            if (list[0].member.memberImage !== undefined) {
+                head2.setAttribute('src', '/ezfit/image/memberHead/' + list[0].member.memberImage + '/jpg');
+            } else {
+                // 預設有點醜，考慮要不要換
+                head2.setAttribute('src', 'index/img/nav/logo-g.svg');
+            }
+
             // 佈置食譜相關資訊
             let recipeName = document.getElementById('recipeName');
             recipeName.innerHTML = list[0].recipeName;
@@ -214,12 +227,20 @@ $(document).ready(function () {
             chat.innerHTML = list[0].chat;
             let recipePic = document.getElementById('recipePic');
             console.log('recipePic.fileName = ' + list[0].fileName);
-            if ((list[0].fileName !== "" && (list[0].fileName !== undefined))) {
-                console.log('testtest'+list[0].fileName);
-                let str = (list[0].fileName).split('.');
-                recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName+'/'+str[str.length-1]);
+            let head = document.getElementById('memberHeadPic');
+            console.log('memberPic=' + list[0].member.memberImage);
+            if (list[0].member.memberImage !== undefined) {
+                head.setAttribute('src', '/ezfit/image/memberHead/' + list[0].member.memberImage + '/jpg');
             } else {
-                console.log('NONONONONO'+list[0].fileName);
+                // 預設有點醜，考慮要不要換
+                head.setAttribute('src', 'index/img/nav/logo-g.svg');
+            }
+            if ((list[0].fileName !== "" && (list[0].fileName !== undefined))) {
+                console.log('testtest' + list[0].fileName);
+                let str = (list[0].fileName).split('.');
+                recipePic.setAttribute('src', '/ezfit/image/recipe/' + list[0].fileName + '/' + str[str.length - 1]);
+            } else {
+                console.log('NONONONONO' + list[0].fileName);
 
                 recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
             }
@@ -259,6 +280,10 @@ $(document).ready(function () {
                 ingredient.appendChild(materalName);
                 ingredient.appendChild(linkUnit);
                 ingredients.appendChild(ingredient);
+
+
+                // 將食材名裝進array中
+                materal.push(materalList[i].materalName);
             }
 
             // 作法佈置
@@ -276,8 +301,8 @@ $(document).ready(function () {
                 stepImg.setAttribute('class', "step-img");
                 let methodPic = document.createElement('img');
                 if ((methodList[i].fileName !== null && (methodList[i].fileName !== undefined))) {
-                	let str = (methodList[i].fileName).split('.');
-                    methodPic.setAttribute('src', '/ezfit/image/method/' + methodList[i].fileName+'/'+str[str.length-1]);
+                    let str = (methodList[i].fileName).split('.');
+                    methodPic.setAttribute('src', '/ezfit/image/method/' + methodList[i].fileName + '/' + str[str.length - 1]);
                 } else {
                     methodPic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
                 }
@@ -357,7 +382,7 @@ $(document).ready(function () {
         success: function (data) {
             // let list = JSON.parse(data);
             let list = data;
-            // console.log(list);
+            // console.log('chat = '+data);
             // console.log(list[0][1]);
             createChatSec(list);
 
@@ -425,8 +450,8 @@ $(document).ready(function () {
 
                                 console.log('recipePic.fileName = ' + list[0].fileName);
                                 if ((list[0].fileName !== null && (list[0].fileName !== undefined))) {
-                                	let str = (list[0].fileName).split('.');
-                                    recipePic.setAttribute('src', '/ezfit/image/member/' + list[0].fileName+'/'+str[str.length-1]);
+                                    let str = (list[0].fileName).split('.');
+                                    recipePic.setAttribute('src', '/ezfit/image/member/' + list[0].fileName + '/' + str[str.length - 1]);
                                 } else {
                                     recipePic.setAttribute('src', 'img/publish_recipe/add_photo_small.svg')
                                 }
@@ -453,8 +478,9 @@ $(document).ready(function () {
     packageBtn.addEventListener('click', function () {
         let msg = '會將有販賣的食材放進您的購物車中，確定要將食材打包至購物車?'
         if (confirm(msg) === true) {
-            let materal = JSON.stringify(list[4]);
-            console.log(materal);
+            let materalList = JSON.stringify(materal);
+            console.log('materal=' + materal);
+            console.log(materalList);
 
             // 需要將url放入
             // $.ajax({
@@ -502,9 +528,17 @@ function createChatSec(data) {
         let linkPic = document.createElement('a');
         let memberPic = document.createElement('img');
         //   =====================要更新=============================
-        memberPic.setAttribute('src', 'http://placekitten.com/92/92');
+        // memberPic.setAttribute('src', 'http://placekitten.com/92/92');
 
         linkPic.setAttribute('href', '');
+
+        if (data[i].member.memberImage !== undefined) {
+            console.log('chatmember='+data[i].member.memberImage);
+            memberPic.setAttribute('src', '/ezfit/image/memberHead/' + data[i].member.memberImage + '/jpg');
+        } else {
+            // 預設有點醜，考慮要不要換
+            memberPic.setAttribute('src', 'index/img/nav/logo-g.svg');
+        }
         //   ========================================================
 
         // 會員姓名

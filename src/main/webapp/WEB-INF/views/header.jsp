@@ -59,7 +59,7 @@
 							aria-labelledby="dropdownMenuButton"
 							style="right: -40px; left: unset; min-width: unset;">
 							<a class="dropdown-item"
-								href="${pageContext.request.contextPath}/my_page">我的食譜</a> <a
+								href="${pageContext.request.contextPath}/my_page?ownerId=${LoginOK.pkey}&page=1&year=2019">我的食譜</a> <a
 								class="dropdown-item"
 								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
 							<a class="dropdown-item"
@@ -305,7 +305,7 @@
 							aria-labelledby="dropdownMenuButton"
 							style="right: -40px; left: unset; min-width: unset;">
 							<a class="dropdown-item text-black-50"
-								href="${pageContext.request.contextPath}/my_page">我的食譜</a> <a
+								href="${pageContext.request.contextPath}/my_page?ownerId=${LoginOK.pkey}&page=1&year=2019">我的食譜</a> <a
 								class="dropdown-item text-black-50"
 								href="${pageContext.request.contextPath}/memberPage/memberPage">管理帳號</a>
 							<a class="dropdown-item text-black-50"
