@@ -10,6 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 import chat.handler.HttpSessionIdHandshakeInterceptor;
+import chat.handler.PresenceChannelInterceptor;
 
 @Configuration
 @EnableWebSocketMessageBroker
