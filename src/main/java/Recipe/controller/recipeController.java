@@ -97,6 +97,11 @@ public class recipeController {
 		return "recipe_page";
 	}
 
+	@RequestMapping(value = "/search_result")
+	public String gotoRecipeSearch() {
+		return "search_result";
+	}
+
 	@RequestMapping(value = "/image/{category}/{imageName}/{lastName}")
 	@ResponseBody
 	public byte[] getImage(@PathVariable(value = "category") String category,
@@ -110,22 +115,23 @@ public class recipeController {
 			serverFile = new File("C:/ezfitData/recipePic/" + imageName);
 		} else if (category.equals("method")) {
 			serverFile = new File("C:/ezfitData/methodPic/" + imageName);
-		} else if(category.equals("memberHead")) {
+		} else if (category.equals("memberHead")) {
 			serverFile = new File("C:/ezfitData/memberHeadPic/" + imageName);
 		}
 
 		return Files.readAllBytes(serverFile.toPath());
 	}
-	
-	
+
 //	上傳留言板留言
 	@RequestMapping(value = "/board/addNewChat", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
-	public @ResponseBody String addChatServlet(@RequestParam("recipeId") String recipeId) {
+	@ResponseBody
+	public String addChatServlet(@RequestParam("recipeId") String recipeId) {
 		List<BoardBean> boardList = new ArrayList<>();
 		boardList = bs.selectBoard(recipeId);
 		ToJson<BoardBean> json = new ToJson<>();
 		String jsonString = "";
 		jsonString = json.getArrayJson(boardList);
+		System.out.println("上傳留言");
 		System.out.println(jsonString);
 		return jsonString;
 	}
@@ -159,7 +165,7 @@ public class recipeController {
 //		String followerId = "1";
 		String followerId = String.valueOf(member.getPkey());
 		checked = frs.checkFollowed(followerId, recipeId);
-
+		System.out.println("查詢追蹤狀態");
 		ToJson<String> json = new ToJson<>();
 		String jsonString = json.getJson(checked);
 
@@ -320,12 +326,13 @@ public class recipeController {
 //	*************************************************************
 //	*紀錄熱門關鍵字，之後要加入將關鍵字搜尋，並找出相關資源，此部分尚未完成，只有紀錄關鍵字功能*
 //	*************************************************************
+	@ResponseBody
 	@RequestMapping(value = "/keyword/submit.do", method = RequestMethod.GET)
-	public String keywordSearchServlet(@RequestParam("searchRecipe") String keyword) {
+	public String keywordSearchServlet(@RequestParam("name") String keyword) {
 		if (!keyword.equals(""))
 			kwService.insertKeyWord(keyword);
 
-		return "redirect:/recipe_main";
+		return "go";
 	}
 
 //	找出前十名的熱門關鍵字
@@ -425,27 +432,15 @@ public class recipeController {
 	}
 
 //	關鍵字搜尋
-	@RequestMapping(value = "/recipe/search.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/recipe/search.do", produces = "application/json;charset=utf-8", method = RequestMethod.GET)
 	public @ResponseBody String searchRecipeServlet(@RequestParam("name") String search) {
 
 		String JsonString = null;
 		if (!search.equals("")) {
 			ToJson<RecipeBean> json = new ToJson<>();
 			Set<RecipeBean> recipeSet = new HashSet<>();
-			Set<RecipeBean> recipeSet2 = new HashSet<>();
 
 			recipeSet = rs.selectRecipeByRecipeNameOrMemberName(search);
-			recipeSet2 = materalService.selectRecipeByMateral(search);
-
-//			要合併set1 AND set2
-			if (null != recipeSet2 && recipeSet2.size() > 0) {
-				if (recipeSet.size() > 0) {
-					recipeSet.removeAll(recipeSet2); // set1中去除set2已有的對象
-					recipeSet.addAll(recipeSet2); // set1中添加set2
-				} else {
-					recipeSet = recipeSet2;
-				}
-			}
 
 			List<RecipeBean> list = new ArrayList<>(recipeSet);
 			JsonString = json.getArrayJson(list);
@@ -692,6 +687,7 @@ public class recipeController {
 	@ResponseBody
 	@RequestMapping(value = "/getMember", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
 	public String getMyMemberServlet(HttpServletRequest request) {
+//		System.out.println(request);
 		HttpSession session = request.getSession(false);
 		member = (MemberBean) session.getAttribute("LoginOK");
 //		String myId = "2";
@@ -699,12 +695,13 @@ public class recipeController {
 //		member = new MemberBean();
 //		member = rs.getMemberByMemberId(myId);
 		String json = "";
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		json = gson.toJson(member);
+		System.out.println("取Session Member");
+		if(member != null) {
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			json = gson.toJson(member);
+		}
 		return json;
 	}
-
-	
 
 	// ==============主程式所使用之方法===========================
 	// 設定檔案上傳後存放的地方

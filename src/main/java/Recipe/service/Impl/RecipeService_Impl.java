@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import Recipe.model.MateralBean;
 import Recipe.model.RecipeBean;
+import Recipe.repository.MateralDao;
 import Recipe.repository.RecipeDao;
 import Recipe.service.RecipeService;
 import createAccount.model.MemberBean;
@@ -32,6 +34,12 @@ public class RecipeService_Impl implements RecipeService {
 		this.recipeDao = recipeDao;
 	}
 
+	MateralDao materalDao;
+	@Autowired
+	public void setMateralDao(MateralDao materalDao) {
+		this.materalDao = materalDao;
+	}
+	
 	public RecipeService_Impl() {
 	}
 
@@ -83,25 +91,45 @@ public class RecipeService_Impl implements RecipeService {
 	}
 
 //	用在關鍵字查詢，會搜尋食譜名，作者名
+	@SuppressWarnings("unused")
 	@Override
 	@Transactional
 	public Set<RecipeBean> selectRecipeByRecipeNameOrMemberName(String recipeName) {
 		int n = 0;
 		List<RecipeBean> list = new ArrayList<>();
+		List<RecipeBean> recipeByOwner = new ArrayList<>();
+		List<RecipeBean> recipeByName = new ArrayList<>();
+		List<MateralBean> listmateral = new ArrayList<>();
+		Set<RecipeBean> recipeSet = new HashSet<>();
 		try {
-			list = recipeDao.selectRecipeByRecipeName(recipeName);
+//			用作者找
+			recipeByOwner = recipeDao.selectRecipeByOwnerName(recipeName);
+			
+//			用食譜名找
+			recipeByName = recipeDao.selectRecipeByRecipeName(recipeName);
+//			用食材找
+			listmateral = materalDao.selectRecipeByMateralName(recipeName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		此處將LIST換到SET
-		Set<RecipeBean> recipeSet = new HashSet<>();
 
+		for(RecipeBean rb :recipeByOwner) {
+			list.add(rb);
+		}
+		for(RecipeBean rb :recipeByName) {
+			list.add(rb);
+		}
+		for(MateralBean mb :listmateral) {
+			list.add(mb.getRecipe());
+		}
+		
 		for (RecipeBean rb : list) {
 			rb.setGood(recipeDao.searchGood(rb));
 			rb.setSave(recipeDao.searchSave(rb));
 			rb.setChat(recipeDao.searchChat(rb));
 			recipeSet.add(rb);
 		}
+		
 
 		n = recipeSet.size();
 		System.out.println("有" + n + "個食譜有用到 :" + recipeName);

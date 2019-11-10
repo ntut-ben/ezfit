@@ -36,7 +36,7 @@
 							class="form-control recipe-search-input" type="search"
 							placeholder="請輸入關鍵字搜尋···" aria-label="Search">
 						<button class="btn btn-success btn-search recipe-search-btn"
-							type="submit" id="searchButom">
+							type="button" id="searchButom">
 							<img src="img/recipe_main/icon-search.svg"
 								style="margin: 0 6px 5px 0;">搜尋
 						</button>

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+
+*:focus{
+  text-decoration: none;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.recipe-search {
+  padding: 150px 0 20px 0;
+}
+
+.recipe-search-input {
+  border-radius: 5px 0px 0px 5px;
+  border-right: none;
+  width: 70% !important;
+}
+
+input[type='search']:focus {
+  -webkit-box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #bbbbbb;
+  outline: none !important;
+}
+
+.recipe-search-btn {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.write-heart-btn .btn {
+  margin-left: 20px;
+}
+
+.write-heart-btn img {
+  width: 15px;
+  margin-bottom: 4px;
+  margin-right: 5px;
+}

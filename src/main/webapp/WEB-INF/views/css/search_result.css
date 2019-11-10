@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+
+:root {
+  --main-color: #439a23;
+  --name-color: #3b3b3b;
+  --paragraph: #838383;
+}
+
+body {
+  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體',
+    sans-serif;
+  background-color: #e2e7e8;
+}
+
+.search-result-main {
+  background-color: #e7ebed;
+  box-shadow: 0px 0px 30px rgb(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.search-result-title {
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--name-color);
+}
+
+.search-result-card {
+  background-color: #fff;
+  border: 1px solid rgb(200, 200, 200);
+  display: flex;
+  
+}
+
+.search-result-card .recipe-cover-img {
+  object-fit: cover;
+  overflow: hidden;
+  width: 200px;
+  height: 170px;
+  flex-shrink: 0;
+}
+
+.browse-recipe-preview {
+  position: relative;
+}
+
+.browse-recipe-preview p {
+  line-height: 15px;
+}
+
+.browse-recipe-preview a {
+  text-decoration: none;
+  color: var(--name-color);
+}
+
+.browse-recipe-preview a:hover {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.browse-recipe-name {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.browse-recipe-preview .browse-recipe-content-description {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+
+.browse-recipe-preview .result-username-by {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.browse-recipe-meta {
+  display: flex;
+  margin: 12px 0 0;
+  position: absolute;
+  bottom: -10px;
+}
+
+.browse-recipe-meta li {
+  list-style: none;
+  flex: 0 0 auto;
+  margin-right: 20px;
+  color: var(--main-color);
+  font-weight: 300;
+  letter-spacing: 0;
+  width: max-content;
+}
+
+.ads img,
+.ads img:hover {
+  padding-left: 30px;
+  padding-right: 10px;
+  width: 100%;
+  object-fit: cover;
+  filter: none;
+}
+
+.ads div {
+  margin-top: 40px;
+}
+
+.pop-keywords .card-header {
+  background-color: #439a23 !important;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.pop-keywords .badge {
+  background-color: #d5e6cf;
+  color: #2c6716;
+  font-weight: 300;
+  font-size: 12px;
+  padding: 8px;
+  margin: 5px;
+}

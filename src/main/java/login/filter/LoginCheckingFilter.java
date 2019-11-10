@@ -27,8 +27,8 @@ import createAccount.model.MemberBean;
 		@WebInitParam(name = "mustLogin5", value = "/groupBuying"),
 		@WebInitParam(name = "mustLogin6", value = "/api/GroupBuy/*"),
 		@WebInitParam(name = "mustLogin7", value = "/publish_recipe"),
-		@WebInitParam(name = "mustLogin8", value = "/board/addNewChat"),
-		@WebInitParam(name = "mustLogin9", value = "/checkedFollowed"),
+//		@WebInitParam(name = "mustLogin8", value = "/board/addNewChat"),
+		@WebInitParam(name = "mustLogin9", value = "/recipe_page"),
 		@WebInitParam(name = "mustLogin10", value = "/my_page"),
 		@WebInitParam(name = "mustLogin11", value = "/getMember"),
 		

@@ -16,7 +16,6 @@ import Recipe.repository.RecipeDao;
 import _00.utils.DateYearTime;
 import createAccount.model.MemberBean;
 
-
 @Repository
 public class RecipeDao_Impl implements RecipeDao {
 	SessionFactory factory;
@@ -226,19 +225,43 @@ public class RecipeDao_Impl implements RecipeDao {
 //	=====傳入字串(RecipeName 找食譜)===== return set<RecipeBean>關於查詢功能，SET將在Service處理
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<RecipeBean> selectRecipeByRecipeName(String recipeName) {
+	public List<RecipeBean> selectRecipeByOwnerName(String memberName) {
 		List<RecipeBean> list = new ArrayList<>();
-		Session session = factory.getCurrentSession();
+		try {
+			Session session = factory.getCurrentSession();
 
-		MemberBean mb = new MemberBean();
+			MemberBean mb = new MemberBean();
 //		要透過memberName找到member
-		mb = getMemberBeanByMemberName(recipeName);
+			mb = getMemberBeanByMemberName(memberName);
 //		========================
 
-		String hql = "FROM RecipeBean RB WHERE RB.recipeName LIKE :name OR RB.member = :mb";
-		list = session.createQuery(hql).setParameter("name", "%" + recipeName + "%").setParameter("mb", mb)
-				.setMaxResults(5).getResultList();
+//		String hql = "FROM RecipeBean RB WHERE RB.recipeName LIKE :name OR RB.member = :mb";
+			String hql = "FROM RecipeBean RB WHERE RB.member = :mb AND  RB.published = :bool";
+			list = session.createQuery(hql).setParameter("mb", mb).setParameter("bool", true).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return list;
+	}
+
+	// 用食譜名找
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RecipeBean> selectRecipeByRecipeName(String recipeName) {
+		List<RecipeBean> list = new ArrayList<>();
+		try {
+			Session session = factory.getCurrentSession();
+
+//		========================
+
+			String hql = "FROM RecipeBean RB WHERE RB.recipeName LIKE :recipeName AND  RB.published = :bool";
+			list = session.createQuery(hql).setParameter("recipeName", "%" + recipeName + "%")
+					.setParameter("bool", true).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+
 	}
 
 //	=======刪除食譜==========

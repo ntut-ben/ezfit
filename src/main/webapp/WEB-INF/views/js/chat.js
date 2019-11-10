@@ -1,5 +1,5 @@
 var materal = [];
-
+let login = null;
 
 $(document).ready(function () {
 
@@ -13,6 +13,34 @@ $(document).ready(function () {
     // alert(recipeId);
 
 
+    // 判斷是否有登入，並布置留言區預設頭像
+
+    $.ajax({
+        method: "POST",
+        url: 'http://localhost:8080/ezfit/getMember',
+
+        success: function (data) {
+            login = data;
+            console.log('success???'+login);
+            // 偷布置留言區的使用者頭像
+            let head2 = document.getElementById('head');
+            if (login.memberImage !== undefined) {
+                head2.setAttribute('src', '/ezfit/image/memberHead/' + login.memberImage + '/jpg');
+            } else {
+                // 預設有點醜，考慮要不要換
+                head2.setAttribute('src', 'index/img/nav/logo-g.svg');
+            }
+
+        }
+    })
+
+
+
+
+
+
+
+
 
     // 處理收藏食譜按鈕
     let btn = document.getElementById('followBtn');
@@ -23,28 +51,29 @@ $(document).ready(function () {
     let saved = '<img src="img/recipe_page/icon-heart-solid.svg" class="pb-1 pr-1" alt="" >' + ' 已 收 藏 ';
 
     // 確認是否追蹤該食譜
-    $.ajax({
-        method: "GET",
-        url: 'http://localhost:8080/ezfit/checkedFollowed',
-        data: {
-            recipeId: recipeId,
-        },
-        success: function (data) {
-            // let ans = JSON.parse(data);
-            let ans = data
-            // console.log(ans);
+        $.ajax({
+            method: "GET",
+            url: 'http://localhost:8080/ezfit/checkedFollowed',
+            data: {
+                recipeId: recipeId,
+            },
+            success: function (data) {
+                // let ans = JSON.parse(data);
+                let ans = data
+                // console.log(ans);
 
-            if (ans === 'notFound') {
-                btn.innerHTML = unsave;
-                btn.dataset.followId = ans;
-                btn.className = "btn btn-success"
-            } else {
-                btn.innerHTML = saved;
-                btn.dataset.followId = ans;
-                btn.className = "btn btn-secondary";
+                if (ans === 'notFound') {
+                    btn.innerHTML = unsave;
+                    btn.dataset.followId = ans;
+                    btn.className = "btn btn-success"
+                } else {
+                    btn.innerHTML = saved;
+                    btn.dataset.followId = ans;
+                    btn.className = "btn btn-secondary";
+                }
             }
-        }
-    });
+        });
+    
 
     // 按鈕觸發事件
     // if (btn.innerHTML = unsave) {
@@ -209,14 +238,7 @@ $(document).ready(function () {
             list = data;
             console.log(list);
 
-            // 偷布置留言區的使用者頭像
-            let head2 = document.getElementById('head');
-            if (list[0].member.memberImage !== undefined) {
-                head2.setAttribute('src', '/ezfit/image/memberHead/' + list[0].member.memberImage + '/jpg');
-            } else {
-                // 預設有點醜，考慮要不要換
-                head2.setAttribute('src', 'index/img/nav/logo-g.svg');
-            }
+
 
             // 佈置食譜相關資訊
             let recipeName = document.getElementById('recipeName');
@@ -384,7 +406,10 @@ $(document).ready(function () {
             let list = data;
             // console.log('chat = '+data);
             // console.log(list[0][1]);
-            createChatSec(list);
+            if (list.length === 0) {
+                createChatSec(list);
+            }
+
 
             // 留言筆數
             let chatLength = list.length;
@@ -421,7 +446,9 @@ $(document).ready(function () {
                         // console.log(list);
                         $('#comment').val('');
 
-                        createChatSec(list);
+                        if (list.length === 0) {
+                            createChatSec(list);
+                        }
 
                         // 留言筆數
                         let chatLength = list.length;
@@ -533,7 +560,7 @@ function createChatSec(data) {
         linkPic.setAttribute('href', '');
 
         if (data[i].member.memberImage !== undefined) {
-            console.log('chatmember='+data[i].member.memberImage);
+            console.log('chatmember=' + data[i].member.memberImage);
             memberPic.setAttribute('src', '/ezfit/image/memberHead/' + data[i].member.memberImage + '/jpg');
         } else {
             // 預設有點醜，考慮要不要換

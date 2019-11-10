@@ -25,25 +25,17 @@
 	<div class="recipe-search container">
 		<div class="row p-0 m-0">
 			<div class="col-6 p-0">
-				<form class="form-inline">
-					<input class="form-control recipe-search-input" type="search"
-						placeholder="請輸入關鍵字搜尋···" aria-label="Search">
-					<button class="btn btn-success btn-search recipe-search-btn"
-						type="submit">
-						<img src="img/recipe_page/icon-search.svg"
-							style="margin: 0 6px 5px 0;">搜尋
-					</button>
-				</form>
+				 <form class="form-inline">
+                    <input id="searchRecipe" class="form-control recipe-search-input" type="search" placeholder="請輸入關鍵字搜尋···"
+                        aria-label="Search">
+                    <button class="btn btn-success btn-search recipe-search-btn" type="button" id="searchButom">
+                        <img src="img/search_bar/icon-search.svg" style="margin:0 6px 5px 0;">搜尋</button>
+                </form>
 			</div>
-			<div class="col-6 write-heart-btn text-right p-0">
-				<button type="button" class="btn btn-success" id="writeRecipe"
-					onclick="toWriteRecipe">
-					<img src="img/recipe_page/icon-write.svg">寫食譜
-				</button>
-				<button type="button" class="btn btn-success" id="mySaveBtn">
-					<img src="img/recipe_page/icon-heart.svg">食譜收藏
-				</button>
-			</div>
+			 <div class="col-6 write-heart-btn text-right p-0" id="writeRecipe">
+                <button type="button" class="btn btn-success" id="searchButom"><img src="img/search_bar/icon-write.svg" >寫食譜</button>
+                <button type="button" class="btn btn-success" id="mySaveBtn"><img src="img/search_bar/icon-heart.svg">食譜收藏</button>
+            </div>
 		</div>
 	</div>
 	<div class="container  recipe-page-body">
@@ -337,6 +329,7 @@
 	<script src="js/recipe_page.js"></script>
 	<script src="js/chat.js"></script>
 	<script src="js/linkToMySaveRecipe.js"></script>
+	<script src="js/search.js"></script>
 </body>
 
 </html>

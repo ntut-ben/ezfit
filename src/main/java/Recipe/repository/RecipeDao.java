@@ -41,8 +41,11 @@ public interface RecipeDao {
 	List<RecipeBean> selectRecipe(String member,boolean bool);
 
 	//	=====傳入字串(RecipeName 找食譜)===== return set<RecipeBean>關於查詢功能，SET將在Service處理
-	List<RecipeBean> selectRecipeByRecipeName(String recipeName);
+//	用人名找
+	List<RecipeBean> selectRecipeByOwnerName(String ownerName);
 
+	List<RecipeBean> selectRecipeByRecipeName(String recipeName);
+	
 	//	=======刪除食譜==========
 	int deleteRecipe(String recipeId);
 

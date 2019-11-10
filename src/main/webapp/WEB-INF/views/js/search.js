@@ -1,26 +1,28 @@
 $(document).ready(function () {
-    var searchString;
-    $('#searchRecipe').bind('input propertychange', function () {
-        searchString = $('#searchRecipe').val();
-        console.log(searchString);
-        if(searchString !== null){
+
+
+    $('#searchButom').click(function () {
+
+        let searchString = $('#searchRecipe').val();
+        if (searchString !== null) {
+        	console.log('name='+searchString);
             $.ajax({
                 method: "GET",
-                url: 'http://localhost:8080/ezfit/recipe/search.do',
-                data:{
+                url: 'http://localhost:8080/ezfit/keyword/submit.do',
+                
+                data: {
                     name: searchString
                 },
-                success:function(data){
-                    console.log('收到回傳data:'+data);
+                success: function () {
+//                    console.log('收到回傳data:' + data);
+//                     alert('success = '+searchString);
+                    window.location.href = `http://localhost:8080/ezfit/search_result?search=${searchString}&page=1`;
                 }
-        });
-        }
-
-
-
-
+            });
+        };
     });
 
 
 
-})
+
+});

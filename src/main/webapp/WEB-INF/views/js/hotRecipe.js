@@ -78,7 +78,7 @@ $(document).ready(function () {
                 if (recipe[i] !== undefined) {
                     // console.log('ttttttt=' + recipe[i].fileName);
                     let str = (recipe[i].fileName).split('.');
-                    totalRecipePic[i].src = "/ezfit/image/recipe/" + recipe[i].fileName + '/' + str[str.lrngth - 1];
+                    totalRecipePic[i].src = "/ezfit/image/recipe/" + recipe[i].fileName + '/' + str[str.length - 1];
                 } else {
                     totalRecipePic[i].src = "img/publish_recipe/add_photo_small.svg"
                 }
@@ -196,8 +196,7 @@ $(document).ready(function () {
                 // console.log(eval('hotSearch' + (i + 1)));
                 let a = document.createElement("a");
                 a.setAttribute("class", "badge badge-success");
-                // URI還沒設
-                // a.setAttribute("href", eval(URI+'hotSearch' + (i + 1)));
+                a.setAttribute("href", `http://localhost:8080/ezfit/search_result?search=${hotSearchList[i].keyWord}&page=1`);
 
                 a.innerHTML = eval('hotSearch' + (i + 1));
                 let parent = document.getElementById('hotSearch');
