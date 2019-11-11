@@ -1,173 +1,57 @@
-function getCrid() {
-  return $("#crid").text();
-}
-
-function getUid() {
-  return $("#uid").val();
-}
-
+var crid = "";
+var uid = "";
+var crn = "";
+var groupAlias = [];
+var groupName = [];
 var isConnected = false;
 var stompClient = null;
 
-/**
- * Connect or disconnect web socket
- */
-function connectWebSocket() {
-  isConnected = !isConnected;
-  if (isConnected) {
-    $("#btnConnect").text("Disconnect");
-    var socket = new SockJS("/git_ezfit/websocket-cr");
-    stompClient = Stomp.over(socket);
-    stompClient.connect(
-      {
-        uid: getUid()
-      },
-      function(frame) {
-        // console.log('Connected: ' + frame);
-        // subscribe 3 topics
-        stompClient.subscribe("/topic/crcontact", function(respnose) {
-          console.log(23);
-          displayContacts(JSON.parse(respnose.body));
-        });
-        stompClient.subscribe("/topic/room/hello", function(respnose) {
-          displayAppendCrMessage(JSON.parse(respnose.body));
-        });
-        stompClient.subscribe("/topic/alert", function(respnose) {
-          displayAlert(JSON.parse(respnose.body));
-        });
-        // send connect uid to server
-        connectWs();
-      }
-    );
-  } else {
-    $("#btnConnect").text("Connect");
-    if (stompClient != null) {
-      // send disconnect uid to server
-      disconnectWs();
-      // ws disconnect
-      stompClient.disconnect();
-    }
+$(document).ready(function() {
+  uid = getName("name");
+  function getName(name) {
+    var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    if (match) return match[2];
   }
-  console.log("connectWebSocket:" + isConnected);
-}
 
-function displayContacts(crContact) {
-  // console.log("displayContacts ...");
-  console.log(`wow:${crContact}`);
-  var contactlist = $("#contactlist");
-  contactlist.children().remove();
-  if (crContact) {
-    crContact.uids.forEach(function(uid) {
-      console.log(`hello:${uid}`);
-      var msgItem = $("<li/>")
-        .addClass("list-group-item")
-        .text(uid)
-        .appendTo(contactlist);
-    });
-  }
-}
+  console.log(uid);
+  getGroupInfo();
+});
 
-function appendCrMessage(messagelist, msg) {
-  var msgItem = $("<li/>")
-    .addClass("list-group-item")
-    .appendTo(messagelist);
-  if (msg.sender == getUid()) {
-    msgItem.addClass("list-group-item-success text-right");
-    msgItem.text("me:" + msg.message + " at " + msg.sendTime);
-  } else if (msg.sender == "sysinfo") {
-    msgItem.addClass("list-group-item-info text-center");
-    msgItem.text("sys:" + msg.message + " at " + msg.sendTime);
-  } else if (msg.sender == "sysdanger") {
-    msgItem.addClass("list-group-item-danger text-center");
-    msgItem.text("sys:" + msg.message + " at " + msg.sendTime);
-  } else {
-    msgItem.text(msg.sender + ":" + msg.message + " at " + msg.sendTime);
-  }
-  // console.log((msg.sender == getUid()) + "-" + (msg.sender == "sysinfo") +
-  // "-" + (msg.sender == "sysdanger"));
-}
+function wsconnect() {
+  var socket = new SockJS("/ezfit/websocket-cr");
+  stompClient = Stomp.over(socket);
+  stompClient.connect(
+    {
+      uid
+    },
 
-function displayAppendCrMessage(crMessages) {
-  var messagelist = $("#messagelist");
-  if (crMessages) {
-    if (Array.isArray(crMessages)) {
-      crMessages.forEach(function(msg) {
-        appendCrMessage(messagelist, msg);
+    function(frame) {
+      stompClient.subscribe(`/topic/popup/${crid}`, function(respnose) {
+        alert(respnose.body);
       });
-    } else {
-      appendCrMessage(messagelist, crMessages);
     }
-  }
-  // let scroll to last one
-  $("ul#messagelist li:last")
-    .get(0)
-    .scrollIntoView();
+  );
 }
 
-function displayAlert(crAlert) {
-  if (crAlert) {
-    var alertdiv = $("#_alertdiv").clone();
-    $("body").prepend(alertdiv);
-    alertdiv.attr("id", "alertdiv");
-    alertdiv
-      .find(".alert-msg")
-      .empty()
-      .text(crAlert.message);
-    alertdiv
-      .removeClass("alert-info alert-warning d-none")
-      .addClass("alert-" + crAlert.type)
-      .addClass("d-block");
-  }
+function getGroupInfo() {
+  $.ajax({
+    type: "GET",
+    url: "http://localhost:8080/ezfit/api/GroupBuy/query",
+    dataType: "json",
+    success: function(data) {
+      data.reverse().forEach(element => {
+        // 判斷是不是主揪
+        if (element.role == 1) {
+          initiator = false;
+          element = element.initiator;
+        } else {
+          initiator = true;
+          element = element;
+        }
+groupAlias.ad
+        console.log(element.groupAlias);
+        console.log(element.groupName);
+      });
+    }
+  });
 }
-
-function closeAlert(btn) {
-  var alertdiv = $(btn).parent("div");
-  alertdiv.removeClass("d-block").addClass("d-none");
-}
-
-function createCrMessage(message) {
-  var crid = "default";
-  var uid = getUid();
-  var crMessage = {
-    status: "",
-    crid: crid,
-    sender: uid,
-    sendTime: "",
-    message: message
-  };
-  return crMessage;
-}
-
-function connectWs() {
-  console.log("connectWs...");
-  var crMessage = createCrMessage();
-  stompClient.send("/ws/v1/connect", {}, JSON.stringify(crMessage));
-}
-
-function disconnectWs() {
-  console.log("disconnectWs...");
-  var crMessage = createCrMessage();
-  stompClient.send("/ws/v1/disconnect", {}, JSON.stringify(crMessage));
-  displayContacts();
-}
-
-function sendCrMessage() {
-  // console.log("sendCrMessage...");
-  var uid = getUid();
-  var messageBox = $("#messageBox");
-  var message = messageBox.val();
-  messageBox.empty();
-  console.log(uid + ":" + message);
-  var crMessage = createCrMessage(message);
-  // 如果直接傳到被subscript的topic的話，會收到一個JSON object
-  // 但如果分成一個送、一個收的話，後端還可以處理message然後再透過@SendTo，
-  // 這種方式有可能做到把訊息彙總後一次publish多筆message到topic
-  stompClient.send("/ws/v1/room/hello", {}, JSON.stringify(crMessage));
-  // stompClient.send("/topic/crmessage", {}, JSON.stringify(crMessage));
-}
-
-function init() {
-  $("#btnConnect").on("click", connectWebSocket);
-  $("#btnSend").on("click", sendCrMessage);
-}
-$(document).ready(init);

@@ -1,6 +1,5 @@
 package websocket.controller;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -10,15 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+import createAccount.model.MemberBean;
 import createAccount.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import shopping.service.GroupBuyService;
 import websocket.component.CrAlertException;
-import websocket.component.CrContact;
 import websocket.component.CrMessage;
 import websocket.component.CrMessageService;
 import websocket.service.MessageService;
@@ -55,7 +55,7 @@ public class ChatRoomWebSocketController {
 		String mrid = crMessage.getCrid();
 		String uid = crMessage.getSender();
 		HttpSession session = (HttpSession) headerAccessor.getSessionAttributes().get("HTTP_SESSION");
-//		MemberBean memberBean = (MemberBean) session.getAttribute("LoginOK");
+		MemberBean memberBean = (MemberBean) session.getAttribute("LoginOK");
 		crMessageService.connectChatRoom(mrid, uid);
 		crMessages = messageService.loadMessage(mrid);
 		if (crMessages != null) {
@@ -70,11 +70,12 @@ public class ChatRoomWebSocketController {
 	}
 
 	@MessageMapping("/room/{roomId}")
-//	@SendTo("/topic/room/{roomId}")
 	public CrMessage[] sendMrMessage(CrMessage crMessage, @DestinationVariable("roomId") String roomId)
 			throws CrAlertException {
 		crMessage = crMessageService.sendCrMessage(crMessage);
 		messageService.saveMessage(crMessage);
+		System.out.println(crMessage.getCrn());
+		messagingTemplate.convertAndSend("/topic/popup/" + roomId, crMessage);
 		return new CrMessage[] { crMessage };
 	}
 

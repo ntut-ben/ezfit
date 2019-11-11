@@ -1,5 +1,6 @@
 var crid = "";
 var uid = "";
+var crn = "";
 
 var isConnected = false;
 var stompClient = null;
@@ -168,6 +169,7 @@ function getGroupBuyData() {
         if (orderStatus != true && element.status == 0) {
           groupBuyData += `<button
                 data-alias="${element.groupAlias}"
+                data-name="${element.groupName}"
                 type="button"
                 class="btn-chat btn btn-outline-success btn-sm action-btn"
               >
@@ -500,6 +502,7 @@ function parseWeek(date) {
 
 function chat(btn) {
   crid = $(btn).data("alias");
+  crn = $(btn).data("name");
   if (stompClient != null) {
     stompClient.disconnect();
   }
@@ -565,6 +568,7 @@ function createCrMessage(message) {
     status: "",
     crid: crid,
     sender: uid,
+    crn: crn,
     sendTime: "",
     message: message
   };

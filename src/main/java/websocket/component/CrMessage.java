@@ -20,6 +20,7 @@ public class CrMessage {
 	private String sender;
 	private String sendTime;
 	private String message;
+	private String crn;
 
 	public String getStatus() {
 		return status;
@@ -60,4 +61,13 @@ public class CrMessage {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	public String getCrn() {
+		return crn;
+	}
+
+	public void setCrn(String crn) {
+		this.crn = crn;
+	}
+
 }
