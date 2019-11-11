@@ -554,7 +554,8 @@ public class recipeController {
 						} else {
 							oldFileName = rs.getRecipeByRecipeId(value).getFileName();
 							oldMethod = methodService.selectMethodById(value).getFileName();
-							recipe.setRecipeId(Integer.valueOf(value));
+//							recipe.setRecipeId(Integer.valueOf(value));
+							recipe = rs.getRecipeByRecipeId(value);
 							methodList = methodService.showMethod(value);
 							methodLength = methodList.size();
 							killed = methodLength;
