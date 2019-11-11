@@ -406,7 +406,7 @@ $(document).ready(function () {
             let list = data;
             // console.log('chat = '+data);
             // console.log(list[0][1]);
-            if (list.length === 0) {
+            if (list.length !== 0) {
                 createChatSec(list);
             }
 
@@ -446,7 +446,7 @@ $(document).ready(function () {
                         // console.log(list);
                         $('#comment').val('');
 
-                        if (list.length === 0) {
+                        if (list.length !== 0) {
                             createChatSec(list);
                         }
 
