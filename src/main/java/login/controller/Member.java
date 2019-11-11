@@ -678,4 +678,22 @@ public class Member {
 
 	}
 
+//	拿取會員資料
+	@RequestMapping(value = "/api/mobile/memberInfo", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String memberInfo(@RequestParam("memberEmail") String memberEmail,
+			@RequestParam("memberPassword") String memberPassword, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		MemberBean mb = null;
+
+		memberPassword = EncrypAES.getMD5Endocing(EncrypAES.encryptString(memberPassword));
+		if ((memberEmail != null && !memberEmail.trim().equals(""))
+				&& (memberPassword != null && !memberPassword.trim().equals(""))) {
+			ToJson<MemberBean> toJson = new ToJson<MemberBean>();
+			mb = lsi.checkIDPassword(memberEmail, memberPassword);
+			String json = toJson.getJson(mb);
+			return json;
+		}
+		return null;
+	}
+
 }

@@ -26,11 +26,17 @@ public class MemberBean implements Serializable {
 	String password;
 	@Expose
 	String name;
+	@Expose
 	String gender;
+	@Expose
 	Double height;
+	@Expose
 	Double weight;
+	@Expose
 	Date birthday;
+	@Expose
 	String address;
+	@Expose
 	String tel;
 	@Expose
 	String memberImage;
