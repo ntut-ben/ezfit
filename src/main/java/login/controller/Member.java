@@ -271,6 +271,12 @@ public class Member {
 			if (mb != null) {
 				// OK, 登入成功, 將mb物件放入Session範圍內，識別字串為"LoginOK"
 				session.setAttribute("LoginOK", mb);
+				// **********for chat use****************************
+				Cookie cookieName = null;
+				cookieName = new Cookie("name", mb.getName());
+				cookieName.setMaxAge(7 * 24 * 60 * 60); // Cookie的存活期: 七天
+				cookieName.setPath(request.getContextPath());
+				response.addCookie(cookieName);
 //				MemberBean mb1 = (MemberBean) session.getAttribute("LoginOK");
 			} else {
 				// NG, 登入失敗, userid與密碼的組合錯誤，放相關的錯誤訊息到 errorMsgMap 之內
@@ -327,6 +333,7 @@ public class Member {
 				// OK, 登入成功, 將mb物件放入Session範圍內，識別字串為"LoginOK"
 				status.put("status", "LoginOk");
 //				MemberBean mb1 = (MemberBean) session.getAttribute("LoginOK");
+
 			} else {
 				// NG, 登入失敗, userid與密碼的組合錯誤，放相關的錯誤訊息到 errorMsgMap 之內
 				status.put("status", "LoginFail");
@@ -576,7 +583,7 @@ public class Member {
 				while (-1 != (length = is.read(b))) {
 					fos2.write(b, 0, length);
 				}
-				
+
 				Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
 
 				mb.setMemberImage(filename);
