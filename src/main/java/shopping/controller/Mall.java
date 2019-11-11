@@ -32,6 +32,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.google.gson.Gson;
 
 import _00.utils.ToJson;
+import createAccount.model.EncrypAES;
 import createAccount.model.MemberBean;
 import login.service.LoginService;
 import shopping.model.CartItem;
@@ -475,17 +476,17 @@ public class Mall {
 			List<String> list = (List<String>) entry.getValue();
 			if (entry.getKey().equals("breakfasts")) {
 				for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
-					Double mealId = (Double) iterator2.next();
+					Integer mealId = (Integer) iterator2.next();
 					breakfasts.add(mealId.intValue());
 				}
 			} else if (entry.getKey().equals("lunches")) {
 				for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
-					Double mealId = (Double) iterator2.next();
+					Integer mealId = (Integer) iterator2.next();
 					lunches.add(mealId.intValue());
 				}
 			} else if (entry.getKey().equals("dinners")) {
 				for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
-					Double mealId = (Double) iterator2.next();
+					Integer mealId = (Integer) iterator2.next();
 					dinners.add(mealId.intValue());
 				}
 			} else if (entry.getKey().equals("ship")) {
@@ -501,7 +502,7 @@ public class Mall {
 				}
 			} else if (entry.getKey().equals("productId")) {
 				for (Iterator iterator2 = list.iterator(); iterator2.hasNext();) {
-					productId = ((Double) iterator2.next()).intValue();
+					productId = ((Integer) iterator2.next()).intValue();
 				}
 			}
 		}
@@ -1069,6 +1070,254 @@ public class Mall {
 			ToJson<GroupBuyBean> toJson = new ToJson<GroupBuyBean>();
 			String json = toJson.getArrayJson(groupBeans);
 			return json;
+		}
+	}
+
+	// 計畫商品加入購物車
+	@RequestMapping(value = "api/shopCartApp2/planeAdd", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String planeProductCartApp2(HttpServletRequest req) {
+		String breakfastToken[] = null, lunchToken[] = null, dinnerToken[] = null;
+		System.out.println("計畫商品加入購物車");
+
+		List<Integer> breakfasts = new ArrayList<Integer>(), lunches = new ArrayList<Integer>(),
+				dinners = new ArrayList<Integer>();
+		Date shipDate = null;
+		String breakfastString = req.getParameter("breakfasts");
+		String lunchString = req.getParameter("lunches");
+		String dinnerString = req.getParameter("dinners");
+		String ship = req.getParameter("ship");
+		String memberEmail = req.getParameter("memberEmail");
+		String memberPassword = req.getParameter("memberPassword");
+		Integer productId = Integer.parseInt(req.getParameter("productId"));
+
+		// Parse Date
+		if (ship != null && !ship.trim().equals("")) {
+			Calendar cal = Calendar.getInstance();
+			String token[] = ship.split("-");
+			int year = Integer.parseInt(token[0]);
+			int month = Integer.parseInt(token[1]);
+			int date = Integer.parseInt(token[2]);
+			cal.set(year, (month - 1), date);
+			shipDate = new Date(cal.getTimeInMillis());
+		}
+
+		if (breakfastString != null && !breakfastString.trim().equals("")) {
+			breakfastToken = breakfastString.split(",");
+			for (String breakfastId : breakfastToken) {
+				breakfasts.add(Integer.parseInt(breakfastId));
+			}
+		}
+
+		if (lunchString != null && !lunchString.trim().equals("")) {
+			lunchToken = lunchString.split(",");
+			for (String lunchId : lunchToken) {
+				lunches.add(Integer.parseInt(lunchId));
+			}
+		}
+
+		if (dinnerString != null && !dinnerString.trim().equals("")) {
+			dinnerToken = dinnerString.split(",");
+			for (String dinnerId : dinnerToken) {
+				dinners.add(Integer.parseInt(dinnerId));
+			}
+		}
+
+		// 取出目標商品資訊
+		ArrayList<PlaneItem> items = new ArrayList<PlaneItem>();
+		if (breakfasts != null) {
+			for (Iterator iterator = breakfasts.iterator(); iterator.hasNext();) {
+				Integer integer = (Integer) iterator.next();
+				cuisineProduct = cuisineProductService.getCuisineProductById(integer);
+				PlaneItem item = new PlaneItem();
+				item.setCuisineProduct(cuisineProduct);
+				items.add(item);
+			}
+		}
+
+		if (lunches != null) {
+			for (Iterator iterator = lunches.iterator(); iterator.hasNext();) {
+				Integer integer = (Integer) iterator.next();
+				cuisineProduct = cuisineProductService.getCuisineProductById(integer);
+				PlaneItem item = new PlaneItem();
+				item.setCuisineProduct(cuisineProduct);
+				items.add(item);
+			}
+		}
+		if (dinners != null) {
+			for (Iterator iterator = dinners.iterator(); iterator.hasNext();) {
+				Integer integer = (Integer) iterator.next();
+				cuisineProduct = cuisineProductService.getCuisineProductById(integer);
+				PlaneItem item = new PlaneItem();
+				item.setCuisineProduct(cuisineProduct);
+				items.add(item);
+			}
+			memberPassword = EncrypAES.getMD5Endocing(EncrypAES.encryptString(memberPassword));
+			MemberBean memberBean = loginService.checkIDPassword(memberEmail, memberPassword);
+			product = productService.getProductById(productId);
+			cartItem = cartItemService.checkItem(product, memberBean);
+			if (cartItem != null) {
+//						cartItemServiceImpl.delete(cartItemEvict.getProduct().getId(), mb);
+				List<PlaneItem> planeItems = cartItem.getPlaneItems();
+				for (int i = 0; i < planeItems.size(); i++) {
+					PlaneItem item = planeItems.get(i);
+					PlaneItem newItem = items.get(i);
+					item.setCuisineProduct(newItem.getCuisineProduct());
+					planeItems.set(i, item);
+				}
+				Integer subTotal = product.getPrice();
+				cartItem.setMemberBean(memberBean);
+				cartItem.setProduct(product);
+				cartItem.setQty(mealboxCount);
+				cartItem.setSubTotal(subTotal);
+				cartItem.setPlaneItems(planeItems);
+				cartItem.setShipDate(shipDate);
+//						cartItemServiceImpl.saveOrUpdate(cartItemEvict);
+			} else {
+				cartItem = new CartItem();
+				Integer subTotal = product.getPrice();
+				cartItem.setMemberBean(memberBean);
+				cartItem.setProduct(product);
+				cartItem.setQty(mealboxCount);
+				cartItem.setSubTotal(subTotal);
+				cartItem.setPlaneItems(items);
+				cartItem.setShipDate(shipDate);
+				cartItemService.saveOrUpdate(cartItem);
+			}
+		}
+		return null;
+	}
+
+	// 購物車刪除(非團購App)
+	@RequestMapping(value = "api/shopCartApp/delete", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String deleteCartItemApp(@RequestParam("memberEmail") String email,
+			@RequestParam("memberPassword") String password, @RequestParam(value = "itemId") Integer itemId,
+			HttpServletRequest req) {
+
+		System.out.println("購物車刪除(非團購App) api/shopCartApp/delete 測試.....");
+		System.out.println("email = " + email);
+		System.out.println("password = " + password);
+		System.out.println("itemId = " + itemId);
+
+		password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+		MemberBean memberBean = null;
+		memberBean = loginService.checkIDPassword(email, password);
+
+		// 透過購物車ID從購物車移除該品項
+
+		cartItemService.delete(itemId, memberBean);
+		Map<String, String> status = new HashMap<String, String>();
+		status.put("status", "ok");
+		String json = new ToJson<Map<String, String>>().getJson(status);
+		return json;
+	}
+
+	// 食材加入購物車 (非團購App)
+	@RequestMapping(value = "api/shopCartApp/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String ingredientProductCartApp(@RequestParam("memberEmail") String email,
+			@RequestParam("memberPassword") String password, @RequestParam(value = "itemId") Integer itemId,
+			@RequestParam(value = "quantity") Integer quantity, HttpServletRequest req) {
+
+		System.out.println("食材加入購物車 (非團購App) api/shopCartApp/add 測試.....");
+		System.out.println("email = " + email);
+		System.out.println("password = " + password);
+		System.out.println("itemId = " + itemId);
+		System.out.println("quantity = " + quantity);
+
+		password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+		MemberBean memberBean = null;
+		memberBean = loginService.checkIDPassword(email, password);
+
+		// 如果itemId and productQTY 不為空值
+
+		// 取出商品
+		product = productService.getProductById(itemId);
+		// 檢查存貨
+		Integer checkStock = product.getStock() - quantity;
+
+		cartItem = cartItemService.checkItem(product, memberBean);
+
+		if (cartItem != null) {
+			Integer updateQty = cartItem.getQty() + (quantity);
+			Integer updateSubtotal = updateQty * product.getPrice();
+			cartItem.setQty(updateQty);
+			cartItem.setSubTotal(updateSubtotal);
+			cartItemService.saveOrUpdate(cartItem);
+
+			Map<String, String> status = new HashMap<String, String>();
+			status.put("status", "ok");
+			String json = new ToJson<Map<String, String>>().getJson(status);
+			System.out.println("348行 = " + json);
+			return json;
+
+		} else {
+			if (checkStock >= 0) {
+				Integer subTotal = product.getPrice() * quantity;
+				cartItem = new CartItem();
+				cartItem.setMemberBean(memberBean);
+				cartItem.setProduct(product);
+				cartItem.setQty(quantity);
+				cartItem.setSubTotal(subTotal);
+				cartItemService.saveOrUpdate(cartItem);
+				Map<String, String> status = new HashMap<String, String>();
+				status.put("status", "ok");
+				String json = new ToJson<Map<String, String>>().getJson(status);
+				System.out.println("363行 = " + json);
+				return json;
+			} else {
+				Map<String, String> status = new HashMap<String, String>();
+				status.put("status", "false");
+				String json = new ToJson<Map<String, String>>().getJson(status);
+				System.out.println("369行 = " + json);
+				return json;
+			}
+		}
+	}
+
+	// 修改購物車內的食材商品數量App
+	@RequestMapping(value = "api/shopCartApp/modifyCount", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public @ResponseBody String modifyCountApp(@RequestParam("memberEmail") String email,
+			@RequestParam("memberPassword") String password, @RequestParam("qty") Integer qty,
+			@RequestParam("cartId") Integer cartId, HttpServletRequest req) {
+
+		System.out.println("修改購物車內的食材商品數量App api/shopCartApp/modifyCount 測試.....");
+		System.out.println("email = " + email);
+		System.out.println("password = " + password);
+		System.out.println("qty = " + qty);
+		System.out.println("cartId = " + cartId);
+
+		password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+		MemberBean memberBean = null;
+		memberBean = loginService.checkIDPassword(email, password);
+
+		// 透過商品ID從購物車修改該品項
+		if (qty < 1) {
+		} else {
+			cartItem = cartItemService.modifyQTY(cartId, memberBean, qty);
+			String json = new ToJson<CartItem>().getJson(cartItem);
+			return json;
+		}
+		return null;
+	}
+
+	// 購物車列出商品(個人App)
+	@RequestMapping(value = "api/CheckShopCartApp", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+	public @ResponseBody String CheckShopCartPersionalApp(@RequestParam("memberEmail") String email,
+			@RequestParam("memberPassword") String password, HttpServletRequest req) {
+
+		System.out.println("購物車列出商品(個人App) api/CheckShopCartApp 測試.....");
+		System.out.println("email = " + email);
+		System.out.println("password = " + password);
+
+		password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+		MemberBean memberBean = null;
+		memberBean = loginService.checkIDPassword(email, password);
+
+		cartItems = cartItemService.checkAllItems(memberBean);
+		if (cartItems.size() > 0) {
+			String json = new ToJson<CartItem>().getArrayJson(cartItems);
+			return json;
+		} else {
+			return "NOITEM";
 		}
 	}
 
