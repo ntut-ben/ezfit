@@ -31,9 +31,10 @@ body {
   
 }
 
-.search-result-card .recipe-cover-img {
+.recipe-cover-img img{
   object-fit: cover;
   overflow: hidden;
+  position: relative;
   width: 200px;
   height: 170px;
   flex-shrink: 0;
