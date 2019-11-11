@@ -745,11 +745,13 @@ public class recipeController {
 			fileName = (fileName + formatName).toLowerCase();
 			System.out.println("上傳檔案檔案名稱:" + fileName);
 //	        =====test=====
-			System.out.println("target:" + def_upload_dir + "\\" + fileName);
+			System.out.println("target:" + def_upload_dir + "/" + fileName);
 //	        ==============
-			File uploadedFile = new File(def_upload_dir + "\\" + fileName);
+			File uploadedFile = new File(def_upload_dir + "/" + fileName);
 			// 會產生 Exception
 			try {
+				if(uploadedFile.exists())
+					uploadedFile.delete();
 				item.write(uploadedFile);
 				str = fileName;
 			} catch (Exception e) {

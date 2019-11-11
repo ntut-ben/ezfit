@@ -1,22 +1,27 @@
 package websocket.controller;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import createAccount.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
-import websocket.component.CrAlert;
+import shopping.service.GroupBuyService;
 import websocket.component.CrAlertException;
 import websocket.component.CrContact;
 import websocket.component.CrMessage;
 import websocket.component.CrMessageService;
+import websocket.service.MessageService;
 
 /**
  * @author prinswu
@@ -28,71 +33,49 @@ import websocket.component.CrMessageService;
 public class ChatRoomWebSocketController {
 
 	@Autowired
+	MemberService memberService;
+
+	@Autowired
+	GroupBuyService groupBuyService;
+
+	@Autowired
+	MessageService messageService;
+
+	@Autowired
 	CrMessageService crMessageService;
 
 	@Autowired
 	private SimpMessageSendingOperations messagingTemplate;
 
-	@MessageMapping("/connect")
-	@SendTo("/topic/crcontact")
-	public CrContact connectWs(CrMessage crMessage) throws CrAlertException {
+	// 從database拿取消息
+	@MessageMapping("/connect/{roomId}")
+	public CrMessage connectWs(CrMessage crMessage, @DestinationVariable("roomId") String roomId,
+			SimpMessageHeaderAccessor headerAccessor) throws CrAlertException {
+		List<CrMessage> crMessages = null;
 		String mrid = crMessage.getCrid();
 		String uid = crMessage.getSender();
+		HttpSession session = (HttpSession) headerAccessor.getSessionAttributes().get("HTTP_SESSION");
+//		MemberBean memberBean = (MemberBean) session.getAttribute("LoginOK");
 		crMessageService.connectChatRoom(mrid, uid);
+		crMessages = messageService.loadMessage(mrid);
+		if (crMessages != null) {
+			Collections.reverse(crMessages);
+			for (Iterator iterator = crMessages.iterator(); iterator.hasNext();) {
+				CrMessage crMessage2 = (CrMessage) iterator.next();
+				messagingTemplate.convertAndSend("/topic/room/" + roomId, crMessage2);
+			}
+		}
 
-		// alert user join
-		CrAlert alert = crMessageService.createCrAlert("info", String.format("User[%s] join talk!", uid));
-		messagingTemplate.convertAndSend("/topic/alert", alert);
-		// message user join
-		crMessage.setSender("sysinfo");
-		crMessage.setMessage(uid + " join talk!");
-		crMessage = crMessageService.sendCrMessage(crMessage);
-		messagingTemplate.convertAndSend("/topic/room", crMessage);
-		return crMessageService.getAllContactByCrid(mrid);
-	}
-
-	@MessageMapping("/disconnect")
-	@SendTo("/topic/crcontact")
-	public CrContact disconnectWs(CrMessage crMessage) throws CrAlertException {
-		String mrid = crMessage.getCrid();
-		String uid = crMessage.getSender();
-		crMessageService.disconnectChatRoom(mrid, uid);
-
-		// alert user exit
-		CrAlert alert = crMessageService.createCrAlert("warning", String.format("User[%s] exit talk!", uid));
-		messagingTemplate.convertAndSend("/topic/alert", alert);
-
-		// message user exit
-		crMessage.setSender("sysdanger");
-		crMessage.setMessage(uid + " exit talk!");
-		crMessage = crMessageService.sendCrMessage(crMessage);
-		messagingTemplate.convertAndSend("/topic/room", crMessage);
-
-		return crMessageService.getAllContactByCrid(mrid);
+		return null;
 	}
 
 	@MessageMapping("/room/{roomId}")
 //	@SendTo("/topic/room/{roomId}")
 	public CrMessage[] sendMrMessage(CrMessage crMessage, @DestinationVariable("roomId") String roomId)
 			throws CrAlertException {
-		return new CrMessage[] { crMessageService.sendCrMessage(crMessage) };
+		crMessage = crMessageService.sendCrMessage(crMessage);
+		messageService.saveMessage(crMessage);
+		return new CrMessage[] { crMessage };
 	}
 
-	@MessageExceptionHandler
-	@SendTo("/topic/alert")
-	public CrAlert handleException(Throwable exception) {
-		return ((CrAlertException) exception).getCrAlert();
-	}
-
-	@GetMapping(value = "/chatroom")
-	public String viewDefaultMeetingRoomPage(Model model) {
-		model.addAttribute("crid", crMessageService.getDefaultCrid());
-		return "chatroom";
-	}
-
-	@GetMapping(value = "/chatroom/{crid}")
-	public String viewMeetingRoomPage(Model model, @PathVariable("crid") String crid) {
-		model.addAttribute("crid", crid);
-		return "chatroom";
-	}
 }

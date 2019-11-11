@@ -28,7 +28,7 @@ public class CrMessageService {
 	private Set<String> cridSet = new HashSet<String>();
 	private Map<String, Set<String>> crIdSet = new HashMap();
 	private String defaultCrid = "default";
-	private DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private DateFormat df = new SimpleDateFormat("HH:mm:ss");
 
 	@PostConstruct
 	public void initialize() {

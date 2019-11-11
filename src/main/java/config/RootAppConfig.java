@@ -19,7 +19,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "shopping.repository", "shopping.service", "createAccount.repository", "createAccount.service",
-		"login.service", "Recipe.repository", "Recipe.service" })
+		"login.service", "Recipe.repository", "Recipe.service", "websocket.repository", "websocket.service" })
 public class RootAppConfig {
 
 	@Bean
@@ -43,7 +43,8 @@ public class RootAppConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
-		factory.setPackagesToScan(new String[] { "createAccount.model", "shopping.model", "login.model","Recipe.model" });
+		factory.setPackagesToScan(new String[] { "createAccount.model", "shopping.model", "login.model", "Recipe.model",
+				"websocket.component" });
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}

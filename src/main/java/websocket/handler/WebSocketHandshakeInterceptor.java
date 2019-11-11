@@ -28,13 +28,11 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
 			if (memberBean != null) {
 				// 这里打印一下session id 方便等下对比和springMVC获取到httpsession是不是同一个
-				System.out.println("httpSession key：" + httpSession.getId());
 
 				// 获取到httpsession后，可以根据自身业务，操作其中的信息，这里只是单纯的和websocket进行关联
 				attributes.put("HTTP_SESSION", httpSession);
 				return true;
 			} else {
-				System.out.println("memberBean is null");
 				return false;
 			}
 		}

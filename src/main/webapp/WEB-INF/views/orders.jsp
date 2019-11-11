@@ -109,6 +109,59 @@ pageEncoding="UTF-8"%>
     <!-- Footer -->
     <jsp:include page="footer.jsp"></jsp:include>
 
+    <!-- chat -->
+    <div class="col-3 h-25 chatBox">
+      <div class="card">
+        <div class="card-header row m-0" style="background: #439a23;">
+          <div class="col-8 text-left h5 text-white">Messages</div>
+          <div class="col-4 text-right">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" class="font-weight-bold h4 text-white"
+                >&times;</span
+              >
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body message-list scrollbar-ripe-malinka">
+          <div id="messagelistScroll">
+            <ul class="list-group" id="messagelist"></ul>
+          </div>
+        </div>
+        <div class="card-foot">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Your message"
+                  aria-label="Your message"
+                  aria-describedby="btnSend"
+                  id="messageBox"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="btnSend"
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -124,6 +177,9 @@ pageEncoding="UTF-8"%>
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/orders.js"></script>
   </body>

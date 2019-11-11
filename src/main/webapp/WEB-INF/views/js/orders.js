@@ -1,6 +1,19 @@
+var crid = "";
+var uid = "";
+
+var isConnected = false;
+var stompClient = null;
+
 $(document).ready(function() {
   getOrderData();
   getGroupBuyData();
+  $("#btnSend").on("click", sendCrMessage);
+
+  $("#messageBox").keypress(function(event) {
+    if (event.keyCode == 13) {
+      $("#btnSend").trigger("click");
+    }
+  });
 
   $("#pills-home-tab").click(function(e) {
     e.preventDefault();
@@ -151,6 +164,27 @@ function getGroupBuyData() {
                 加入點餐
               </button>`;
         }
+
+        if (orderStatus != true && element.status == 0) {
+          groupBuyData += `<button
+                data-alias="${element.groupAlias}"
+                type="button"
+                class="btn-chat btn btn-outline-success btn-sm action-btn"
+              >
+                <img
+                  class="btn-icons-g"
+                  src="img/orders/ic_local_grocery_store_24px.svg"
+                  alt=""
+                />
+                <img
+                  class="btn-icons-w"
+                  src="img/orders/ic_local_grocery_store_24px_w.svg"
+                  alt=""
+                />
+                聊聊
+              </button>`;
+        }
+
         if (element.status == 0) {
           groupBuyData += `<button
           type="button"
@@ -288,6 +322,11 @@ function getGroupBuyData() {
           .select();
 
         document.execCommand("copy");
+      });
+
+      $(".btn-chat").click(function(e) {
+        e.preventDefault();
+        chat(this);
       });
     }
   });
@@ -457,4 +496,115 @@ function parseWeek(date) {
   }
 
   return `${shipYear}-${shipMonth}-${shipDate}  ${week}  `;
+}
+
+function chat(btn) {
+  crid = $(btn).data("alias");
+  if (stompClient != null) {
+    stompClient.disconnect();
+  }
+
+  $("#messagelist")
+    .find("li")
+    .remove();
+
+  $(".chatBox").animate({ left: "76%" }, "slow", "easeInOutQuad");
+  $(".close").click(function(e) {
+    e.preventDefault();
+    $(".chatBox").animate({ left: "100%" }, "slow", "easeInOutQuad");
+  });
+
+  uid = getName("name");
+  function getName(name) {
+    var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    if (match) return match[2];
+  }
+
+  isConnected = !isConnected;
+  if (isConnected) {
+    var socket = new SockJS("/ezfit/websocket-cr");
+    stompClient = Stomp.over(socket);
+    stompClient.connect(
+      {
+        uid
+      },
+      function(frame) {
+        // subscribe 3 topics
+        stompClient.subscribe(`/topic/room/${crid}`, function(respnose) {
+          displayAppendCrMessage(JSON.parse(respnose.body));
+        });
+        connectWs(crid);
+      }
+    );
+  }
+  console.log("connectWebSocket:" + isConnected);
+}
+
+function appendCrMessage(messagelist, msg) {
+  var msgItem = $("<li/>")
+    .addClass("list-group-item")
+    .appendTo(messagelist);
+  if (msg.sender == uid) {
+    msgItem.addClass("list-group-item-success text-right");
+    msgItem.text("me:" + msg.message + " at " + msg.sendTime);
+  } else if (msg.sender == "sysinfo") {
+    msgItem.addClass("list-group-item-info text-center");
+    msgItem.text("sys:" + msg.message + " at " + msg.sendTime);
+  } else if (msg.sender == "sysdanger") {
+    msgItem.addClass("list-group-item-danger text-center");
+    msgItem.text("sys:" + msg.message + " at " + msg.sendTime);
+  } else {
+    msgItem.text(msg.sender + ":" + msg.message + " at " + msg.sendTime);
+  }
+  // console.log((msg.sender == getUid()) + "-" + (msg.sender == "sysinfo") +
+  // "-" + (msg.sender == "sysdanger"));
+}
+
+function createCrMessage(message) {
+  var crMessage = {
+    status: "",
+    crid: crid,
+    sender: uid,
+    sendTime: "",
+    message: message
+  };
+  return crMessage;
+}
+
+function sendCrMessage() {
+  // console.log("sendCrMessage...");
+
+  var messageBox = $("#messageBox");
+  var message = messageBox.val();
+  messageBox.val("");
+  console.log(uid + ":" + message);
+  var crMessage = createCrMessage(message);
+  // 如果直接傳到被subscript的topic的話，會收到一個JSON object
+  // 但如果分成一個送、一個收的話，後端還可以處理message然後再透過@SendTo，
+  // 這種方式有可能做到把訊息彙總後一次publish多筆message到topic
+  stompClient.send(`/ws/v1/room/${crid}`, {}, JSON.stringify(crMessage));
+  // stompClient.send("/topic/crmessage", {}, JSON.stringify(crMessage));
+}
+
+function displayAppendCrMessage(crMessages) {
+  var messagelist = $("#messagelist");
+  if (crMessages) {
+    if (Array.isArray(crMessages)) {
+      crMessages.forEach(function(msg) {
+        appendCrMessage(messagelist, msg);
+      });
+    } else {
+      appendCrMessage(messagelist, crMessages);
+    }
+  }
+  // let scroll to last one
+  $("ul#messagelist li:last")
+    .get(0)
+    .scrollIntoView();
+}
+
+function connectWs(crid) {
+  console.log("connectWs...");
+  var crMessage = createCrMessage();
+  stompClient.send(`/ws/v1/connect/${crid}`, {}, JSON.stringify(crMessage));
 }

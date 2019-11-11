@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional');
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900&display=swap&subset=chinese-traditional");
 
-
+.message-list {
+  position: relative;
+  overflow-y: scroll;
+  height: 400px;
+}
 
 body {
-  font-family: Arial, 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體',
+  font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體",
     sans-serif;
   background-color: #e2e7e8;
 }
@@ -68,29 +72,29 @@ body {
   padding: 0;
 }
 
-.action-btns{
-    display: flex;
-    justify-content: space-between;
+.action-btns {
+  display: flex;
+  justify-content: space-between;
 }
 
-.action-btns button{
-    font-size: 12px;
-    margin: 5px;
+.action-btns button {
+  font-size: 12px;
+  margin: 5px;
 }
-.btn-icons-w{
-    display: none;
-}
-
-.action-btns button:hover .btn-icons-w{
-    display: inline;
+.btn-icons-w {
+  display: none;
 }
 
-.action-btns button:hover .btn-icons-g{
-    display: none;
+.action-btns button:hover .btn-icons-w {
+  display: inline;
 }
 
-.action-btns img{
-    padding-bottom: 3px;
+.action-btns button:hover .btn-icons-g {
+  display: none;
+}
+
+.action-btns img {
+  padding-bottom: 3px;
 }
 
 .group-list {
@@ -101,41 +105,40 @@ body {
 }
 
 .group-buy-member-name {
-    border-top: 3px solid #439a23;
+  border-top: 3px solid #439a23;
   color: #3b3b3b;
 }
 
-.group-buy-order-items{
-    display: flex;
-    justify-content: space-between;
-    
+.group-buy-order-items {
+  display: flex;
+  justify-content: space-between;
 }
 
-.unit-price{
-    color: #838383;
+.unit-price {
+  color: #838383;
 }
 
 .group-buy-order-items .group-buy-product {
   display: flex;
 }
 
-.group-buy-member-name img{
-    margin-right: 10px;
-    padding-bottom: 3px;
+.group-buy-member-name img {
+  margin-right: 10px;
+  padding-bottom: 3px;
 }
 
-.group-buy-order-items .group-buy-product p, 
+.group-buy-order-items .group-buy-product p,
 .group-buy-order-items .group-buy-product span {
-    font-size: 13px;
-    font-weight: 300;
+  font-size: 13px;
+  font-weight: 300;
   color: #838383;
   margin: 0;
   padding: 0;
 }
 
-.group-buy-order-items .group-buy-product #product-name{
-    font-size: 15px;
-    font-weight: 400;
+.group-buy-order-items .group-buy-product #product-name {
+  font-size: 15px;
+  font-weight: 400;
   color: #838383;
 }
 
@@ -146,13 +149,20 @@ body {
   height: 70px;
   position: relative;
 }
-.total-cost{
-    border-top: 1px solid #c5c5c5;
+.total-cost {
+  border-top: 1px solid #c5c5c5;
 }
 
-
-.total-cost, .total-cost span{
-    font-size: 15px;
-    font-weight: 400;
+.total-cost,
+.total-cost span {
+  font-size: 15px;
+  font-weight: 400;
   color: #439a23;
+}
+
+.chatBox {
+  position: fixed;
+  top: 30%;
+  left: 100%;
+  z-index: 100;
 }
