@@ -505,16 +505,17 @@ function chat(btn) {
   crn = $(btn).data("name");
   if (stompClient != null) {
     stompClient.disconnect();
+    isConnected = false;
   }
 
   $("#messagelist")
     .find("li")
     .remove();
 
-  $(".chatBox").animate({ left: "76%" }, "slow", "easeInOutQuad");
+  $(".chatBox").animate({ left: "76%" }, "normal", "easeInOutQuad");
   $(".close").click(function(e) {
     e.preventDefault();
-    $(".chatBox").animate({ left: "100%" }, "slow", "easeInOutQuad");
+    $(".chatBox").animate({ left: "100%" }, "normal", "easeInOutQuad");
   });
 
   uid = getName("name");

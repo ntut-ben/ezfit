@@ -31,6 +31,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
 				// 获取到httpsession后，可以根据自身业务，操作其中的信息，这里只是单纯的和websocket进行关联
 				attributes.put("HTTP_SESSION", httpSession);
+				System.out.println("handshake complete");
 				return true;
 			} else {
 				return false;

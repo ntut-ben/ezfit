@@ -85,10 +85,10 @@ function getData() {
   group = $.urlParam("group");
 
   if (group != false && group != null) {
-    apiCall = `http://localhost:8080/ezfit/api/CheckShopCart/${group}`;
+    apiCall = `/ezfit/api/CheckShopCart/${group}`;
     $("#cartForm").attr("action", "/ezfit/api/shopCart/groupBill");
   } else {
-    apiCall = `http://localhost:8080/ezfit/api/CheckShopCart`;
+    apiCall = `/ezfit/api/CheckShopCart`;
     $("#cartForm").attr("action", `/ezfit/api/shopCart/bill`);
   }
   $("#cartListRow")
@@ -156,7 +156,7 @@ function getData() {
                <div class="row">
                  <div class="col-2">
                    <img
-                     src="http://localhost:8080/ezfit/productImage/${
+                     src="/ezfit/productImage/${
                        fileName[0]
                      }"
                      alt=""
@@ -284,7 +284,7 @@ function getData() {
             $.ajax({
               type: "POST",
               cache: false,
-              url: "http://localhost:8080/ezfit/api/mealBox/modifyCount",
+              url: "/ezfit/api/mealBox/modifyCount",
               data: { cartId: id, qty: value },
               dataType: "json",
               success: function(data) {
@@ -411,7 +411,7 @@ function deleteItem(id) {
   $.ajax({
     type: "POST",
     cache: false,
-    url: "http://localhost:8080/ezfit/api/shopCart/delete",
+    url: "/ezfit/api/shopCart/delete",
     data: { itemId: id },
     dataType: "text",
     success: function(response) {

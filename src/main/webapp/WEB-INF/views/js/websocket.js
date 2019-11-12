@@ -5,6 +5,8 @@ var groupAlias = [];
 var groupName = [];
 var isConnected = false;
 var stompClient = null;
+var responseMsg = "";
+var responseCrn = "";
 
 $(document).ready(function() {
   uid = getName("name");
@@ -13,7 +15,6 @@ $(document).ready(function() {
     if (match) return match[2];
   }
 
-  console.log(uid);
   getGroupInfo();
 });
 
@@ -24,10 +25,21 @@ function wsconnect() {
     {
       uid
     },
-
     function(frame) {
-      stompClient.subscribe(`/topic/popup/${crid}`, function(respnose) {
-        alert(respnose.body);
+      groupAlias.forEach(element => {
+        stompClient.subscribe(`/topic/popup/${element}`, function(respnose) {
+          respnose = JSON.parse(respnose.body);
+          responseMsg = respnose.message;
+          responseCrn = respnose.crn;
+          $(".toast-header").empty();
+          $(".toast-body").empty();
+          $(".toast-header").html(responseCrn);
+          $(".toast-body").html(responseMsg);
+          $(".toast").toast({
+            delay: 3000
+          });
+          $(".toast").toast("show");
+        });
       });
     }
   );
@@ -36,7 +48,7 @@ function wsconnect() {
 function getGroupInfo() {
   $.ajax({
     type: "GET",
-    url: "http://localhost:8080/ezfit/api/GroupBuy/query",
+    url: "/ezfit/api/GroupBuy/query",
     dataType: "json",
     success: function(data) {
       data.reverse().forEach(element => {
@@ -48,10 +60,12 @@ function getGroupInfo() {
           initiator = true;
           element = element;
         }
-groupAlias.ad
-        console.log(element.groupAlias);
-        console.log(element.groupName);
+        groupAlias.push(element.groupAlias);
+        groupName.push(element.groupName);
       });
+    },
+    complete: function() {
+      wsconnect();
     }
   });
 }

@@ -287,17 +287,6 @@ $(document).ready(function() {
       </button>
     </form>
   </div>
-
-  <div class="col-12 text-center my-3">食譜推薦</div>
-  <div class="col-12">
-    <div class="container">
-      <div class="row">
-        <div class="col-3 mx-auto">食譜-1</div>
-        <div class="col-3 mx-auto">食譜-2</div>
-        <div class="col-3 mx-auto">食譜-3</div>
-      </div>
-    </div>
-  </div>
 </div>
 </div>`;
 
@@ -582,17 +571,6 @@ function search(form) {
         <i class="fas fa-shopping-cart"></i>加入購物車
       </button>
     </form>
-  </div>
-
-  <div class="col-12 text-center my-3">食譜推薦</div>
-  <div class="col-12">
-    <div class="container">
-      <div class="row">
-        <div class="col-3 mx-auto">食譜-1</div>
-        <div class="col-3 mx-auto">食譜-2</div>
-        <div class="col-3 mx-auto">食譜-3</div>
-      </div>
-    </div>
   </div>
 </div>
 </div>`;
