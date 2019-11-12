@@ -54,7 +54,7 @@ import shopping.service.OrderService;
 import shopping.service.PlaneProductService;
 import shopping.service.ProductService;
 
-@Controller
+//@Controller
 public class Mall {
 	private final Integer mealboxCount = 1;
 	private Integer totalAmount;

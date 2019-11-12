@@ -47,10 +47,10 @@
 			<div class="row user-header p-0 m-0">
 				<div class="col-12 cover-avatar-row p-0 m-0">
 					<div class="profile-cover">
-						<img id="profileCover" src="https://picsum.photos/1200/400" alt="">
+						<img id="profileCover" src="https://loremflickr.com/1200/400/dessert" alt="">
 					</div>
 					<div class="avatar">
-						<img src="http://placekitten.com/200/200" alt="">
+						<img src="http://placekitten.com/200/200" id='headPhoto'  >
 					</div>
 					<div class="name-description-row">
 						<div class="name-settings-row">
