@@ -9,13 +9,13 @@
 
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">1qaz@WSX</property>
+		<property name="hibernate.connection.password">tmps880445</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ezfit?useUnicode=yes&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Taipei</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 		<!-- 2. 其他與資料存取有關的設定 -->
 		<!-- 自動產生資料庫的Schema -->
 		<property name="hbm2ddl.import_files">update.sql</property>
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 		<!-- 顯示實際操作資料庫時的SQL -->
 		<property name="show_sql">false</property>
 		<!-- 將顯示的SQL排版，方便觀看 -->
