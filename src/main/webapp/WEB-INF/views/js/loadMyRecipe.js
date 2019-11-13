@@ -43,15 +43,15 @@ $(document).ready(function start() {
 
 
 
-            if (list[0].pkey == ownerId) {
-                document.getElementById('whosRecipe').innerHTML = "我的食譜";
-                // document.getElementById('memberIntro').innerHTML = list[0].introduction;
-                document.getElementById('memberName').innerHTML = list[0].name;
+            // if (list[0].pkey == ownerId) {
+            //     document.getElementById('whosRecipe').innerHTML = "我的食譜";
+            //     // document.getElementById('memberIntro').innerHTML = list[0].introduction;
+            //     document.getElementById('memberName').innerHTML = list[0].name;
 
 
 
-            }
-            else if (list[0].name != undefined && list[0].pkey !== ownerId) {
+            // }
+            if (list[0].name != undefined && list[0].pkey !== ownerId) {
                 document.getElementById('whosRecipe').innerHTML = String(list[0].name) + "的食譜";
                 document.getElementById('memberIntro').innerHTML = list[0].introduction;
                 document.getElementById('memberName').innerHTML = list[0].name;

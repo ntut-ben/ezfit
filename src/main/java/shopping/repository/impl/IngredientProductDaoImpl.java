@@ -147,7 +147,7 @@ public class IngredientProductDaoImpl implements IngredientProductDao {
 		ResultSet rs = null;
 		try {
 			connection = ds.getConnection();
-			String sql = "SELECT a.id,a.name,a.price,a.fileName,b.unit , MATCH (a.name) AGAINST (?) AS RELEVANCE  FROM product AS a JOIN IngredientProduct  AS b ON (a.id=b.id) WHERE  FK_ProductCategory BETWEEN 4 AND 10 HAVING RELEVANCE > 0.8 ORDER BY RELEVANCE DESC LIMIT 1;";
+			String sql = "SELECT a.id,a.name,a.price,a.fileName,b.unit , MATCH (a.name) AGAINST (?) AS RELEVANCE  FROM product AS a JOIN IngredientProduct  AS b ON (a.id=b.id) WHERE  FK_ProductCategory BETWEEN 4 AND 10 HAVING RELEVANCE > 3.8 ORDER BY RELEVANCE DESC LIMIT 1;";
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, name);
 			rs = stmt.executeQuery();
