@@ -138,6 +138,8 @@ function getData() {
         $("#orderInfo").html(
           `<h3>${data.subscriberName}，訂購成功!您的訂單編號為#${data.id}</h3>`
         );
+        $("#orderId").html(`訂單編號: #${data.id}`);
+        $("#orderTime").html(`時間: ${data.createTime}`);
       }
     }
   });
