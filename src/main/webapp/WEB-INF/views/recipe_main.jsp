@@ -66,15 +66,15 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<a href="#"><img src="https://picsum.photos/854/422"
+								<a href="#"><img src="https://loremflickr.com/1200/400/dessert"
 									class="d-block w-100 editor-choice-img" alt="...">
 
 									<div class="carousel-caption">
 										<div class="mb-1">
 											<span class="badge badge-pill badge-success">編輯精選</span>
 										</div>
-										<h5>立了參生市卻</h5>
-										<p>天記勢次運</p>
+										<h5></h5>
+										<p></p>
 									</div> </a>
 
 							</div>
@@ -281,7 +281,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="http://placeimg.com/190/136/any"
+								<a href=""><img src="https://loremflickr.com/194/140/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -296,7 +296,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://picsum.photos/191/137"
+								<a href=""><img src="https://loremflickr.com/194/140/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -311,7 +311,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img ">
-								<a href=""><img src="https://picsum.photos/192/138"
+								<a href=""><img src="https://loremflickr.com/194/140/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -326,7 +326,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="http://placekitten.com/193/139"
+								<a href=""><img src="https://loremflickr.com/194/140/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -341,7 +341,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://loremflickr.com/194/140"
+								<a href=""><img src="https://loremflickr.com/194/140/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -371,7 +371,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img ">
-								<a href=""><img src="https://picsum.photos/196/142"
+								<a href=""><img src="https://loremflickr.com/195/141/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -386,7 +386,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://loremflickr.com/197/143"
+								<a href=""><img src="https://loremflickr.com/197/143/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -414,7 +414,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="http://placeimg.com/205/151/any"
+								<a href=""><img src="https://loremflickr.com/205/151/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -429,7 +429,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://picsum.photos/204/150"
+								<a href=""><img src="https://loremflickr.com/204/150/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -444,7 +444,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img ">
-								<a href=""><img src="https://picsum.photos/203/149"
+								<a href=""><img src="https://loremflickr.com/203/149/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -459,7 +459,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="http://placekitten.com/202/148"
+								<a href=""><img src="https://loremflickr.com/202/148/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -474,7 +474,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://loremflickr.com/201/147"
+								<a href=""><img src="https://loremflickr.com/201/147/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -489,7 +489,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://picsum.photos/200/146"
+								<a href=""><img src="https://loremflickr.com/200/146/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -504,7 +504,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img ">
-								<a href=""><img src="https://picsum.photos/199/145"
+								<a href=""><img src="https://loremflickr.com/199/145/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">
@@ -519,7 +519,7 @@
 
 						<div class="col-3 m-0 p-2 new-recipe-item">
 							<div class="new-recipes-img">
-								<a href=""><img src="https://loremflickr.com/198/144"
+								<a href=""><img src="https://loremflickr.com/198/144/dessert"
 									alt="..."></a>
 							</div>
 							<div class="new-recipe-item-text">

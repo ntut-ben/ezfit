@@ -28,12 +28,26 @@ $(document).ready(function start() {
         success: function (data) {
             // let list = JSON.parse(data);
             let list = data;
-            console.log('data=' + list);
-            console.log("aboutmember=" + list[1]);
-            if (list[0].pkey === ownerId) {
+            // console.log('data=' + list);
+            console.log("aboutmember=" + list[0].pkey);
+
+            if(list[0].memberImage!= undefined){
+                console.log('testtesttest');
+                let str = (list[0].memberImage).split('.');
+                document.getElementById('headPhoto').src = `/ezfit/image/memberHead/${list[0].memberImage}/${str[str.length-1]}`;
+            }else{
+                console.log('nononononono');
+                document.getElementById('headPhoto').src = 'http://localhost:8080/ezfit/index/img/nav/logo-g.svg';
+                document.getElementById('headPhoto').style.width = '120px';
+            }
+
+
+
+            if (list[0].pkey == ownerId) {
                 document.getElementById('whosRecipe').innerHTML = "我的食譜";
                 // document.getElementById('memberIntro').innerHTML = list[0].introduction;
                 document.getElementById('memberName').innerHTML = list[0].name;
+
 
 
             }
@@ -72,6 +86,9 @@ $(document).ready(function start() {
                     console.log('profileImg = '+list[0].coverImg);
                     let str = (list[0].coverImg).split('.');
                     document.getElementById('profileCover').src = `/ezfit/image/member/${list[0].coverImg}/${str[str.length-1]}`;
+                }else{
+                    document.getElementById('profileCover').src ='https://loremflickr.com/1200/400/dessert';
+                    // /ezfit/index/img/nav/logo-g.svg
                 }
 
 

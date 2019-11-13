@@ -1210,6 +1210,145 @@ public class Mall {
 		String json = new ToJson<Map<String, String>>().getJson(status);
 		return json;
 	}
+	
+	
+	// 購物車結帳商品(個人App)
+			@RequestMapping(value = "api/shopCartApp/bill", produces = "application/json;charset=utf-8", method = RequestMethod.POST)
+			public @ResponseBody String billCartItemApp(
+					@RequestParam("memberEmail") String email,
+					@RequestParam("memberPassword") String password,
+					@RequestParam("subscriberName") String subscriberName,
+					@RequestParam("subscriberPhone") String subscriberPhone,
+					@RequestParam("subscriberEmail") String subscriberEmail,
+					@RequestParam("subscribercity") String subscriberCity,
+					@RequestParam("subscriberdistrict") String subscriberDistrict,
+					@RequestParam("subscriberzipCode") String subscriberZipCode,
+					@RequestParam("subscriberAddress") String subscriberAddress,
+					@RequestParam("name") String shippingName,
+					@RequestParam("phone") String shippingPhone,
+					@RequestParam("county") String shippingCity,
+					@RequestParam("district") String shippingDistrict,
+					@RequestParam("zipcode") String shippingZipCode,
+					@RequestParam("address") String shippingAddress,
+					HttpServletRequest req) {
+				
+				System.out.println("購物車結帳商品(個人App) api/shopCartApp/bill 測試.....");
+				System.out.println("email = " + email);
+				System.out.println("password = " + password);
+				System.out.println("subscriberName = " + subscriberName);
+				System.out.println("subscriberPhone = " + subscriberPhone);
+				System.out.println("subscriberEmail = " + subscriberEmail);
+				System.out.println("subscriberCity = " + subscriberCity);
+				System.out.println("subscriberDistrict = " + subscriberDistrict);
+				System.out.println("subscriberZipCode = " + subscriberZipCode);
+				System.out.println("subscriberAddress = " + subscriberAddress);
+				System.out.println("shippingName = " + shippingName);
+				System.out.println("shippingPhone = " + shippingPhone);
+				System.out.println("shippingCity = " + shippingCity);
+				System.out.println("shippingDistrict = " + shippingDistrict);
+				System.out.println("shippingZipCode = " + shippingZipCode);
+				System.out.println("shippingAddress = " + shippingAddress);
+					
+				password = EncrypAES.getMD5Endocing(EncrypAES.encryptString(password));
+				MemberBean memberBean = null;
+				memberBean = loginService.checkIDPassword(email, password);
+				
+				totalAmount = 0;
+				Map<String, String> errorMsg = new HashMap<String, String>();
+				
+
+				if (subscriberName.trim() == "") {
+					errorMsg.put("errorSubName", "請輸入購買人姓名");
+				}
+
+				if (subscriberPhone.trim() == "") {
+					errorMsg.put("errorSubPhone", "請輸入購買人手機號碼");
+				} else if (!(subscriberPhone.length() == 10) || !StringUtils.isNumeric(subscriberPhone)) {
+					errorMsg.put("errorSubPhone", "手機號碼為10位數字");
+				}
+
+				if (subscriberEmail.trim() == "") {
+					errorMsg.put("errorSubEmail", "請輸入購買人信箱");
+				}
+
+				if (subscriberAddress.trim() == "") {
+					errorMsg.put("errorSubAddress", "請輸入購買人地址");
+				}
+
+				if (shippingName.trim() == "") {
+					errorMsg.put("errorShipName", "請輸入收件人姓名");
+				}
+
+				if (shippingPhone.trim() == "") {
+					errorMsg.put("errorShipPhone", "請輸入收件人電話");
+				} else if (!(shippingPhone.length() == 10) || !StringUtils.isNumeric(shippingPhone)) {
+					errorMsg.put("errorShipPhone", "手機號碼為10位數字");
+				}
+
+				if (shippingAddress.trim() == "") {
+					errorMsg.put("errorShipAddress", "請輸入收件人地址");
+				}
+
+				if (errorMsg.size() > 0) {
+					Gson gson = new Gson();
+					String eMsg = gson.toJson(errorMsg);
+					return eMsg;
+				} else {
+
+					orderBean = new OrderBean();
+					orderItemBeans = new ArrayList<OrderItemBean>();
+					orderBean.setShippingAddress(shippingAddress);
+					orderBean.setShippingCity(shippingCity);
+					orderBean.setShippingDistrict(shippingDistrict);
+					orderBean.setShippingName(shippingName);
+					orderBean.setShippingPhone(shippingPhone);
+					orderBean.setSubscriberAddress(subscriberAddress);
+					orderBean.setSubscriberCity(subscriberCity);
+					orderBean.setSubscriberDistrict(subscriberDistrict);
+					orderBean.setSubscriberEmail(subscriberEmail);
+					orderBean.setSubscriberName(subscriberName);
+					orderBean.setSubscriberPhone(subscriberPhone);
+					orderBean.setSubscriberZipCode(subscriberZipCode);
+					orderBean.setShippingZipCode(shippingZipCode);
+					orderBean.setGroupBuyBean(null);
+					if (memberBean != null) {
+						cartItems = cartItemService.checkAllItems(memberBean);
+						for (Iterator iterator = cartItems.iterator(); iterator.hasNext();) {
+							OrderItemBean orderItemBean = new OrderItemBean();
+							cartItem = (CartItem) iterator.next();
+							if (cartItem.getPlaneItems() != null && cartItem.getPlaneItems().size() != 0) {
+								List<OrderPlaneItem> orderPlaneItems = new ArrayList<OrderPlaneItem>();
+								List<PlaneItem> planeItems = cartItem.getPlaneItems();
+								for (Iterator iterator2 = planeItems.iterator(); iterator2.hasNext();) {
+									PlaneItem planeItem = (PlaneItem) iterator2.next();
+									OrderPlaneItem orderPlaneItem = new OrderPlaneItem();
+									orderPlaneItem.setCuisineProduct(planeItem.getCuisineProduct());
+									orderPlaneItems.add(orderPlaneItem);
+								}
+								orderItemBean.setShipDate(cartItem.getShipDate());
+								orderItemBean.setPlaneItems(orderPlaneItems);
+								totalAmount += 90;
+							}
+
+							orderItemBean.setQty(cartItem.getQty());
+							orderItemBean.setSubTotal(cartItem.getSubTotal());
+							orderItemBean.setProduct(cartItem.getProduct());
+							orderItemBeans.add(orderItemBean);
+							totalAmount += cartItem.getSubTotal();
+							cartItemService.remove(cartItem.getProduct().getId(), memberBean);
+						}
+						orderBean.setTotalAmount(totalAmount);
+						Timestamp ts = new java.sql.Timestamp(System.currentTimeMillis());
+						orderBean.setOrderItemBeans(orderItemBeans);
+						orderBean.setCreateTime(ts);
+						orderBean.setMemberBean(memberBean);
+						orderService.save(orderBean);
+
+						return null;
+					}
+				}
+				return null;
+			}
 
 	// 食材加入購物車 (非團購App)
 	@RequestMapping(value = "api/shopCartApp/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")

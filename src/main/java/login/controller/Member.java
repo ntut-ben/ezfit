@@ -678,7 +678,7 @@ public class Member {
 
 	}
 
-//	拿取會員資料
+//	拿取會員資料(App)
 	@RequestMapping(value = "/api/mobile/memberInfo", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public @ResponseBody String memberInfo(@RequestParam("memberEmail") String memberEmail,
 			@RequestParam("memberPassword") String memberPassword, HttpServletRequest request,
